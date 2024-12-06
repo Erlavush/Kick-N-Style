@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.nikedesu.ReferencesController">
+   <children>
+      <Pane layoutX="29.0" layoutY="53.0" prefHeight="542.0" prefWidth="781.0" style="-fx-background-color: #123123;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXButton fx:id="addButton" layoutX="14.0" layoutY="503.0" prefHeight="16.0" prefWidth="94.0" text="Add" />
+            <JFXButton fx:id="editButton" layoutX="278.0" layoutY="515.0" prefWidth="70.0" text="Edit" />
+            <JFXButton fx:id="deleteButton" layoutX="157.0" layoutY="503.0" prefWidth="70.0" text="Delete" />
+            <TextField fx:id="searchField" layoutX="64.0" layoutY="454.0" promptText="Search..." />
+            <TableView fx:id="referencesTable" layoutX="21.0" layoutY="122.0" prefHeight="299.0" prefWidth="453.0">
+               <columns>
+                  <TableColumn fx:id="sneakerNameColumn" prefWidth="128.0" text="Sneaker Name" />
+                  <TableColumn fx:id="batchColumn" prefWidth="117.5999755859375" text="Batch" />
+                  <TableColumn fx:id="statusColumn" prefWidth="205.60000610351562" text="Status" />
+               </columns>
+            </TableView>
+            <MenuButton layoutX="21.0" layoutY="32.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="196.0" text="MenuButton">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Sneakers Display" />
+                <MenuItem mnemonicParsing="false" text="Sneaker Table" />
+              </items>
+            </MenuButton>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

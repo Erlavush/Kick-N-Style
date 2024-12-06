@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainAnchor" maxHeight="800" maxWidth="1200" minHeight="800" minWidth="1200" prefHeight="800" prefWidth="1200" styleClass="mainAnchor" stylesheets="@mainCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.mainGUI_Controller">
+   <children>
+      <JFXButton fx:id="exitButton" contentDisplay="CENTER" layoutX="1127.0" layoutY="5.0" onAction="#initialize" prefHeight="50.0" prefWidth="65.0" styleClass="exitButton" text=" ">
+         <graphic>
+            <FontAwesomeIcon glyphName="TIMES" size="1.5em" textAlignment="CENTER" wrappingWidth="25.466671228408813" />
+         </graphic>
+      </JFXButton>
+      <VBox alignment="CENTER" layoutX="18.0" layoutY="197.0" prefHeight="589.0" prefWidth="210.0" spacing="25.0" styleClass="leftNavigationBar">
+         <children>
+            <JFXButton onAction="#showReferences" prefHeight="100.0" prefWidth="180.0" styleClass="salesButton" text=" ">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <graphic>
+                  <VBox alignment="CENTER" prefHeight="108.0" prefWidth="161.0">
+                     <children>
+                        <ImageView fitHeight="113.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@referenceImage.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="194.0" text="References">
+                           <font>
+                              <Font name="Serif Regular" size="33.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="transactionButton" onAction="#showTransaction" prefHeight="160.0" prefWidth="206.0" styleClass="salesButton" text=" ">
+               <graphic>
+                  <VBox alignment="CENTER" prefHeight="152.0" prefWidth="192.0">
+                     <children>
+                        <ImageView fitHeight="132.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@transactionImage.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="194.0" text="Transactions">
+                           <font>
+                              <Font name="Serif Regular" size="33.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="salesButton" onAction="#showSales" prefHeight="100.0" prefWidth="180.0" styleClass="salesButton" text=" ">
+               <graphic>
+                  <VBox alignment="CENTER" prefHeight="152.0" prefWidth="164.0">
+                     <children>
+                        <ImageView fitHeight="118.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@salesImage.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="194.0" text="Sales">
+                           <font>
+                              <Font name="Serif Regular" size="33.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </graphic>
+            </JFXButton>
+         </children>
+         <padding>
+            <Insets bottom="20.0" top="20.0" />
+         </padding></VBox>
+      <Pane layoutX="18.0" layoutY="15.0" prefHeight="184.0" prefWidth="210.0" styleClass="profilePane">
+         <children>
+            <Circle fx:id="profileCircle" fill="#a1815f" layoutX="104.0" layoutY="96.0" radius="74.0" stroke="BLACK" strokeType="INSIDE" />
+         </children></Pane>
+      <Pane layoutX="255.0" layoutY="16.0" prefHeight="70.0" prefWidth="846.0" styleClass="titlePane">
+         <children>
+            <Label layoutX="28.0" layoutY="14.0" prefHeight="46.0" prefWidth="829.0" styleClass="titlePaneLabel" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+               <font>
+                  <Font name="Fira Code Bold" size="34.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <AnchorPane fx:id="dynamicDisplayAnchor" layoutX="247.0" layoutY="96.0" prefHeight="689.0" prefWidth="912.0" style="-fx-background-color: #312231;" />
+   </children>
+
+</AnchorPane>

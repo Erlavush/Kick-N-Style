@@ -37,7 +37,7 @@
 
 .profilePane {
     -fx-background-radius: 50px 20px 0px 0px;
-    -fx-background-color: #4f483e;
+    -fx-background-color: #e8dbc9;
     -fx-border-color: #1e1204;
     -fx-border-width: 2;
     -fx-border-radius: 50px 20px 0px 0px;
@@ -46,7 +46,7 @@
 
 .leftNavigationBar {
     -fx-background-radius: 0px 0px 20px 50px;
-    -fx-background-color: linear-gradient(to bottom, #8b8075, #e3d3c4);
+    -fx-background-color: linear-gradient(to bottom, #ede6d1, #e3d3c4);
     -fx-border-color: #1e1204;
     -fx-border-width: 2;
     -fx-border-radius: 0px 0px 20px 50px;
@@ -54,7 +54,7 @@
 }
 
 .titlePane {
-    -fx-background-color: linear-gradient(to right, #4F483F, #e3d3c4);
+    -fx-background-color: linear-gradient(to right, #ede6d1, #e3d3c4);
     -fx-border-color: #4F483F;
     -fx-border-width: 3;
     -fx-border-radius: 10;

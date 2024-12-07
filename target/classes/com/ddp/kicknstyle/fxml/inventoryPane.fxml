@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="757.0" prefWidth="961.0" stylesheets="@../css/inventoryCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.InventoryController">
+   <Pane layoutX="8.0" layoutY="9.0" prefHeight="666.0" prefWidth="916.0" styleClass="pane">
+      <children>
+         
+               <!-- Search Field -->
+         <TextField fx:id="searchField" layoutX="15.0" layoutY="61.0" prefHeight="39.0" prefWidth="225.0" promptText="Search Sneakers..." />
+      
+               <!-- Filter Options -->
+         <HBox layoutX="246.0" layoutY="60.0" prefHeight="46.0" prefWidth="661.0" spacing="10">
+            <ComboBox fx:id="brandComboBox" prefHeight="52.0" prefWidth="149.0" promptText="Brand" />
+            <ComboBox fx:id="categoryComboBox" prefHeight="52.0" prefWidth="191.0" promptText="Category" />
+            <TextField fx:id="priceMinField" prefWidth="100.0" promptText="Min Price" />
+            <TextField fx:id="priceMaxField" prefWidth="100.0" promptText="Max Price" />
+            <JFXButton onAction="#handleFilter" text="Filter" />
+         </HBox>
+      
+               <!-- TableView for Sneakers -->
+         <TableView fx:id="referencesTable" layoutX="14.0" layoutY="113.0" prefHeight="482.0" prefWidth="863.0">
+            <columns>
+               <TableColumn fx:id="sneakerNameColumn" prefWidth="202.6666603088379" text="Sneaker Name" />
+               <TableColumn fx:id="batchColumn" prefWidth="211.99990844726562" text="Batch" />
+               <TableColumn fx:id="statusColumn" prefWidth="183.73336791992188" text="Status" />
+               <TableColumn fx:id="quantityColumn" prefWidth="260.53326416015625" text="Quantity Available" />
+            </columns>
+         </TableView>
+      
+               <!-- Action Buttons (Add, Edit, Delete) -->
+         <HBox alignment="CENTER" layoutX="173.0" layoutY="608.0" prefHeight="26.0" prefWidth="566.0" spacing="100.0">
+            <JFXButton fx:id="addButton" onAction="#handleAdd" prefWidth="94.0" text="Add">
+               <font>
+                  <Font name="Fira Code Regular" size="18.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="editButton" onAction="#handleEdit" prefHeight="49.0" prefWidth="106.0" text="Edit" />
+            <JFXButton fx:id="deleteButton" onAction="#handleDelete" prefHeight="49.0" prefWidth="121.0" text="Delete" />
+         </HBox>
+      </children>
+      <padding>
+         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      </padding>
+   </Pane>
+
+      </AnchorPane>

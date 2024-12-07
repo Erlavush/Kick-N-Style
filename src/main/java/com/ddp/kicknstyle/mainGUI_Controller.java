@@ -43,9 +43,9 @@ public class mainGUI_Controller {
 
     @FXML
     @SuppressWarnings("CallToPrintStackTrace")
-    public void showReferences() {
+    public void showInventory() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/KickNStyle/fxml/referencePane.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/KickNStyle/fxml/inventoryPane.fxml"));
             AnchorPane referencesPane = loader.load();
 
             

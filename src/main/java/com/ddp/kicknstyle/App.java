@@ -18,7 +18,7 @@ public class App extends Application {
 
     @Override
     public void start(@SuppressWarnings("exports") Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/KickNStyle/mainGUI.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/KickNStyle/fxml/mainGUI.fxml"));
         
      
         Parent root = loader.load();
@@ -37,7 +37,7 @@ public class App extends Application {
         primaryStage.setResizable(false); 
         
         
-        scene.getStylesheets().add(getClass().getResource("/com/ddp/KickNStyle/mainCSS.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/com/ddp/KickNStyle/css/mainCSS.css").toExternalForm());
         
        
         root.setOnMousePressed(event -> {

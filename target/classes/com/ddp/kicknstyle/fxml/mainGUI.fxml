@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchor" maxHeight="800" maxWidth="1200" minHeight="800" minWidth="1200" prefHeight="800" prefWidth="1200" styleClass="mainAnchor" stylesheets="@mainCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.mainGUI_Controller">
+<AnchorPane fx:id="mainAnchor" maxHeight="800" maxWidth="1200" minHeight="800" minWidth="1200" prefHeight="800" prefWidth="1200" style="-fx-background-image: src\main\resources\com\ddp\kicknstyle\images\mainBackground.jpg;" styleClass="mainAnchor" stylesheets="@../css/mainCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.mainGUI_Controller">
    <children>
       <JFXButton fx:id="exitButton" contentDisplay="CENTER" layoutX="1127.0" layoutY="5.0" onAction="#initialize" prefHeight="50.0" prefWidth="65.0" styleClass="exitButton" text=" ">
          <graphic>
@@ -30,7 +30,7 @@
                      <children>
                         <ImageView fitHeight="113.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@referenceImage.png" />
+                              <Image url="@../images/referenceImage.png" />
                            </image>
                         </ImageView>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="194.0" text="References">
@@ -48,7 +48,7 @@
                      <children>
                         <ImageView fitHeight="132.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@transactionImage.png" />
+                              <Image url="@../images/transactionImage.png" />
                            </image>
                         </ImageView>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="194.0" text="Transactions">
@@ -66,7 +66,7 @@
                      <children>
                         <ImageView fitHeight="118.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@salesImage.png" />
+                              <Image url="@../images/salesImage.png" />
                            </image>
                         </ImageView>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="194.0" text="Sales">

@@ -22,7 +22,7 @@ public class mainGUI_Controller {
     @FXML
     public void initialize() {
 
-        String imagePath = getClass().getResource("/com/ddp/kicknstyle/profileImageHolder.jpg").toExternalForm();
+        String imagePath = getClass().getResource("/com/ddp/kicknstyle/images/profileImageHolder.jpg").toExternalForm();
 
        
         Image image = new Image(imagePath);
@@ -45,7 +45,7 @@ public class mainGUI_Controller {
     @SuppressWarnings("CallToPrintStackTrace")
     public void showReferences() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/KickNStyle/referencePane.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/KickNStyle/fxml/referencePane.fxml"));
             AnchorPane referencesPane = loader.load();
 
             
@@ -66,7 +66,7 @@ public class mainGUI_Controller {
     @SuppressWarnings("CallToPrintStackTrace")
     public void showTransaction() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/KickNStyle/transactionPane.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/KickNStyle/fxml/transactionPane.fxml"));
             AnchorPane referencesPane = loader.load();
 
             
@@ -87,7 +87,7 @@ public class mainGUI_Controller {
     @SuppressWarnings("CallToPrintStackTrace")
     public void showSales() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/KickNStyle/salesPane.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/KickNStyle/fxml/salesPane.fxml"));
             AnchorPane referencesPane = loader.load();
 
             dynamicDisplayAnchor.getChildren().clear();

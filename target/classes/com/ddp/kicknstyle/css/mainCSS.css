@@ -73,7 +73,6 @@
 }
 
 .circleButton {
-    -fx-background-image: url("profileImageHolder.jpg");
     -fx-background-radius: 50%;
     -fx-background-color: #e3e3e3;
     -fx-border-radius: 50%;

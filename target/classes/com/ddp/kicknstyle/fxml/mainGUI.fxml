@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchor" maxHeight="800" maxWidth="1200" minHeight="800" minWidth="1200" prefHeight="800" prefWidth="1200" style="-fx-background-image: src\main\resources\com\ddp\kicknstyle\images\mainBackground.jpg;" styleClass="mainAnchor" stylesheets="@../css/mainCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.mainGUI_Controller">
+<AnchorPane fx:id="mainAnchor" maxHeight="800" maxWidth="1200" minHeight="800" minWidth="1200" prefHeight="800" prefWidth="1200" style="-fx-background-image: src\main\resources\com\ddp\kicknstyle\images\mainBackground.jpg;" styleClass="mainAnchor" stylesheets="@../css/mainCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.mainGUI_Controller">
    <children>
       <JFXButton fx:id="exitButton" contentDisplay="CENTER" layoutX="1127.0" layoutY="5.0" onAction="#initialize" prefHeight="50.0" prefWidth="65.0" styleClass="exitButton" text=" ">
          <graphic>
@@ -21,7 +21,7 @@
       </JFXButton>
       <VBox alignment="CENTER" layoutX="18.0" layoutY="197.0" prefHeight="590.0" prefWidth="186.0" spacing="25.0" styleClass="leftNavigationBar">
          <children>
-            <JFXButton onAction="#showInventory" prefHeight="100.0" prefWidth="180.0" styleClass="salesButton" text=" ">
+            <JFXButton prefHeight="100.0" prefWidth="180.0" styleClass="salesButton" text=" ">
                <graphic>
                   <VBox alignment="CENTER" prefHeight="108.0" prefWidth="161.0">
                      <children>

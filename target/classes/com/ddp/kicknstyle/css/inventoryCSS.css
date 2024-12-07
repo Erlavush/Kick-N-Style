@@ -2,7 +2,7 @@
 .root {
     -fx-background-color: #dcd4cc;  /* Light beige background */
     -fx-font-family: "Fira Code", sans-serif;  /* Set font to Fira Code */
-    -fx-font-size: 17px;  /* Make the font size 2x larger */
+    -fx-font-size: 12px;  /* Make the font size 2x larger */
 }
 
 
@@ -13,19 +13,19 @@
     -fx-border-radius: 40px;  /* Rounded corners with 40px radius */
     -fx-background-radius: 40;
 }
-
+    
 /* Style for TableView */
 .table-view {
     -fx-background-color: #f5efec;  /* Light beige background for the table */
     -fx-border-color: #dcdcdc;  /* Light grey border */
     -fx-border-width: 1px;
-    -fx-font-size: 17px;  /* Font size 2x larger */
+    -fx-font-size: 9px;  /* Font size 2x larger */
 }
 
 /* Style for TableColumn headers */
 .table-view .column-header {
     -fx-background-color: #f0ead9;  /* Slightly darker beige for column header */
-    -fx-font-size: 17px;  /* Make column header font size larger */
+    -fx-font-size: 9px;  /* Make column header font size larger */
     -fx-font-weight: bold;  /* Make header text bold */
     -fx-alignment: center;
 }
@@ -35,13 +35,13 @@
     -fx-background-color: #fff8e1;  /* Light beige cells */
     -fx-alignment: center-left;
     -fx-padding: 10px;
-    -fx-font-size: 17px;  /* Larger font size for cells */
+    -fx-font-size: 9px;  /* Larger font size for cells */
 }
 
 /* Style for the ComboBoxes and TextFields (Filters) */
 .combo-box, .text-field {
     -fx-background-color: #fff8e1;  /* Light beige background for input fields */
-    -fx-font-size: 17px;  /* Increase font size */
+    -fx-font-size: 12px;  /* Increase font size */
     -fx-text-fill: #333;  /* Dark text color */
     -fx-prompt-text-fill: #888;  /* Light grey for placeholder text */
     -fx-border-color: #dcdcdc;  /* Light grey border */
@@ -52,9 +52,9 @@
 /* Style for Buttons (Add, Edit, Delete) */
 .jfx-button {
     -fx-background-color: #f1e0b0;  /* Light beige background for buttons */
-    -fx-font-size: 17px;  /* Larger font size */
+    -fx-font-size: 12px;  /* Larger font size */
     -fx-text-fill: #333;  /* Dark text color */
-    -fx-padding: 10px 17px;  /* Padding for a nice button shape */
+    -fx-padding: 10px 12px;  /* Padding for a nice button shape */
     -fx-border-color: #dcdcdc;  /* Border for buttons */
     -fx-border-radius: 5px;  /* Slightly rounded corners for buttons */
     -fx-border-width: 1px;
@@ -68,7 +68,7 @@
 /* Style for Search Field and Filter Fields */
 .text-field {
     -fx-background-color: #fff8e1;  /* Light beige background */
-    -fx-font-size: 17px;  /* Larger font size */
+    -fx-font-size: 12px;  /* Larger font size */
     -fx-text-fill: #333;  /* Dark text color */
     -fx-padding: 5px 10px;
     -fx-border-color: #dcdcdc;  /* Light grey border */
@@ -78,7 +78,7 @@
 /* Style for Filter ComboBoxes */
 .combo-box {
     -fx-background-color: #fff8e1;
-    -fx-font-size: 17px;
+    -fx-font-size: 12px;
     -fx-text-fill: #333;
     -fx-border-color: #dcdcdc;
     -fx-border-width: 1px;

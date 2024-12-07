@@ -1,4 +1,4 @@
-package com.ddp.kicknstyle;
+package com.ddp.kicknstyle.controller;
 
 import javafx.fxml.FXML;
 

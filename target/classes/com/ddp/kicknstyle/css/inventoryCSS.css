@@ -84,4 +84,9 @@
     -fx-border-width: 1px;
 }
 
+.tooltip {
+    -fx-background-color: #333; /* Dark background for tooltip */
+    -fx-text-fill: #fff; /* White text for tooltip */
+    -fx-font-size: 12px; /* Font size for tooltip */
+}
 

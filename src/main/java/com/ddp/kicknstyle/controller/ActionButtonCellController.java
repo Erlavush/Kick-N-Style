@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableCell;
 
+
 public class ActionButtonCellController extends TableCell<Sneaker, Void> {
     @FXML
     private JFXButton editButton;
@@ -19,6 +20,9 @@ public class ActionButtonCellController extends TableCell<Sneaker, Void> {
 
     @FXML
     public void initialize() {
+
+
+
         editButton.setOnAction(event -> handleEdit());
         deleteButton.setOnAction(event -> handleDelete());
     }

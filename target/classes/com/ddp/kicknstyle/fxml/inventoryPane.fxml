@@ -25,7 +25,6 @@
             <ComboBox fx:id="categoryComboBox" prefHeight="52.0" prefWidth="191.0" promptText="Category" />
             <TextField fx:id="priceMinField" prefWidth="100.0" promptText="Min Price" />
             <TextField fx:id="priceMaxField" prefWidth="100.0" promptText="Max Price" />
-            <JFXButton text="Filter" />
          </HBox>
       
                <!-- TableView for Sneakers -->

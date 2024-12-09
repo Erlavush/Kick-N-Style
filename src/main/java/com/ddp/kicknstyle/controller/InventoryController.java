@@ -1,19 +1,18 @@
 package com.ddp.kicknstyle.controller;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import javafx.beans.property.SimpleDoubleProperty;
+import com.ddp.kicknstyle.model.Sneaker;
+import com.ddp.kicknstyle.util.DatabaseConnection;
+import com.jfoenix.controls.JFXButton;  // Ensure this class is available in your project
+
+import javafx.beans.property.SimpleDoubleProperty; // Import your DatabaseConnection class
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
-
-import com.ddp.kicknstyle.model.Sneaker;  // Ensure this class is available in your project
-import com.ddp.kicknstyle.util.DatabaseConnection; // Import your DatabaseConnection class
-import com.ddp.kicknstyle.model.Sneaker;
-import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -39,6 +38,7 @@ public class InventoryController {
     private TextField priceMinField;
     @FXML
     private TextField priceMaxField;
+
     @FXML
     private TableView<Sneaker> inventoryTable;
     @FXML
@@ -57,7 +57,6 @@ public class InventoryController {
     private TableColumn<Sneaker, Void> actionColumn;
     @FXML
     private TableColumn<Sneaker, String> categoryColumn;
-
     @FXML
     private JFXButton addButton;
     @FXML
@@ -65,33 +64,103 @@ public class InventoryController {
     @FXML
     private JFXButton deleteButton;
 
+    private ObservableList<Sneaker> originalSneakerList = FXCollections.observableArrayList();
+
+    @FXML
+    private void initializeBrandComboBox() {
+        brandComboBox.getItems().clear(); // Clear any existing items
+        brandComboBox.getItems().add("All Brands"); // Add an "All Brands" option
+
+        String query = "SELECT DISTINCT Brand_Name FROM DPD_Shoe_Brand ORDER BY Brand_Name";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                brandComboBox.getItems().add(rs.getString("Brand_Name"));
+            }
+
+            // Set default selection to "All Brands"
+            brandComboBox.setValue("All Brands");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showErrorAlert("Database Error", "Failed to load brands", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void initializeCategoryComboBox() {
+        categoryComboBox.getItems().clear(); // Clear any existing items
+        categoryComboBox.getItems().add("All Categories"); // Add an "All Categories" option
+
+        String query = "SELECT DISTINCT Category_Name FROM DPD_Sneaker_Category ORDER BY Category_Name";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                categoryComboBox.getItems().add(rs.getString("Category_Name"));
+            }
+
+            // Set default selection to "All Categories"
+            categoryComboBox.setValue("All Categories");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            showErrorAlert("Database Error", "Failed to load categories", e.getMessage());
+        }
+    }
+
     @FXML
     public void initialize() {
 
         actionColumn.setCellFactory(new Callback<TableColumn<Sneaker, Void>, TableCell<Sneaker, Void>>() {
-    @Override
-    public TableCell<Sneaker, Void> call(TableColumn<Sneaker, Void> param) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/ActionButtonCell.fxml"));
-            HBox cellLayout = loader.load();
-            ActionButtonCellController controller = loader.getController();
-            return new TableCell<Sneaker, Void>() {
-                @Override
-                protected void updateItem(Void item, boolean empty) {
-                    super.updateItem(item, empty);
-                    if (empty) {
-                        setGraphic(null);
-                    } else {
-                        setGraphic(cellLayout);
-                    }
+            @Override
+            public TableCell<Sneaker, Void> call(TableColumn<Sneaker, Void> param) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/ActionButtonCell.fxml"));
+                    HBox cellLayout = loader.load();
+                    ActionButtonCellController controller = loader.getController();
+                    return new TableCell<Sneaker, Void>() {
+                        @Override
+                        protected void updateItem(Void item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                setGraphic(null);
+                            } else {
+                                setGraphic(cellLayout);
+                            }
+                        }
+                    };
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return new TableCell<Sneaker, Void>();
                 }
-            };
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new TableCell<Sneaker, Void>();
-        }
-    }
-});
+            }
+        });
+
+        brandComboBox.setOnAction(event -> {
+            applyFilters();
+            // Optional: Reset category to "All Categories" if brand is reset
+            if (brandComboBox.getValue().equals("All Brands")) {
+                categoryComboBox.setValue("All Categories");
+            }
+        });
+
+        categoryComboBox.setOnAction(event -> {
+            applyFilters();
+            // Optional: Reset brand to "All Brands" if category is reset
+            if (categoryComboBox.getValue().equals("All Categories")) {
+                brandComboBox.setValue("All Brands");
+            }
+        });
+
+        initializeBrandComboBox();
+        initializeCategoryComboBox();
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> applyFilters());
+        priceMinField.textProperty().addListener((observable, oldValue, newValue) -> applyFilters());
+        priceMaxField.textProperty().addListener((observable, oldValue, newValue) -> applyFilters());
+        brandComboBox.setOnAction(event -> applyFilters());
+        categoryComboBox.setOnAction(event -> applyFilters());
 
         loadSneakersDataFromDatabase();
     }
@@ -119,7 +188,7 @@ public class InventoryController {
     }
 
     public void loadSneakersDataFromDatabase() {
-        ObservableList<Sneaker> sneakerList = FXCollections.observableArrayList();
+        originalSneakerList = FXCollections.observableArrayList();
 
         String query = "SELECT "
                 + "s.Sneaker_ID, "
@@ -148,11 +217,11 @@ public class InventoryController {
                         rs.getDouble("Sneaker_Selling_Price"),
                         rs.getInt("Total_Remaining_Quantity")
                 );
-                sneakerList.add(sneaker);
+                originalSneakerList.add(sneaker);
             }
 
             // Set the items to the TableView
-            inventoryTable.setItems(sneakerList);
+            inventoryTable.setItems(originalSneakerList);
 
             // Configure table columns
             sneakerIdColumn.setCellValueFactory(cellData
@@ -180,4 +249,43 @@ public class InventoryController {
             alert.showAndWait();
         }
     }
+
+    private void applyFilters() {
+        String searchTerm = searchField.getText().trim();
+        String selectedBrand = brandComboBox.getValue();
+        String selectedCategory = categoryComboBox.getValue();
+    
+        // Simplified price range calculation
+        double minPrice = priceMinField.getText().trim().isEmpty() ? 0 : Double.parseDouble(priceMinField.getText().trim());
+        double maxPrice = priceMaxField.getText().trim().isEmpty() ? Double.MAX_VALUE : Double.parseDouble(priceMaxField.getText().trim());
+    
+        ObservableList<Sneaker> filteredList = originalSneakerList.filtered(sneaker -> {
+            boolean brandMatch = selectedBrand.equals("All Brands") || sneaker.getBrand().equals(selectedBrand);
+            boolean categoryMatch = selectedCategory.equals("All Categories") || sneaker.getCategory().equals(selectedCategory);
+            boolean priceMatch = sneaker.getSellingPrice() >= minPrice && sneaker.getSellingPrice() <= maxPrice;
+    
+            // Search term match
+            boolean searchMatch = searchTerm.isEmpty() || 
+                sneaker.getSneakerName().toLowerCase().contains(searchTerm.toLowerCase()) ||
+                sneaker.getBrand().toLowerCase().contains(searchTerm.toLowerCase()) ||
+                sneaker.getCategory().toLowerCase().contains(searchTerm.toLowerCase()) ||
+                String.valueOf(sneaker.getSneakerID()).contains(searchTerm);
+    
+            return brandMatch && categoryMatch && priceMatch && searchMatch;
+        });
+    
+        inventoryTable.setItems(filteredList);
+        inventoryTable.refresh();
+    }
+
+
+    private void showErrorAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    
 }

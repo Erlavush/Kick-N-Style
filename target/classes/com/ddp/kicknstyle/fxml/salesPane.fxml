@@ -1,20 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.SalesController">
-   <children>
-      <Pane layoutX="29.0" layoutY="53.0" prefHeight="542.0" prefWidth="781.0" style="-fx-background-color: #123123;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label layoutX="260.0" layoutY="185.0" prefHeight="172.0" prefWidth="307.0" text="SALES" textFill="#e41a1a">
-               <font>
-                  <Font size="59.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-   </children>
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" stylesheets="@../css/inventoryCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.SalesController">
+   <VBox spacing="10" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.topAnchor="20">
+      <!-- Search and Filter Section -->
+      <HBox spacing="10" alignment="CENTER_LEFT">
+         <TextField fx:id="searchField" prefHeight="39.0" prefWidth="250.0" promptText="Search Sales (ID, Customer, Product)..." HBox.hgrow="ALWAYS"/>
+         
+         <ComboBox fx:id="paymentStatusComboBox" prefWidth="150.0" promptText="Payment Status"/>
+         
+         <ComboBox fx:id="paymentMethodComboBox" prefWidth="150.0" promptText="Payment Method"/>
+         
+         <DatePicker fx:id="startDatePicker" prefWidth="130.0" promptText="Start Date"/>
+         <DatePicker fx:id="endDatePicker" prefWidth="130.0" promptText="End Date"/>
+         
+         <TextField fx:id="minAmountField" prefWidth="100.0" promptText="Min Amount"/>
+         <TextField fx:id="maxAmountField" prefWidth="100.0" promptText="Max Amount"/>
+         
+         <JFXButton fx:id="filterButton" text="Apply Filters">
+            <graphic>
+               <FontAwesomeIcon glyphName="FILTER" />
+            </graphic>
+         </JFXButton>
+      </HBox>
+      
+      <!-- Sales Table -->
+      <TableView fx:id="salesTable" VBox.vgrow="ALWAYS">
+         <columns>
+            <TableColumn fx:id="saleIdColumn" text="Sale ID" prefWidth="80"/>
+            <TableColumn fx:id="customerNameColumn" text="Customer Name" prefWidth="120"/>
+            <TableColumn fx:id="saleDateColumn" text="Sale Date" prefWidth="100"/>
+            <TableColumn fx:id="totalAmountColumn" text="Total Amount" prefWidth="100"/>
+            <TableColumn fx:id="paymentStatusColumn" text="Payment Status" prefWidth="100"/>
+            <TableColumn fx:id="paymentMethodColumn" text="Payment Method" prefWidth="120"/>
+            <TableColumn fx:id="salesDetailsColumn" text="Sales Details" prefWidth="120"/>
+            <TableColumn fx:id="actionColumn" text="Actions" prefWidth="80"/>
+         </columns>
+      </TableView>
+      
+      <!-- Action Buttons -->
+      <HBox spacing="20" alignment="CENTER">
+         <JFXButton fx:id="addSaleButton" text="Add New Sale" prefHeight="58.0" prefWidth="200.0">
+            <font>
+               <Font name="Fira Code Regular" size="18.0" />
+            </font>
+            <graphic>
+               <FontAwesomeIcon glyphName="PLUS_CIRCLE" />
+            </graphic>
+         </JFXButton>
+         
+         <JFXButton fx:id="generateReportButton" text="Generate Report" prefHeight="58.0" prefWidth="200.0">
+            <font>
+               <Font name="Fira Code Regular" size="18.0" />
+            </font>
+            <graphic>
+               <FontAwesomeIcon glyphName="FILE_TEXT_ALT" />
+            </graphic>
+         </JFXButton>
+      </HBox>
+   </VBox>
 </AnchorPane>

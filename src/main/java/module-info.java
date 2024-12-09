@@ -8,5 +8,6 @@ module com.ddp.kicknstyle {
     
     opens com.ddp.kicknstyle.controller to javafx.fxml;
     opens com.ddp.kicknstyle to javafx.fxml;
+    opens com.ddp.kicknstyle.model to javafx.base;
     exports com.ddp.kicknstyle;
 }

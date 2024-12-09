@@ -1,116 +1,112 @@
 package com.ddp.kicknstyle.model;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 public class Sneaker {
-    private String sneakerId;
-    private String sneakerName;
-    private String brand;
-    private String category;
-    private String size;
-    private double price;
-    private int stockQuantity;
-    private String batchInfo;
-    private int quantitySold;
-    private int remainingQuantity;
+    private SimpleIntegerProperty sneakerID;
+    private SimpleStringProperty sneakerName;
+    private SimpleStringProperty brand;
+    private SimpleStringProperty category;
+    private SimpleStringProperty size;
+    private SimpleDoubleProperty sellingPrice;
+    private SimpleIntegerProperty remainingQuantity;
 
-    // Constructor, getters and setters
-    public Sneaker(String sneakerId, String sneakerName, String brand, String category, String size,
-                   double price, int stockQuantity, String batchInfo, int quantitySold, int remainingQuantity) {
-        this.sneakerId = sneakerId;
-        this.sneakerName = sneakerName;
-        this.brand = brand;
-        this.category = category;
-        this.size = size;
-        this.price = price;
-        this.stockQuantity = stockQuantity;
-        this.batchInfo = batchInfo;
-        this.quantitySold = quantitySold;
-        this.remainingQuantity = remainingQuantity;
+    // Constructor using JavaFX Properties
+    public Sneaker(int sneakerID, String sneakerName, String brand, String category, 
+                   String size, double sellingPrice, int remainingQuantity) {
+        this.sneakerID = new SimpleIntegerProperty(sneakerID);
+        this.sneakerName = new SimpleStringProperty(sneakerName);
+        this.brand = new SimpleStringProperty(brand);
+        this.category = new SimpleStringProperty(category);
+        this.size = new SimpleStringProperty(size);
+        this.sellingPrice = new SimpleDoubleProperty(sellingPrice);
+        this.remainingQuantity = new SimpleIntegerProperty(remainingQuantity);
     }
 
-    public String getSneakerId() {
-        return sneakerId;
+    // Getters and Setters for JavaFX Properties
+    public SimpleIntegerProperty sneakerIDProperty() {
+        return sneakerID;
     }
 
-    public String getSneakerName() {
+    public int getSneakerID() {
+        return sneakerID.get();
+    }
+
+    public void setSneakerID(int sneakerID) {
+        this.sneakerID.set(sneakerID);
+    }
+
+    public SimpleStringProperty sneakerNameProperty() {
         return sneakerName;
     }
 
-    public String getBrand() {
+    public String getSneakerName() {
+        return sneakerName.get();
+    }
+
+    public void setSneakerName(String sneakerName) {
+        this.sneakerName.set(sneakerName);
+    }
+
+    public SimpleStringProperty brandProperty() {
         return brand;
     }
 
-    public String getCategory() {
+    public String getBrand() {
+        return brand.get();
+    }
+
+    public void setBrand(String brand) {
+        this.brand.set(brand);
+    }
+
+    public SimpleStringProperty categoryProperty() {
         return category;
     }
 
-    public String getSize() {
+    public String getCategory() {
+        return category.get();
+    }
+
+    public void setCategory(String category) {
+        this.category.set(category);
+    }
+
+    public SimpleStringProperty sizeProperty() {
         return size;
     }
 
-    public double getPrice() {
-        return price;
+    public String getSize() {
+        return size.get();
     }
 
-    public int getStockQuantity() {
-        return stockQuantity;
+    public void setSize(String size) {
+        this.size.set(size);
     }
 
-    public String getBatchInfo() {
-        return batchInfo;
+    public SimpleDoubleProperty sellingPriceProperty() {
+        return sellingPrice;
     }
 
-    public int getQuantitySold() {
-        return quantitySold;
+    public double getSellingPrice() {
+        return sellingPrice.get();
     }
 
-    public int getRemainingQuantity() {
+    public void setSellingPrice(double sellingPrice) {
+        this.sellingPrice.set(sellingPrice);
+    }
+
+    public SimpleIntegerProperty remainingQuantityProperty() {
         return remainingQuantity;
     }
 
-    public StringProperty sneakerIdProperty() {
-        return new SimpleStringProperty(sneakerId);
+    public int getRemainingQuantity() {
+        return remainingQuantity.get();
     }
-    
-    public StringProperty sneakerNameProperty() {
-        return new SimpleStringProperty(sneakerName);
-    }
-    
-    public StringProperty brandProperty() {
-        return new SimpleStringProperty(brand);
-    }
-    
-    public StringProperty categoryProperty() {
-        return new SimpleStringProperty(category);
-    }
-    
-    public StringProperty sizeProperty() {
-        return new SimpleStringProperty(size);
-    }
-    
-    public DoubleProperty priceProperty() {
-        return new SimpleDoubleProperty(price);
-    }
-    
-    public IntegerProperty stockQuantityProperty() {
-        return new SimpleIntegerProperty(stockQuantity);
-    }
-    
-    public StringProperty batchInfoProperty() {
-        return new SimpleStringProperty(batchInfo);
-    }
-    
-    public IntegerProperty quantitySoldProperty() {
-        return new SimpleIntegerProperty(quantitySold);
-    }
-    
-    public IntegerProperty remainingQuantityProperty() {
-        return new SimpleIntegerProperty(remainingQuantity);
+
+    public void setRemainingQuantity(int remainingQuantity) {
+        this.remainingQuantity.set(remainingQuantity);
     }
 }

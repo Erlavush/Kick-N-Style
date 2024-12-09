@@ -51,10 +51,10 @@
 
 /* Style for Buttons (Add, Edit, Delete) */
 .jfx-button {
-    -fx-background-color: #f1e0b0;  /* Light beige background for buttons */
+    -fx-background-color: #ddcaa7;  /* Light beige background for buttons */
     -fx-font-size: 12px;  /* Larger font size */
     -fx-text-fill: #333;  /* Dark text color */
-    -fx-padding: 10px 12px;  /* Padding for a nice button shape */
+    -fx-padding: 5px 5px;  /* Padding for a nice button shape */
     -fx-border-color: #dcdcdc;  /* Border for buttons */
     -fx-border-radius: 5px;  /* Slightly rounded corners for buttons */
     -fx-border-width: 1px;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
@@ -36,10 +37,7 @@
                     <TableColumn fx:id="categoryColumn" prefWidth="71.20001220703125" text="Category" />
                     <TableColumn fx:id="sizeColumn" prefWidth="44.0" text="Size" />
                     <TableColumn fx:id="priceColumn" prefWidth="88.0" text="Selling Price" />
-                    <TableColumn fx:id="stockQuantityColumn" prefWidth="92.80007934570312" text="Stock Quantity" />
-                    <TableColumn fx:id="batchInfoColumn" minWidth="0.0" prefWidth="70.39996337890625" text="Batch Info" />
-                    <TableColumn fx:id="quantitySoldColumn" prefWidth="75.99993896484375" text="Quantity Sold" />
-                    <TableColumn fx:id="remainingQuantityColumn" prefWidth="116.79998779296875" text="Remaining Quantity" />
+                    <TableColumn fx:id="stockQuantityColumn" prefWidth="116.79998779296875" text="Remaining Quantity" />
                     <TableColumn fx:id="actionColumn" minWidth="9.0" prefWidth="110.4000244140625" text="Action" />
                 </columns>
             <columnResizePolicy>
@@ -48,14 +46,31 @@
             </TableView>
       
                <!-- Action Buttons (Add, Edit, Delete) -->
-         <HBox alignment="CENTER" layoutX="173.0" layoutY="608.0" prefHeight="26.0" prefWidth="566.0" spacing="100.0">
-            <JFXButton fx:id="addButton" onAction="#handleAdd" prefWidth="94.0" text="Add">
+         <HBox alignment="CENTER" layoutX="151.0" layoutY="567.0" prefHeight="84.0" prefWidth="661.0" spacing="100.0">
+            <JFXButton fx:id="addButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="1.0" prefHeight="58.0" prefWidth="198.0" text="Add new sneaker">
                <font>
                   <Font name="Fira Code Regular" size="18.0" />
                </font>
+               <graphic>
+                  <FontAwesomeIcon glyphName="shoe-prints" glyphStyle="shoe-rpints" wrappingWidth="21.600008964538574" />
+               </graphic>
             </JFXButton>
-            <JFXButton fx:id="editButton" onAction="#handleEdit" prefHeight="49.0" prefWidth="106.0" text="Edit" />
-            <JFXButton fx:id="deleteButton" onAction="#handleDelete" prefHeight="49.0" prefWidth="121.0" text="Delete" />
+            <JFXButton fx:id="editButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="1.0" prefHeight="58.0" prefWidth="202.0" text="Edit sneaker">
+               <font>
+                  <Font name="Fira Code Regular" size="18.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon glyphName="shoe-prints" glyphStyle="shoe-rpints" wrappingWidth="21.600008964538574" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="deleteButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="1.0" prefHeight="58.0" prefWidth="197.0" text="Delete sneaker">
+               <font>
+                  <Font name="Fira Code Regular" size="18.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon glyphName="shoe-prints" glyphStyle="shoe-rpints" wrappingWidth="21.600008964538574" />
+               </graphic>
+            </JFXButton>
          </HBox>
       </children>
       <padding>

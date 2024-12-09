@@ -25,7 +25,7 @@ public class AddSneakerDialogController {
     @FXML private TextField quantityField;
     @FXML private JFXButton addButton;
     @FXML private JFXButton cancelButton;
-
+    @FXML private TextField sneakerEditionField; // Add this line
     private InventoryController parentController;
 
     @FXML
@@ -140,9 +140,10 @@ public class AddSneakerDialogController {
     }
 
     private boolean validateInputs() {
-        if (sneakerNameField.getText().isEmpty() || sizeField.getText().isEmpty() || 
-            sellingPriceField.getText().isEmpty() || quantityField.getText().isEmpty() || 
-            brandComboBox.getValue() == null || categoryComboBox.getValue() == null) {
+        if (sneakerNameField.getText().isEmpty() || sneakerEditionField.getText().isEmpty() || // Add this line
+            sizeField.getText().isEmpty() || sellingPriceField.getText().isEmpty() || 
+            quantityField.getText().isEmpty() || brandComboBox.getValue() == null || 
+            categoryComboBox.getValue() == null) {
             showErrorAlert("Input Error", "Please fill in all fields.");
             return false;
         }
@@ -174,16 +175,16 @@ public class AddSneakerDialogController {
     }
 
     private int insertSneaker(Connection conn, int brandId, int categoryId) throws SQLException {
-        String query = "INSERT INTO DPD_Sneaker (Sneaker_Name, Brand_ID, Category_ID, Size, Selling_Price, Quantity) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO DPD_Sneaker (Sneaker_Name, Sneaker_Edition, Brand_ID, Sneaker_Category_ID, Sneaker_Size, Sneaker_Selling_Price) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, sneakerNameField.getText());
-            pstmt.setInt(2, brandId);
-            pstmt.setInt(3, categoryId);
-            pstmt.setString(4, sizeField.getText());
-            pstmt.setDouble(5, Double.parseDouble(sellingPriceField.getText()));
-            pstmt.setInt(6, Integer.parseInt(quantityField.getText()));
+            pstmt.setString(2, sneakerEditionField.getText()); // Add this line
+            pstmt.setInt(3, brandId);
+            pstmt.setInt(4, categoryId); // Ensure this is `Sneaker_Category_ID`
+            pstmt.setString(5, sizeField.getText());
+            pstmt.setDouble(6, Double.parseDouble(sellingPriceField.getText()));
             pstmt.executeUpdate();
-
+    
             ResultSet generatedKeys = pstmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 return generatedKeys.getInt(1);
@@ -191,6 +192,7 @@ public class AddSneakerDialogController {
         }
         return -1; // Insertion failed
     }
+    
 
     private void insertSneakerBatchDetail(Connection conn, int sneakerId) throws SQLException {
         String query = "INSERT INTO DPD_Sneaker_Batch_Detail (Sneaker_ID, Batch_ID) VALUES (?, ?)";

@@ -7,6 +7,7 @@ com\ddp\kicknstyle\controller\InventoryController$1.class
 module-info.class
 com\ddp\kicknstyle\App.class
 com\ddp\kicknstyle\model\Sales.class
+com\ddp\kicknstyle\controller\AddSneakerDialogController.class
 com\ddp\kicknstyle\controller\InventoryController.class
 com\ddp\kicknstyle\util\DatabaseConnection.class
 com\ddp\kicknstyle\model\Sneaker.class

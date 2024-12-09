@@ -4,40 +4,40 @@
 <?import javafx.scene.layout.*?>
 <?import com.jfoenix.controls.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" 
-      fx:controller="com.ddp.kicknstyle.controller.AddSneakerDialogController"
-      spacing="10" 
-      style="-fx-padding: 20;">
-    
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.ddp.kicknstyle.controller.AddSneakerDialogController" spacing="10" style="-fx-padding: 20;">
+
     <Label text="Add New Sneaker" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-    
+
     <GridPane hgap="10" vgap="10">
         <Label text="Sneaker Name:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
         <TextField fx:id="sneakerNameField" GridPane.columnIndex="1" GridPane.rowIndex="0" promptText="Enter Sneaker Name"/>
-        
+
         <Label text="Brand:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
         <ComboBox fx:id="brandComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1" promptText="Select Brand"/>
-        
+
         <Label text="Category:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
         <ComboBox fx:id="categoryComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2" promptText="Select Category"/>
-        
+
         <Label text="Size:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
         <TextField fx:id="sizeField" GridPane.columnIndex="1" GridPane.rowIndex="3" promptText="Enter Size"/>
-        
-        <Label text="Selling Price:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-        <TextField fx:id="sellingPriceField" GridPane.columnIndex="1" GridPane.rowIndex="4" promptText="Enter Price"/>
-        
-        <Label text="Batch (Optional):" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-        <ComboBox fx:id="batchComboBox" GridPane.columnIndex="1" GridPane.rowIndex="5" promptText="Select Batch (Optional)"/>
-        
-        <Label text="Initial Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-        <TextField fx:id="quantityField" GridPane.columnIndex="1" GridPane.rowIndex="6" promptText="Enter Initial Quantity"/>
+
+        <Label text="Sneaker Edition:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <!-- New Field -->
+        <TextField fx:id="sneakerEditionField" GridPane.columnIndex="1" GridPane.rowIndex="4" promptText="Enter Sneaker Edition"/>
+        <!-- New Field -->
+
+        <Label text="Selling Price:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+        <TextField fx:id="sellingPriceField" GridPane.columnIndex="1" GridPane.rowIndex="5" promptText="Enter Price"/>
+
+        <Label text="Batch (Optional):" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+        <ComboBox fx:id="batchComboBox" GridPane.columnIndex="1" GridPane.rowIndex="6" promptText="Select Batch (Optional)"/>
+
+        <Label text="Initial Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+        <TextField fx:id="quantityField" GridPane.columnIndex="1" GridPane.rowIndex="7" promptText="Enter Initial Quantity"/>
     </GridPane>
-    
+
     <HBox spacing="10" alignment="CENTER">
-        <JFXButton fx:id="addButton" text="Add Sneaker" onAction="#handleAddSneaker" 
-                   style="-fx-background-color: lightgreen;"/>
-        <JFXButton fx:id="cancelButton" text="Cancel" onAction="#handleCancel" 
-                   style="-fx-background-color: lightcoral;"/>
+        <JFXButton fx:id="addButton" text="Add Sneaker" onAction="#handleAddSneaker" style="-fx-background-color: lightgreen;"/>
+        <JFXButton fx:id="cancelButton" text="Cancel" onAction="#handleCancel" style="-fx-background-color: lightcoral;"/>
     </HBox>
 </VBox>

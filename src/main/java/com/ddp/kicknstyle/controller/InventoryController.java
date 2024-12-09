@@ -1,5 +1,6 @@
 package com.ddp.kicknstyle.controller;
 
+import java.io.IOException;
 import java.sql.*;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -8,7 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import com.ddp.kicknstyle.model.ActionButtonTableCell;
+
 import com.ddp.kicknstyle.model.Sneaker;  // Ensure this class is available in your project
 import com.ddp.kicknstyle.util.DatabaseConnection; // Import your DatabaseConnection class
 import com.ddp.kicknstyle.model.Sneaker;
@@ -16,12 +17,14 @@ import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
 public class InventoryController {
@@ -66,12 +69,29 @@ public class InventoryController {
     public void initialize() {
 
         actionColumn.setCellFactory(new Callback<TableColumn<Sneaker, Void>, TableCell<Sneaker, Void>>() {
-            @Override
-            public TableCell<Sneaker, Void> call(TableColumn<Sneaker, Void> param) {
-                return new ActionButtonTableCell();
-            }
-
-        });
+    @Override
+    public TableCell<Sneaker, Void> call(TableColumn<Sneaker, Void> param) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/ActionButtonCell.fxml"));
+            HBox cellLayout = loader.load();
+            ActionButtonCellController controller = loader.getController();
+            return new TableCell<Sneaker, Void>() {
+                @Override
+                protected void updateItem(Void item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        setGraphic(cellLayout);
+                    }
+                }
+            };
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new TableCell<Sneaker, Void>();
+        }
+    }
+});
 
         loadSneakersDataFromDatabase();
     }

@@ -110,3 +110,4 @@ public class Sneaker {
         this.remainingQuantity.set(remainingQuantity);
     }
 }
+

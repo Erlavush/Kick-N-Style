@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox xmlns:fx="http://javafx.com/fxml" spacing="10" alignment="CENTER" styleClass="action-button-cell">
+    <JFXButton fx:id="editButton" text="Edit" />
+    <JFXButton fx:id="deleteButton" text="Delete" />
+</HBox>

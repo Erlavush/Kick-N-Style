@@ -103,4 +103,24 @@ public class mainGUI_Controller {
         }
     }
 
+    @FXML
+    @SuppressWarnings("CallToPrintStackTrace")
+    public void showBatch() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/KickNStyle/fxml/batchPane.fxml"));
+            AnchorPane referencesPane = loader.load();
+
+            dynamicDisplayAnchor.getChildren().clear();
+            dynamicDisplayAnchor.getChildren().add(referencesPane);
+
+          
+            AnchorPane.setTopAnchor(referencesPane, 0.0);
+            AnchorPane.setBottomAnchor(referencesPane, 0.0);
+            AnchorPane.setLeftAnchor(referencesPane, 0.0);
+            AnchorPane.setRightAnchor(referencesPane, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -14,37 +14,32 @@
 
 <AnchorPane fx:id="mainAnchor" maxHeight="800" maxWidth="1200" minHeight="800" minWidth="1200" prefHeight="800" prefWidth="1200" style="-fx-background-image: src\main\resources\com\ddp\kicknstyle\images\mainBackground.jpg;" styleClass="mainAnchor" stylesheets="@../css/mainCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.mainGUI_Controller">
    <children>
-      <JFXButton fx:id="exitButton" contentDisplay="CENTER" layoutX="1127.0" layoutY="5.0" onAction="#initialize" prefHeight="50.0" prefWidth="65.0" styleClass="exitButton" text=" ">
-         <graphic>
-            <FontAwesomeIcon glyphName="TIMES" size="1.5em" textAlignment="CENTER" wrappingWidth="25.466671228408813" />
-         </graphic>
-      </JFXButton>
-      <VBox alignment="CENTER" layoutX="18.0" layoutY="197.0" prefHeight="590.0" prefWidth="186.0" spacing="25.0" styleClass="leftNavigationBar">
+      <VBox alignment="CENTER" layoutX="18.0" layoutY="197.0" prefHeight="590.0" prefWidth="141.0" spacing="25.0" styleClass="leftNavigationBar">
          <children>
-            <JFXButton prefHeight="100.0" prefWidth="180.0" styleClass="salesButton" text=" ">
+            <JFXButton prefHeight="110.0" prefWidth="130.0" styleClass="salesButton" text=" ">
                <graphic>
-                  <VBox alignment="CENTER" prefHeight="108.0" prefWidth="161.0">
+                  <VBox alignment="CENTER" prefHeight="108.0" prefWidth="120.0">
                      <children>
-                        <ImageView fitHeight="63.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="63.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/referenceImage.png" />
                            </image>
                         </ImageView>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="194.0" text="Dashboard">
                            <font>
-                              <Font name="Serif Regular" size="33.0" />
+                              <Font name="Fira Code Bold" size="19.0" />
                            </font>
                         </Label>
                      </children>
                   </VBox>
                </graphic>
             </JFXButton>
-            <JFXButton onAction="#showInventory" prefHeight="100.0" prefWidth="180.0" styleClass="salesButton" text=" ">
+            <JFXButton onAction="#showInventory" prefHeight="110.0" prefWidth="130.0" styleClass="salesButton" text=" ">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
                <graphic>
-                  <VBox alignment="CENTER" prefHeight="108.0" prefWidth="161.0">
+                  <VBox alignment="CENTER" prefHeight="108.0" prefWidth="123.0">
                      <children>
                         <ImageView fitHeight="63.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -53,43 +48,43 @@
                         </ImageView>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="194.0" text="Inventory">
                            <font>
-                              <Font name="Serif Regular" size="33.0" />
+                              <Font name="Fira Code Bold" size="19.0" />
                            </font>
                         </Label>
                      </children>
                   </VBox>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="salesButton" onAction="#showSales" prefHeight="100.0" prefWidth="180.0" styleClass="salesButton" text=" ">
+            <JFXButton fx:id="salesButton" onAction="#showSales" prefHeight="117.0" prefWidth="126.0" styleClass="salesButton" text=" ">
                <graphic>
-                  <VBox alignment="CENTER" prefHeight="122.0" prefWidth="169.0">
+                  <VBox alignment="CENTER" prefHeight="122.0" prefWidth="118.0">
                      <children>
-                        <ImageView fitHeight="70.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="84.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/salesImage.png" />
                            </image>
                         </ImageView>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="194.0" text="Sales">
                            <font>
-                              <Font name="Serif Regular" size="33.0" />
+                              <Font name="Fira Code Bold" size="19.0" />
                            </font>
                         </Label>
                      </children>
                   </VBox>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="transactionButton" onAction="#showTransaction" prefHeight="160.0" prefWidth="206.0" styleClass="salesButton" text=" ">
+            <JFXButton fx:id="transactionButton" onAction="#showBatch" prefHeight="136.0" prefWidth="128.0" styleClass="salesButton" text=" ">
                <graphic>
-                  <VBox alignment="CENTER" prefHeight="152.0" prefWidth="162.0">
+                  <VBox alignment="CENTER" prefHeight="152.0" prefWidth="120.0">
                      <children>
-                        <ImageView fitHeight="80.0" fitWidth="131.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="89.0" fitWidth="114.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../images/transactionImage.png" />
                            </image>
                         </ImageView>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="169.0" text="Batch">
                            <font>
-                              <Font name="Serif Regular" size="33.0" />
+                              <Font name="Fira Code Bold" size="19.0" />
                            </font>
                         </Label>
                      </children>
@@ -100,20 +95,21 @@
          <padding>
             <Insets bottom="20.0" top="20.0" />
          </padding></VBox>
-      <Pane layoutX="18.0" layoutY="15.0" prefHeight="184.0" prefWidth="188.0" styleClass="profilePane">
+      <Pane layoutX="18.0" layoutY="65.0" prefHeight="134.0" prefWidth="142.0" styleClass="profilePane">
          <children>
-            <Circle fx:id="profileCircle" fill="#a1815f" layoutX="97.0" layoutY="96.0" radius="74.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="profileCircle" fill="#a1815f" layoutX="73.0" layoutY="70.0" radius="57.0" stroke="BLACK" strokeType="INSIDE" />
          </children></Pane>
-      <Pane layoutX="231.0" layoutY="16.0" prefHeight="62.0" prefWidth="877.0" styleClass="titlePane">
+      <Pane layoutX="-2.0" layoutY="1.0" prefHeight="50.0" prefWidth="1138.0" styleClass="titlePane">
          <children>
-            <Label layoutX="28.0" layoutY="14.0" prefHeight="46.0" prefWidth="829.0" styleClass="titlePaneLabel" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit">
-               <font>
-                  <Font name="Fira Code Bold" size="34.0" />
-               </font>
-            </Label>
+            <Label layoutX="360.0" layoutY="8.0" prefHeight="38.0" prefWidth="452.0" styleClass="titlePaneLabel" text="Kick'n'Style" />
          </children>
       </Pane>
-      <AnchorPane fx:id="dynamicDisplayAnchor" layoutX="231.0" layoutY="94.0" prefHeight="685.0" prefWidth="942.0" style="-fx-background-color: transparent;" />
+      <AnchorPane fx:id="dynamicDisplayAnchor" layoutX="176.0" layoutY="66.0" prefHeight="721.0" prefWidth="1004.0" style="-fx-background-color: transparent;" />
+      <JFXButton fx:id="exitButton" contentDisplay="CENTER" layoutX="1130.0" layoutY="2.0" onAction="#initialize" prefHeight="50.0" prefWidth="65.0" styleClass="exitButton" text=" ">
+         <graphic>
+            <FontAwesomeIcon glyphName="TIMES" size="1.5em" textAlignment="CENTER" wrappingWidth="25.466671228408813" />
+         </graphic>
+      </JFXButton>
    </children>
 
 </AnchorPane>

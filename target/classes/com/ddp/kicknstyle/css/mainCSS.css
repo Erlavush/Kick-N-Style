@@ -57,7 +57,7 @@
     -fx-background-color: linear-gradient(to right, #ede6d1, #e3d3c4);
     -fx-border-color: #4F483F;
     -fx-border-width: 3;
-    -fx-border-radius: 10;
+    -fx-border-radius: 50 10 10 0;
     -fx-background-radius: 10;
     -fx-padding: 20;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
@@ -66,8 +66,8 @@
 .titlePaneLabel {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #f7f7f7;
-    -fx-font-family: 'Arial', sans-serif;
+    -fx-text-fill: #563726;
+    -fx-font-family: 'Fira Code', sans-serif;
     -fx-alignment: center;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
 }

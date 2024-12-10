@@ -10,5 +10,6 @@ com\ddp\kicknstyle\model\Sales.class
 com\ddp\kicknstyle\controller\AddSneakerDialogController.class
 com\ddp\kicknstyle\controller\InventoryController.class
 com\ddp\kicknstyle\util\DatabaseConnection.class
+com\ddp\kicknstyle\controller\EditSneakerDialogController.class
 com\ddp\kicknstyle\model\Sneaker.class
 com\ddp\kicknstyle\controller\BatchManagementController.class

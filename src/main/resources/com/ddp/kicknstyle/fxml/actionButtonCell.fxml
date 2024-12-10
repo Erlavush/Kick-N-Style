@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.Insets?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox xmlns:fx="http://javafx.com/fxml" spacing="10" alignment="CENTER" styleClass="action-button-cell">
-    <JFXButton fx:id="editButton" text="Edit" />
-    <JFXButton fx:id="deleteButton" text="Delete" />
+<HBox alignment="CENTER" spacing="10" stylesheets="@../css/actionButtonCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.ActionButtonCellController">
+    <JFXButton fx:id="editButton" onAction="#handleEdit" styleClass="icon-button">
+        <graphic>
+            <FontAwesomeIcon glyphName="PENCIL" size="2em" />
+        </graphic>
+    </JFXButton>
+    <JFXButton fx:id="deleteButton" onAction="#handleDelete" styleClass="icon-button">
+        <graphic>
+            <FontAwesomeIcon glyphName="TRASH" size="2em" />
+        </graphic>
+    </JFXButton>
 </HBox>

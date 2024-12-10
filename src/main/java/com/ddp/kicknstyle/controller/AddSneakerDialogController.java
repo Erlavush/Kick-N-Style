@@ -16,28 +16,40 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class AddSneakerDialogController {
-    @FXML private TextField sneakerNameField;
-    @FXML private ComboBox<String> brandComboBox;
-    @FXML private ComboBox<String> categoryComboBox;
-    @FXML private TextField sizeField;
-    @FXML private TextField sellingPriceField;
-    @FXML private ComboBox<String> batchComboBox;
-    @FXML private TextField quantityField;
-    @FXML private JFXButton addButton;
-    @FXML private JFXButton cancelButton;
-    @FXML private TextField sneakerEditionField; // Add this line
+
+    @FXML
+    private TextField sneakerNameField;
+    @FXML
+    private ComboBox<String> brandComboBox;
+    @FXML
+    private ComboBox<String> categoryComboBox;
+    @FXML
+    private TextField sneakerEditionField;
+    @FXML
+    private ComboBox<String> sizeComboBox;
+    @FXML
+    private TextField sellingPriceField;
+
+    @FXML
+    private JFXButton addButton;
+    @FXML
+    private JFXButton cancelButton;
+    // Add this line
     private InventoryController parentController;
 
     @FXML
     public void initialize() {
         // Populate Brand ComboBox
         populateBrandComboBox();
-        
+
         // Populate Category ComboBox
         populateCategoryComboBox();
-        
+
         // Populate Batch ComboBox
-        populateBatchComboBox();
+
+        sizeComboBox.getItems().addAll(
+                "7", "8", "9", "10", "11", "12", "13", "14"
+        );
     }
 
     public void setParentController(InventoryController controller) {
@@ -47,11 +59,9 @@ public class AddSneakerDialogController {
     private void populateBrandComboBox() {
         brandComboBox.getItems().clear();
         String query = "SELECT Brand_Name FROM DPD_Shoe_Brand ORDER BY Brand_Name";
-        
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query);
-             ResultSet rs = pstmt.executeQuery()) {
-            
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
+
             while (rs.next()) {
                 brandComboBox.getItems().add(rs.getString("Brand_Name"));
             }
@@ -64,11 +74,9 @@ public class AddSneakerDialogController {
     private void populateCategoryComboBox() {
         categoryComboBox.getItems().clear();
         String query = "SELECT Category_Name FROM DPD_Sneaker_Category ORDER BY Category_Name";
-        
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query);
-             ResultSet rs = pstmt.executeQuery()) {
-            
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
+
             while (rs.next()) {
                 categoryComboBox.getItems().add(rs.getString("Category_Name"));
             }
@@ -77,76 +85,89 @@ public class AddSneakerDialogController {
             showErrorAlert("Database Error", "Failed to load categories", e.getMessage());
         }
     }
-
-    private void populateBatchComboBox() {
-        batchComboBox.getItems().clear();
-        batchComboBox.getItems().add("No Batch");
-        
-        String query = "SELECT Batch_ID FROM DPD_Sneaker_Batch";
-        
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query);
-             ResultSet rs = pstmt.executeQuery()) {
-            
-            while (rs.next()) {
-                batchComboBox.getItems().add(rs.getString("Batch_ID"));
+    private int insertSneaker(Connection conn, int brandId, int categoryId) throws SQLException {
+        String query = "INSERT INTO DPD_Sneaker (Sneaker_Name, Sneaker_Edition, Brand_ID, Sneaker_Category_ID, Sneaker_Selling_Price, Sneaker_Size) VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, sneakerNameField.getText());
+            pstmt.setString(2, sneakerEditionField.getText());
+            pstmt.setInt(3, brandId);
+            pstmt.setInt(4, categoryId);
+            pstmt.setDouble(5, Double.parseDouble(sellingPriceField.getText()));
+            pstmt.setString(6, sizeComboBox.getValue()); // Add size
+            pstmt.executeUpdate();
+    
+            ResultSet generatedKeys = pstmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                return generatedKeys.getInt(1);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showErrorAlert("Database Error", "Failed to load batches", e.getMessage());
         }
+        return -1; // Insertion failed
     }
 
     @FXML
-    private void handleAddSneaker() {
-        // Validate input fields
-        if (!validateInputs()) {
-            return;
-        }
-
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            // Start transaction
-            conn.setAutoCommit(false);
-
-            // Get Brand ID
-            int brandId = getBrandId(conn, brandComboBox.getValue());
-            
-            // Get Category ID
-            int categoryId = getCategoryId(conn, categoryComboBox.getValue());
-
-            // Insert Sneaker
-            int sneakerId = insertSneaker(conn, brandId, categoryId);
-
-            // Handle Batch (if selected)
-            if (!batchComboBox.getValue().equals("No Batch")) {
-                insertSneakerBatchDetail(conn, sneakerId);
-            }
-
-            // Commit transaction
-            conn.commit();
-
-            // Refresh parent controller's table
-            if (parentController != null) {
-                parentController.loadSneakersDataFromDatabase();
-            }
-
-            // Close dialog
-            closeDialog();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            showErrorAlert("Database Error", "Failed to add sneaker", e.getMessage());
-        }
+private void handleAddSneaker() {
+    // Validate input fields
+    if (!validateInputs()) {
+        return;
     }
 
+    try (Connection conn = DatabaseConnection.getConnection()) {
+        // Start transaction
+        conn.setAutoCommit(false);
+
+        // Get Brand ID
+        int brandId = getBrandId(conn, brandComboBox.getValue());
+
+        // Get Category ID
+        int categoryId = getCategoryId(conn, categoryComboBox.getValue());
+
+        // Insert Sneaker
+        int sneakerId = insertSneaker(conn, brandId, categoryId);
+
+        // Commit transaction
+        conn.commit();
+
+        // Refresh parent controller's table
+        if (parentController != null) {
+            parentController.loadSneakersDataFromDatabase();
+        }
+
+        // Close dialog
+        closeDialog();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        showErrorAlert("Database Error", "Failed to add sneaker", e.getMessage());
+    }
+}
+
+
+
+    
     private boolean validateInputs() {
-        if (sneakerNameField.getText().isEmpty() || sneakerEditionField.getText().isEmpty() || // Add this line
-            sizeField.getText().isEmpty() || sellingPriceField.getText().isEmpty() || 
-            quantityField.getText().isEmpty() || brandComboBox.getValue() == null || 
-            categoryComboBox.getValue() == null) {
+        if (sneakerNameField.getText().isEmpty()
+                || sneakerEditionField.getText().isEmpty()
+                || sizeComboBox.getValue() == null
+                || brandComboBox.getValue() == null
+                || categoryComboBox.getValue() == null
+                || sellingPriceField.getText().isEmpty()) {
             showErrorAlert("Input Error", "Please fill in all fields.");
             return false;
         }
+    
+        // Additional validation for numeric fields
+        try {
+            double price = Double.parseDouble(sellingPriceField.getText());
+    
+            if (price <= 0) {
+                showErrorAlert("Input Error", "Price must be positive.");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            showErrorAlert("Input Error", "Price must be a numeric value.");
+            return false;
+        }
+    
         return true;
     }
 
@@ -174,34 +195,6 @@ public class AddSneakerDialogController {
         return -1; // Not found
     }
 
-    private int insertSneaker(Connection conn, int brandId, int categoryId) throws SQLException {
-        String query = "INSERT INTO DPD_Sneaker (Sneaker_Name, Sneaker_Edition, Brand_ID, Sneaker_Category_ID, Sneaker_Size, Sneaker_Selling_Price) VALUES (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, sneakerNameField.getText());
-            pstmt.setString(2, sneakerEditionField.getText()); // Add this line
-            pstmt.setInt(3, brandId);
-            pstmt.setInt(4, categoryId); // Ensure this is `Sneaker_Category_ID`
-            pstmt.setString(5, sizeField.getText());
-            pstmt.setDouble(6, Double.parseDouble(sellingPriceField.getText()));
-            pstmt.executeUpdate();
-    
-            ResultSet generatedKeys = pstmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                return generatedKeys.getInt(1);
-            }
-        }
-        return -1; // Insertion failed
-    }
-    
-
-    private void insertSneakerBatchDetail(Connection conn, int sneakerId) throws SQLException {
-        String query = "INSERT INTO DPD_Sneaker_Batch_Detail (Sneaker_ID, Batch_ID) VALUES (?, ?)";
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, sneakerId);
-            pstmt.setString(2, batchComboBox.getValue());
-            pstmt.executeUpdate();
-        }
-    }
 
     @FXML
     private void handleCancel() {
@@ -220,6 +213,7 @@ public class AddSneakerDialogController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
     private void showErrorAlert(String title, String header) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);

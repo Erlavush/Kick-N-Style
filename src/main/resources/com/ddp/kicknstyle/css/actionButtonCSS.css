@@ -1,0 +1,23 @@
+.icon-button {
+    -fx-background-color: transparent; /* Make background transparent */
+    -fx-padding: 10; /* Padding around the icon */
+    -fx-border-color: transparent; /* No border */
+    -fx-cursor: hand; /* Change cursor to hand on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 1); /* Add shadow effect */
+}
+
+.icon-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1); /* Light background on hover */
+}
+
+.icon-button:pressed {
+    -fx-background-color: rgba(0, 0, 0, 0.2); /* Darker background when pressed */
+}
+
+.icon-button .font-awesome-icon {
+    -fx-fill: #333; /* Icon color */
+}
+
+.icon-button:hover .font-awesome-icon {
+    -fx-fill: #007bff; /* Change icon color on hover */
+}

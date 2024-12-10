@@ -28,16 +28,17 @@
          </HBox>
       
                <!-- TableView for Sneakers -->
-         <TableView fx:id="inventoryTable" layoutX="8.0" layoutY="157.0" prefHeight="393.0" prefWidth="905.0">
+         <TableView fx:id="inventoryTable" layoutX="20.0" layoutY="135.0" prefHeight="481.0" prefWidth="963.0">
                 <columns>
-                    <TableColumn fx:id="sneakerIdColumn" prefWidth="81.59997749328613" text="Sneaker ID" />
-                    <TableColumn fx:id="sneakerNameColumn" prefWidth="80.79998016357422" text="Sneaker Name" />
-                    <TableColumn fx:id="brandColumn" prefWidth="53.600006103515625" text="Brand" />
-                    <TableColumn fx:id="categoryColumn" prefWidth="71.20001220703125" text="Category" />
-                    <TableColumn fx:id="sizeColumn" prefWidth="44.0" text="Size" />
-                    <TableColumn fx:id="priceColumn" prefWidth="88.0" text="Selling Price" />
-                    <TableColumn fx:id="stockQuantityColumn" prefWidth="116.79998779296875" text="Remaining Quantity" />
-                    <TableColumn fx:id="actionColumn" minWidth="9.0" prefWidth="110.4000244140625" text="Action" />
+                    <TableColumn fx:id="sneakerIdColumn" prefWidth="64.79998779296875" text="Sneaker ID" />
+                    <TableColumn fx:id="sneakerNameColumn" prefWidth="146.4000244140625" text="Sneaker Name" />
+                    <TableColumn fx:id="brandColumn" prefWidth="89.5999755859375" text="Brand" />
+                    <TableColumn fx:id="sneakerEditionColumn" prefWidth="141.5999755859375" text="Edition" />
+               <TableColumn fx:id="sizeColumn" prefWidth="87.199951171875" text="Size" />
+                    <TableColumn fx:id="categoryColumn" prefWidth="134.39996337890625" text="Category" />
+                    <TableColumn fx:id="priceColumn" prefWidth="86.4000244140625" text="Price" />
+                    <TableColumn fx:id="stockQuantityColumn" prefWidth="104.0" text="Remaining Quantity" />
+                    <TableColumn fx:id="actionColumn" minWidth="9.0" prefWidth="106.4000244140625" text="Action" />
                 </columns>
             <columnResizePolicy>
                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -45,29 +46,13 @@
             </TableView>
       
                <!-- Action Buttons (Add, Edit, Delete) -->
-         <HBox alignment="CENTER" layoutX="151.0" layoutY="567.0" prefHeight="84.0" prefWidth="661.0" spacing="100.0">
+         <HBox alignment="CENTER" layoutX="139.0" layoutY="614.0" prefHeight="84.0" prefWidth="661.0" spacing="100.0">
             <JFXButton fx:id="addButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="1.0" onAction="#handleAdd" prefHeight="58.0" prefWidth="198.0" text="Add new sneaker">
                <font>
                   <Font name="Fira Code Regular" size="18.0" />
                </font>
                <graphic>
-                  <FontAwesomeIcon glyphName="shoe-prints" glyphStyle="shoe-rpints" wrappingWidth="21.600008964538574" />
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="editButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="1.0" prefHeight="58.0" prefWidth="202.0" text="Edit sneaker">
-               <font>
-                  <Font name="Fira Code Regular" size="18.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon glyphName="shoe-prints" glyphStyle="shoe-rpints" wrappingWidth="21.600008964538574" />
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="deleteButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="1.0" prefHeight="58.0" prefWidth="197.0" text="Delete sneaker">
-               <font>
-                  <Font name="Fira Code Regular" size="18.0" />
-               </font>
-               <graphic>
-                  <FontAwesomeIcon glyphName="shoe-prints" glyphStyle="shoe-rpints" wrappingWidth="21.600008964538574" />
+                  <FontAwesomeIcon glyphName="PLUS" wrappingWidth="21.600008964538574" />
                </graphic>
             </JFXButton>
          </HBox>

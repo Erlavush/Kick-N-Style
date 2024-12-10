@@ -12,20 +12,34 @@ public class Sneaker {
     private SimpleStringProperty size;
     private SimpleDoubleProperty sellingPrice;
     private SimpleIntegerProperty remainingQuantity;
+    private SimpleStringProperty sneakerEdition;
 
     // Constructor using JavaFX Properties
-    public Sneaker(int sneakerID, String sneakerName, String brand, String category, 
-                   String size, double sellingPrice, int remainingQuantity) {
-        this.sneakerID = new SimpleIntegerProperty(sneakerID);
-        this.sneakerName = new SimpleStringProperty(sneakerName);
-        this.brand = new SimpleStringProperty(brand);
-        this.category = new SimpleStringProperty(category);
-        this.size = new SimpleStringProperty(size);
-        this.sellingPrice = new SimpleDoubleProperty(sellingPrice);
-        this.remainingQuantity = new SimpleIntegerProperty(remainingQuantity);
-    }
+    public Sneaker(int sneakerID, String sneakerName, String sneakerEdition, String brand, 
+               String category, double sellingPrice, int remainingQuantity, String size) {
+    this.sneakerID = new SimpleIntegerProperty(sneakerID);
+    this.sneakerName = new SimpleStringProperty(sneakerName);
+    this.brand = new SimpleStringProperty(brand);
+    this.category = new SimpleStringProperty(category);
+    this.sneakerEdition = new SimpleStringProperty(sneakerEdition);
+    this.sellingPrice = new SimpleDoubleProperty(sellingPrice);
+    this.remainingQuantity = new SimpleIntegerProperty(remainingQuantity);
+    this.size = new SimpleStringProperty(size);
+}
+
+// Also update the other constructor in the Sneaker class to include size
+public Sneaker(int sneakerID, String sneakerName, String sneakerEdition, String brand, 
+               String category, double sellingPrice, int remainingQuantity) {
+    this(sneakerID, sneakerName, sneakerEdition, brand, category, sellingPrice, remainingQuantity, "");
+}
+
+    
+    
 
     // Getters and Setters for JavaFX Properties
+
+
+    
     public SimpleIntegerProperty sneakerIDProperty() {
         return sneakerID;
     }
@@ -73,6 +87,19 @@ public class Sneaker {
     public void setCategory(String category) {
         this.category.set(category);
     }
+
+    public SimpleStringProperty sneakerEditionProperty() {
+        return sneakerEdition;
+    }
+
+    public String getSneakerEdition() {
+        return sneakerEdition.get();
+    }
+
+    public void setSneakerEdition(String sneakerEdition) {
+        this.sneakerEdition.set(sneakerEdition);
+    }
+
 
     public SimpleStringProperty sizeProperty() {
         return size;

@@ -20,36 +20,37 @@
          <VBox layoutX="13.0" layoutY="14.0" prefHeight="688.0" prefWidth="973.0" spacing="10">
             <!-- Search and Filter Section -->
             <HBox alignment="CENTER_LEFT" spacing="10">
-               <TextField fx:id="searchField" prefHeight="39.0" prefWidth="250.0" promptText="Search Sales (ID, Customer, Product)..." HBox.hgrow="ALWAYS" />
-               
-               <ComboBox fx:id="paymentStatusComboBox" prefWidth="150.0" promptText="Payment Status" />
-               
-               <ComboBox fx:id="paymentMethodComboBox" prefWidth="150.0" promptText="Payment Method" />
-               
+               <!-- Flexible Search Field -->
+               <TextField fx:id="searchField" prefHeight="39.0" prefWidth="250.0" promptText="Search (ID or Customer)..." HBox.hgrow="ALWAYS" />
+
+               <!-- Date Range Filters -->
                <DatePicker fx:id="startDatePicker" prefWidth="130.0" promptText="Start Date" />
                <DatePicker fx:id="endDatePicker" prefWidth="130.0" promptText="End Date" />
-               
-               <TextField fx:id="minAmountField" prefWidth="100.0" promptText="Min Amount" />
-               <TextField fx:id="maxAmountField" prefWidth="100.0" promptText="Max Amount" />
-               
+
+               <!-- Payment Status Dropdown -->
+               <ComboBox fx:id="paymentStatusComboBox" prefWidth="150.0" promptText="Payment Status" />
+
+               <!-- Payment Method Dropdown -->
+               <ComboBox fx:id="paymentMethodComboBox" prefWidth="150.0" promptText="Payment Method" />
+
+               <!-- Filter Button with Icon -->
                <JFXButton fx:id="filterButton" text="Apply Filters">
                   <graphic>
                      <FontAwesomeIcon glyphName="FILTER" />
                   </graphic>
                </JFXButton>
             </HBox>
-            
+
             <!-- Sales Table -->
             <TableView fx:id="salesTable" prefHeight="400.0" prefWidth="948.0" VBox.vgrow="ALWAYS">
                <columns>
                   <TableColumn fx:id="saleIdColumn" prefWidth="80" text="Sale ID" />
-                  <TableColumn fx:id="customerNameColumn" prefWidth="120" text="Customer Name" />
                   <TableColumn fx:id="saleDateColumn" prefWidth="100" text="Sale Date" />
+                  <TableColumn fx:id="customerNameColumn" prefWidth="120" text="Customer Name" />
                   <TableColumn fx:id="totalAmountColumn" prefWidth="100" text="Total Amount" />
                   <TableColumn fx:id="paymentStatusColumn" prefWidth="100" text="Payment Status" />
                   <TableColumn fx:id="paymentMethodColumn" prefWidth="120" text="Payment Method" />
-                  <TableColumn fx:id="salesDetailsColumn" prefWidth="120" text="Sales Details" />
-                  <TableColumn fx:id="actionColumn" prefWidth="80" text="Actions" />
+                  <TableColumn fx:id="detailsColumn" prefWidth="120" text="Sales Details" />
                </columns>
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
@@ -58,7 +59,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            
+
             <!-- Action Buttons -->
             <HBox alignment="CENTER" prefWidth="1056.0" spacing="20">
                <JFXButton fx:id="addSaleButton" prefHeight="58.0" prefWidth="200.0" text="Add New Sale">
@@ -69,7 +70,7 @@
                      <FontAwesomeIcon glyphName="PLUS_CIRCLE" selectionEnd="1" size="3em" wrappingWidth="34.28571701049805" />
                   </graphic>
                </JFXButton>
-               
+
                <JFXButton fx:id="generateReportButton" prefHeight="58.0" prefWidth="242.0" text="Generate Report (OPTIONAL)">
                   <font>
                      <Font name="Fira Code Regular" size="18.0" />

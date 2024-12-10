@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox spacing="5" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="com.ddp.kicknstyle.controller.DetailsButtonCellController">
+    <JFXButton fx:id="detailsButton" text="Details" />
+</HBox>

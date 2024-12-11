@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+
+<VBox spacing="10" style="-fx-padding: 20;"
+      xmlns="http://javafx.com/javafx/22"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ddp.kicknstyle.controller.AddSaleDialogController">
+    
+    <ComboBox fx:id="customerComboBox" promptText="Select Customer" />
+    
+    <TableView fx:id="saleItemsTable">
+        <columns>
+            <TableColumn fx:id="sneakerColumn" text="Sneaker" />
+            <TableColumn fx:id="quantityColumn" text="Quantity" />
+            <TableColumn fx:id="priceColumn" text="Price" />
+        </columns>
+    </TableView>
+    
+    <ComboBox fx:id="paymentMethodComboBox" promptText="Payment Method" />
+    <ComboBox fx:id="paymentStatusComboBox" promptText="Payment Status" />
+    <TextField fx:id="totalAmountField" promptText="Total Amount" editable="false" />
+    
+    <HBox spacing="10">
+        <Button fx:id="addItemButton" text="Add Item" onAction="#openAddItemDialog" />
+        <Button fx:id="saveSaleButton" text="Save Sale" />
+    </HBox>
+    
+</VBox>

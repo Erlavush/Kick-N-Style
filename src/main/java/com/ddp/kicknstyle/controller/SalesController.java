@@ -18,6 +18,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -26,6 +28,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class SalesController implements Initializable {
@@ -65,7 +68,23 @@ public class SalesController implements Initializable {
     @FXML
     private JFXButton filterButton;
     @FXML
+    private JFXButton resetFiltersButton;
+    @FXML
     private JFXButton addSaleButton;
+    @FXML
+    private void handleAddSaleButton() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/AddSaleDialog.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Add Sale");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            loadSalesData(); // Refresh the sales table after adding a sale
+        } catch (IOException e) {
+            showAlert("Error", "Failed to open add sale dialog", e.getMessage());
+        }
+    }
 
     private ObservableList<Sales> salesList = FXCollections.observableArrayList();
 
@@ -75,7 +94,7 @@ public class SalesController implements Initializable {
         setupTableColumns();
         loadSalesData();
         setupFilterButton();
-
+        setupResetFilterButton();
         paymentStatusColumn.setCellFactory(new Callback<TableColumn<Sales, String>, TableCell<Sales, String>>() {
             @Override
             public TableCell<Sales, String> call(TableColumn<Sales, String> param) {
@@ -147,17 +166,17 @@ public class SalesController implements Initializable {
                 return new TableCell<Sales, String>() {
                     private HBox cellLayout;
                     private DetailsButtonCellController controller;
-        
+
                     {
                         try {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/detailsButtonCell.fxml"));
                             cellLayout = loader.load();
                             controller = loader.getController();
                         } catch (IOException e) {
-                            throw new RuntimeException (e);
+                            throw new RuntimeException(e);
                         }
                     }
-        
+
                     @Override
                     protected void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
@@ -174,8 +193,6 @@ public class SalesController implements Initializable {
         });
     }
 
-    
-
     private void setupTableColumns() {
         saleIdColumn.setCellValueFactory(cellData -> cellData.getValue().saleIdProperty().asObject());
         customerNameColumn.setCellValueFactory(cellData -> cellData.getValue().customerNameProperty());
@@ -191,9 +208,9 @@ public class SalesController implements Initializable {
                 + "s.Total_Amount, s.Payment_Status, s.Payment_Method, s.Customer_ID "
                 + "FROM DPD_Sales s "
                 + "JOIN DPD_Customer c ON s.Customer_ID = c.Customer_ID";
-    
+
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
-    
+
             while (rs.next()) {
                 Sales sale = new Sales(
                         rs.getInt("Sale_ID"),
@@ -202,13 +219,13 @@ public class SalesController implements Initializable {
                         rs.getDouble("Total_Amount"),
                         rs.getString("Payment_Status"),
                         rs.getString("Payment_Method"),
-                        rs.getInt("Customer_ID")  // Ensure this is correctly referenced
+                        rs.getInt("Customer_ID") // Ensure this is correctly referenced
                 );
                 salesList.add(sale);
             }
-    
+
             salesTable.setItems(salesList);
-    
+
         } catch (SQLException e) {
             showAlert("Database Error", "Failed to load sales data", e.getMessage());
         }
@@ -216,6 +233,10 @@ public class SalesController implements Initializable {
 
     private void setupFilterButton() {
         filterButton.setOnAction(event -> applyFilters());
+    }
+
+    private void setupResetFilterButton() {
+        resetFiltersButton.setOnAction(event -> resetFilters());
     }
 
     private void applyFilters() {
@@ -241,6 +262,30 @@ public class SalesController implements Initializable {
         });
 
         salesTable.setItems(filteredList);
+    }
+
+    private void resetFilters() {
+        // Clear search field
+        searchField.clear();
+
+        // Reset date pickers
+        startDatePicker.setValue(null);
+        endDatePicker.setValue(null);
+
+        // Reset payment status and method combo boxes
+        paymentStatusComboBox.setValue("All");
+        paymentMethodComboBox.setValue("All");
+
+        // Clear amount fields if they exist
+        if (minAmountField != null) {
+            minAmountField.clear();
+        }
+        if (maxAmountField != null) {
+            maxAmountField.clear();
+        }
+
+        // Reload original sales data
+        loadSalesData();
     }
 
     private boolean matchesSearchCriteria(Sales sale, String searchText) {
@@ -298,8 +343,6 @@ public class SalesController implements Initializable {
                 || sale.getPaymentMethod().equals(selectedMethod);
     }
 
-
-
     // Initialize ComboBoxes in initialize method
     private void initializeComboBoxes() {
         paymentStatusComboBox.getItems().addAll("All", "Paid", "Unpaid", "Partial");
@@ -316,4 +359,6 @@ public class SalesController implements Initializable {
         alert.setContentText(contentText);
         alert.showAndWait();
     }
+
+   
 }

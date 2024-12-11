@@ -39,6 +39,11 @@
                      <FontAwesomeIcon glyphName="FILTER" />
                   </graphic>
                </JFXButton>
+               <JFXButton fx:id="resetFiltersButton" text="Reset Filters">
+                  <graphic>
+                     <FontAwesomeIcon glyphName="REFRESH" />
+                  </graphic>
+               </JFXButton>
             </HBox>
 
             <!-- Sales Table -->
@@ -62,7 +67,7 @@
 
             <!-- Action Buttons -->
             <HBox alignment="CENTER" prefWidth="1056.0" spacing="20">
-               <JFXButton fx:id="addSaleButton" prefHeight="58.0" prefWidth="200.0" text="Add New Sale">
+               <JFXButton fx:id="addSaleButton" onAction="#handleAddSaleButton" prefHeight="58.0" prefWidth="200.0" text="Add New Sale">
                   <font>
                      <Font name="Fira Code Regular" size="18.0" />
                   </font>

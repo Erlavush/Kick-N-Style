@@ -4,8 +4,6 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -15,126 +13,68 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="689.0" prefWidth="933.0" stylesheets="@../css/inventoryCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.BatchManagementController">
+<AnchorPane prefHeight="689.0" prefWidth="933.0" stylesheets="@../css/inventoryCSS.css"
+    xmlns="http://javafx.com/javafx/22"
+    xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.BatchManagementController">
     <Pane layoutX="8.0" layoutY="9.0" prefHeight="666.0" prefWidth="916.0" styleClass="pane">
         <children>
-            <TabPane fx:id="batchManagementTabPane" layoutX="14.0" layoutY="14.0" prefHeight="638.0" prefWidth="888.0">
-                <tabs>
-                    <Tab text="Batch Management">
-                        <content>
-                            <VBox spacing="10">
-                                <!-- Search and Filter for Batches -->
-                                <HBox spacing="10">
-                                    <TextField fx:id="batchSearchField" prefHeight="39.0" prefWidth="225.0" promptText="Search Batch..." />
-                                    <ComboBox fx:id="batchStatusComboBox" prefHeight="52.0" prefWidth="149.0" promptText="Batch Status" />
+            <VBox layoutX="20.0" layoutY="13.0" prefHeight="634.0" prefWidth="868.0" spacing="10">
+                <!-- Search and Filter for Batches -->
+                <HBox spacing="10">
+                    <TextField fx:id="batchSearchField" prefHeight="39.0" prefWidth="225.0" promptText="Search Batch..." />
+                    <ComboBox fx:id="batchStatusComboBox" prefHeight="52.0" prefWidth="149.0" promptText="Batch Status" />
 
-                                    <TextField fx:id="supplierSearchField" prefHeight="39.0" prefWidth="225.0" promptText="Search Supplier..." />
-                                </HBox>
+                    <TextField fx:id="supplierSearchField" prefHeight="39.0" prefWidth="225.0" promptText="Search Supplier..." />
+                </HBox>
 
-                                <!-- Batch TableView -->
-                                <TableView fx:id="batchTable" prefHeight="393.0" prefWidth="888.0">
-                                    <columns>
-                                        <TableColumn fx:id="batchIdColumn" text="Batch ID" />
-                                        <TableColumn fx:id="batchNumberColumn" text="Batch Number" />
-                                        <TableColumn fx:id="batchDateColumn" text="Batch Date" />
-                                        <TableColumn fx:id="supplierNameColumn" text="Supplier" />
-                                        <TableColumn fx:id="batchStatusColumn" text="Status" />
-                                        <TableColumn fx:id="totalQuantityColumn" text="Total Quantity" />
-                                        <TableColumn fx:id="batchActionColumn" text="Action" />
-                                    </columns>
-                                    <columnResizePolicy>
-                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                    </columnResizePolicy>
-                                </TableView>
+                <!-- Batch TableView -->
+                <TableView fx:id="batchTableView" prefHeight="393.0" prefWidth="888.0">
+                    <columns>
+                        <TableColumn fx:id="batchIdColumn" text="Batch ID" />
+                        <TableColumn fx:id="batchNumberColumn" text="Batch Number" />
+                        <TableColumn fx:id="batchDateColumn" text="Batch Date" />
+                        <TableColumn fx:id="supplierNameColumn" text="Supplier" />
+                        <TableColumn fx:id="batchStatusColumn" text="Status" />
+                        <TableColumn fx:id="totalQuantityColumn" text="Total Quantity" />
+                        <TableColumn fx:id="totalCostColumn" text="Total Cost" />
+                        <TableColumn fx:id="batchActionColumn" text="Action" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
 
-                                <!-- Action Buttons -->
-                                <HBox alignment="CENTER" spacing="100.0">
-                                    <JFXButton fx:id="addBatchButton" alignment="CENTER" buttonType="RAISED" text="Add New Batch">
-                                        <font>
-                                            <Font name="Fira Code Regular" size="18.0" />
-                                        </font>
-                                        <graphic>
-                                            <FontAwesomeIcon glyphName="PLUS" wrappingWidth="21.600008964538574" />
-                                        </graphic>
-                                    </JFXButton>
-                                    <JFXButton fx:id="editBatchButton" alignment="CENTER" buttonType="RAISED" text="Edit Batch">
-                                        <font>
-                                            <Font name="Fira Code Regular" size="18.0" />
-                                        </font>
-                                        <graphic>
-                                            <FontAwesomeIcon glyphName="EDIT" wrappingWidth="21.600008964538574" />
-                                        </graphic>
-                                    </JFXButton>
-                                    <JFXButton fx:id="deleteBatchButton" alignment="CENTER" buttonType="RAISED" text="Delete Batch">
-                                        <font>
-                                            <Font name="Fira Code Regular" size="18.0" />
-                                        </font>
-                                        <graphic>
-                                            <FontAwesomeIcon glyphName="TRASH" wrappingWidth="21.600008964538574" />
-                                        </graphic>
-                                    </JFXButton>
-                                </HBox>
-                            </VBox>
-                        </content>
-                    </Tab>
-
-                    <Tab text="Supplier Management">
-                        <content>
-                            <VBox spacing="10">
-                                <!-- Search for Suppliers -->
-                                <TextField fx:id="supplierSearchField" prefHeight="39.0" prefWidth="225.0" promptText="Search Suppliers..." />
-
-                                <!-- Supplier TableView -->
-                                <TableView fx:id="supplierTable" prefHeight="393.0" prefWidth="888.0">
-                                    <columns>
-                                        <TableColumn fx:id="supplierIdColumn" text="Supplier ID" />
-                                        <TableColumn fx:id="supplierNameColumn" text="Supplier Name" />
-                                        <TableColumn fx:id="supplierContactColumn" text="Contact" />
-                                        <TableColumn fx:id="supplierAddressColumn" text="Address" />
-                                        <TableColumn fx:id="supplierActionColumn" text="Action" />
-                                    </columns>
-                                    <columnResizePolicy>
-                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                    </columnResizePolicy>
-                                </TableView>
-
-                                <!-- Supplier Action Buttons -->
-                                <HBox alignment="CENTER" spacing="100.0">
-                                    <JFXButton fx:id="addSupplierButton" alignment="CENTER" buttonType="RAISED" text="Add New Supplier">
-                                        <font>
-                                            <Font name="Fira Code Regular" size="18.0" />
-                                        </font>
-                                        <graphic>
-                                            <FontAwesomeIcon glyphName="PLUS" wrappingWidth="21.600008964538574" />
-                                        </graphic>
-                                    </JFXButton>
-                                    <JFXButton fx:id="editSupplierButton" alignment="CENTER" buttonType="RAISED" text="Edit Supplier">
-                                        <font>
-                                            <Font name="Fira Code Regular" size="18.0" />
-                                        </font>
-                                        <graphic>
-                                            <FontAwesomeIcon glyphName="EDIT" wrappingWidth="21.600008964538574" />
-                                        </graphic>
-                                    </JFXButton>
-                                    <JFXButton fx:id="deleteSupplierButton" alignment="CENTER" buttonType="RAISED" text="Delete Supplier">
-                                        <font>
-                                            <Font name="Fira Code Regular" size="18.0" />
-                                        </font>
-                                        <graphic>
-                                            <FontAwesomeIcon glyphName="TRASH" wrappingWidth="21.600008964538574" />
-                                        </graphic>
-                                    </JFXButton>
-                                </HBox>
-                            </VBox>
-                        </content>
-                    </Tab>
-                </tabs>
-            </TabPane>
+                <!-- Action Buttons -->
+                <HBox alignment="CENTER" spacing="100.0">
+                    <JFXButton fx:id="addBatchButton" alignment="CENTER" buttonType="RAISED" text="Add New Batch">
+                        <font>
+                            <Font name="Fira Code Regular" size="18.0" />
+                        </font>
+                        <graphic>
+                            <FontAwesomeIcon glyphName="PLUS" wrappingWidth="21.600008964538574" />
+                        </graphic>
+                    </JFXButton>
+                    <JFXButton fx:id="editBatchButton" alignment="CENTER" buttonType="RAISED" text="Edit Batch">
+                        <font>
+                            <Font name="Fira Code Regular" size="18.0" />
+                        </font>
+                        <graphic>
+                            <FontAwesomeIcon glyphName="EDIT" wrappingWidth="21.600008964538574" />
+                        </graphic>
+                    </JFXButton>
+                    <JFXButton fx:id="deleteBatchButton" alignment="CENTER" buttonType="RAISED" text="Delete Batch">
+                        <font>
+                            <Font name="Fira Code Regular" size="18.0" />
+                        </font>
+                        <graphic>
+                            <FontAwesomeIcon glyphName="TRASH" wrappingWidth="21.600008964538574" />
+                        </graphic>
+                    </JFXButton>
+                </HBox>
+            </VBox>
         </children>
         <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
         </padding>
     </Pane>
 </AnchorPane>
-
-

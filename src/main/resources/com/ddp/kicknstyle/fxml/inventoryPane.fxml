@@ -55,6 +55,14 @@
                   <FontAwesomeIcon glyphName="PLUS" wrappingWidth="21.600008964538574" />
                </graphic>
             </JFXButton>
+            <JFXButton fx:id="addBrandButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="1.0" onAction="#handleAddBrand" prefHeight="58.0" prefWidth="198.0" text="Add new brand">
+               <font>
+                  <Font name="Fira Code Regular" size="18.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIcon glyphName="PLUS" wrappingWidth="21.600008964538574" />
+               </graphic>
+            </JFXButton>
          </HBox>
       </children>
       <padding>

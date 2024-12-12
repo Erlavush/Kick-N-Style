@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<DialogPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.AddBatchDialogController">
+    <content>
+        <VBox alignment="CENTER" spacing="10">
+            <TextField fx:id="batchNumberField" promptText="Batch Number" />
+            <DatePicker fx:id="batchDatePicker" promptText="Batch Date" />
+              <ComboBox fx:id="batchStatusComboBox" promptText="Batch Status" />
+            <HBox alignment="CENTER" prefHeight="1.0" prefWidth="248.0">
+                <children>
+                  <ComboBox fx:id="supplierComboBox" promptText="Select Supplier" />
+                    <Button fx:id="addSupplierButton" onAction="#handleAddSupplier" style="-fx-background-color: lightgreen; -fx-text-fill: white;" text="+" />
+                </children>
+                <VBox.margin>
+                    <Insets />
+                </VBox.margin>
+            </HBox>
+            <TableView fx:id="batchDetailsTable" prefWidth="248.0">
+                <columns>
+                    <TableColumn fx:id="sneakerColumn" text="Sneaker" />
+                    <TableColumn fx:id="quantityColumn" text="Quantity" />
+                    <TableColumn fx:id="unitCostColumn" text="Unit Cost" />
+                </columns>
+            </TableView>
+            <HBox spacing="10">
+                <Button fx:id="addItemButton" text="Add Item" />
+                <Button fx:id="saveBatchButton" text="Save Batch" />
+            </HBox>
+        </VBox>
+    </content>
+</DialogPane>

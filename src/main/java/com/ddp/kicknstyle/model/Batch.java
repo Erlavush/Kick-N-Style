@@ -1,6 +1,11 @@
 package com.ddp.kicknstyle.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
+
+import com.ddp.kicknstyle.util.DatabaseConnection;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -64,4 +69,21 @@ public class Batch {
     public DoubleProperty totalBatchCostProperty() { return totalBatchCost; }
     public double getTotalBatchCost() { return totalBatchCost.get(); }
     public void setTotalBatchCost(double totalBatchCost) { this.totalBatchCost.set(totalBatchCost); }
+
+    public void updateBatchStatus(String newStatus) {
+    try (Connection conn = DatabaseConnection.getConnection()) {
+        String query = "UPDATE DPD_Sneaker_Batch SET Batch_Status = ? WHERE Batch_ID = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, newStatus);
+            pstmt.setInt(2, this.getBatchId());
+            pstmt.executeUpdate();
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        // Optionally show an error dialog
+    }
+    
+    // Update the local property
+    setBatchStatus(newStatus);
+}
 }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<DialogPane xmlns:fx="http://javafx.com/fxml" 
+            fx:controller="com.ddp.kicknstyle.controller.AddBatchItemDialogController">
+    <content>
+        <VBox spacing="10" alignment="CENTER">
+            <ComboBox fx:id="sneakerComboBox" promptText="Select Sneaker" 
+                      maxWidth="300"/>
+            
+            <TextField fx:id="quantityField" 
+                       promptText="Quantity" 
+                       maxWidth="300"/>
+            
+            <TextField fx:id="unitCostField" 
+                       promptText="Unit Cost" 
+                       maxWidth="300"/>
+            
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Total Cost: "/>
+                <Label fx:id="totalCostLabel" text="₱ 0.00"/>
+            </HBox>
+            
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+        </VBox>
+    </content>
+</DialogPane>

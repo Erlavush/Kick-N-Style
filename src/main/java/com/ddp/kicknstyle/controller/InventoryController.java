@@ -5,7 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import com.ddp.kicknstyle.model.Sneaker;
 import com.ddp.kicknstyle.util.DatabaseConnection;
 import com.jfoenix.controls.JFXButton;
@@ -35,6 +36,8 @@ public class InventoryController {
     private static final String ALL_BRANDS = "All Brands";
     private static final String ALL_CATEGORIES = "All Categories";
 
+    @FXML
+    private JFXButton addBrandButton;
     @FXML
     private TextField searchField;
     @FXML
@@ -69,8 +72,8 @@ public class InventoryController {
 
     @FXML
     private JFXButton addButton;
-
-    private ObservableList<Sneaker> originalSneakerList = FXCollections.observableArrayList();
+    private static final Logger LOGGER = Logger.getLogger(InventoryController.class.getName());
+    private final ObservableList<Sneaker> originalSneakerList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -83,7 +86,8 @@ public class InventoryController {
         setupSearchAndFilterListeners();
         loadSneakersDataFromDatabase();
         inventoryTable.setItems(originalSneakerList);
-        
+        addBrandButton.setOnAction(event -> handleAddBrand());
+
     }
 
     private void setupActionColumn() {
@@ -129,14 +133,22 @@ public class InventoryController {
     }
 
     private void initializeBrandComboBox() {
+        
+        // Clear existing items
         brandComboBox.getItems().clear();
+
+        // Add "All Brands" as the first item
         brandComboBox.getItems().add(ALL_BRANDS);
 
+        // Fetch brands from database
         String query = "SELECT DISTINCT Brand_Name FROM DPD_Shoe_Brand ORDER BY Brand_Name";
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
+
             while (rs.next()) {
                 brandComboBox.getItems().add(rs.getString("Brand_Name"));
             }
+
+            // Set default value
             brandComboBox.setValue(ALL_BRANDS);
         } catch (SQLException e) {
             showErrorAlert("Database Error", "Failed to load brands", e.getMessage());
@@ -215,7 +227,7 @@ public class InventoryController {
                 + "LEFT JOIN DPD_Sneaker_Batch_Detail sbd ON s.Sneaker_ID = sbd.Sneaker_ID "
                 + "GROUP BY s.Sneaker_ID, s.Sneaker_Name, s.Sneaker_Edition, sb.Brand_Name, sc.Category_Name, "
                 + "s.Sneaker_Selling_Price, s.Sneaker_Size";
-    
+
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 Sneaker sneaker = new Sneaker(
@@ -250,31 +262,83 @@ public class InventoryController {
     }
 
     private void applyFilters() {
-        String searchTerm = searchField.getText().trim();
-        String selectedBrand = brandComboBox.getValue();
-        String selectedCategory = categoryComboBox.getValue();
+        String searchTerm = searchField.getText().trim(); 
+        String selectedBrand = brandComboBox.getValue() != null ? brandComboBox.getValue() : ALL_BRANDS; 
+        String selectedCategory = categoryComboBox.getValue() != null ? categoryComboBox.getValue() : ALL_CATEGORIES; 
     
-        double minPrice = priceMinField.getText().trim().isEmpty() ? 0 : Double.parseDouble(priceMinField.getText().trim());
-        double maxPrice = priceMaxField.getText().trim().isEmpty() ? Double.MAX_VALUE : Double.parseDouble(priceMaxField.getText().trim());
+        // Use wrapper objects to make them effectively final
+        final double[] priceRange = new double[2];
+        priceRange[0] = 0; // minPrice
+        priceRange[1] = Double.MAX_VALUE; // maxPrice
     
-        ObservableList<Sneaker> filteredList = originalSneakerList.filtered(sneaker -> {
-            boolean brandMatch = selectedBrand.equals(ALL_BRANDS) || sneaker.getBrand().equals(selectedBrand);
-            boolean categoryMatch = selectedCategory.equals(ALL_CATEGORIES) || sneaker.getCategory().equals(selectedCategory);
-            boolean priceMatch = sneaker.getSellingPrice() >= minPrice && sneaker.getSellingPrice() <= maxPrice;
+        try {
+            if (!priceMinField.getText().trim().isEmpty()) {
+                priceRange[0] = Double.parseDouble(priceMinField.getText().trim());
+            }
+            if (!priceMaxField.getText().trim().isEmpty()) {
+                priceRange[1] = Double.parseDouble(priceMaxField.getText().trim());
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid price filter: " + e.getMessage());
+            return;
+        }
     
-            boolean searchMatch = searchTerm.isEmpty()
-                    || sneaker.getSneakerName().toLowerCase().contains(searchTerm.toLowerCase())
-                    || sneaker.getBrand().toLowerCase().contains(searchTerm.toLowerCase())
-                    || sneaker.getCategory().toLowerCase().contains(searchTerm.toLowerCase())
-                    || String.valueOf(sneaker.getSneakerID()).contains(searchTerm);
+        ObservableList<Sneaker> filteredList = originalSneakerList.filtered(sneaker -> { 
+            // Null-safe checks
+            boolean brandMatch = ALL_BRANDS.equals(selectedBrand) || 
+                (sneaker.getBrand() != null && sneaker.getBrand().equals(selectedBrand)); 
+            
+            boolean categoryMatch = ALL_CATEGORIES.equals(selectedCategory) || 
+                (sneaker.getCategory() != null && sneaker.getCategory().equals(selectedCategory)); 
+            
+            boolean priceMatch = sneaker.getSellingPrice() >= priceRange[0] && sneaker.getSellingPrice() <= priceRange[1]; 
     
-            return brandMatch && categoryMatch && priceMatch && searchMatch;
-        });
+            boolean searchMatch = searchTerm.isEmpty() 
+                    || (sneaker.getSneakerName() != null && sneaker.getSneakerName().toLowerCase().contains(searchTerm.toLowerCase())) 
+                    || (sneaker.getBrand() != null && sneaker.getBrand().toLowerCase().contains(searchTerm.toLowerCase())) 
+                    || (sneaker.getCategory() != null && sneaker.getCategory().toLowerCase().contains(searchTerm.toLowerCase())) 
+                    || String.valueOf(sneaker.getSneakerID()).contains(searchTerm); 
     
-        System.out.println("Filtered Sneakers: " + filteredList.size()); // Debugging line
-        inventoryTable.setItems(filteredList);
-        inventoryTable.refresh();
+            return brandMatch && categoryMatch && priceMatch && searchMatch; 
+        }); 
+    
+        System.out.println("Filtered Sneakers: " + filteredList.size()); 
+        inventoryTable.setItems(filteredList); 
+        inventoryTable.refresh(); 
     }
-    
+
+    @FXML
+    private void handleAddBrand() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/addBrandDialog.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller for the dialog
+            AddBrandDialogController dialogController = loader.getController();
+
+            // Create the dialog stage
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Add New Brand");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(addButton.getScene().getWindow());
+
+            // Set the scene
+            Scene scene = new Scene(root);
+            dialogStage.setScene(scene);
+
+            // Show the dialog and wait
+            dialogStage.showAndWait();
+
+            // After dialog closes, check if a brand was added
+            if (dialogController.isBrandAdded()) {
+                // Refresh the brand combo box
+                initializeBrandComboBox();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorAlert("Error", "Cannot load Add Brand Dialog", e.getMessage());
+        }
+    }
 
 }

@@ -4,6 +4,7 @@ module com.ddp.kicknstyle {
     requires com.jfoenix;
     requires java.sql;
     requires javafx.base;
+    requires fontawesomefx;
     
     
     opens com.ddp.kicknstyle.controller to javafx.fxml;

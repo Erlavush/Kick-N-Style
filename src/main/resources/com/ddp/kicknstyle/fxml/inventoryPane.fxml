@@ -4,6 +4,8 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -15,30 +17,50 @@
 <AnchorPane prefHeight="729.0" prefWidth="1043.0" stylesheets="@../css/inventoryCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.InventoryController">
    <Pane layoutX="8.0" layoutY="9.0" prefHeight="711.0" prefWidth="1000.0" styleClass="pane">
       <children>
-         
-               <!-- Search Field -->
-         <TextField fx:id="searchField" layoutX="15.0" layoutY="61.0" prefHeight="39.0" prefWidth="225.0" promptText="Search Sneakers..." />
       
                <!-- Filter Options -->
-         <HBox layoutX="246.0" layoutY="60.0" prefHeight="46.0" prefWidth="661.0" spacing="10">
+         <HBox alignment="CENTER" layoutX="14.0" layoutY="25.0" prefHeight="48.0" prefWidth="964.0" spacing="10">
+            <FontAwesomeIcon glyphName="SEARCH" size="2em" wrappingWidth="13.066688537597656">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
+            </FontAwesomeIcon>
+            
+                  <!-- Search Field -->
+            <TextField fx:id="searchField" prefHeight="39.0" prefWidth="280.0" promptText="Search Sneakers...">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </TextField>
             <ComboBox fx:id="brandComboBox" prefHeight="52.0" prefWidth="149.0" promptText="Brand" />
             <ComboBox fx:id="categoryComboBox" prefHeight="52.0" prefWidth="191.0" promptText="Category" />
-            <TextField fx:id="priceMinField" prefWidth="100.0" promptText="Min Price" />
-            <TextField fx:id="priceMaxField" prefWidth="100.0" promptText="Max Price" />
+            <TextField fx:id="priceMinField" prefHeight="39.0" prefWidth="139.0" promptText="Min Price">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin></TextField>
+            <Label prefHeight="26.0" prefWidth="12.0" text="-">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <TextField fx:id="priceMaxField" prefHeight="38.0" prefWidth="131.0" promptText="Max Price" />
          </HBox>
       
                <!-- TableView for Sneakers -->
-         <TableView fx:id="inventoryTable" layoutX="20.0" layoutY="135.0" prefHeight="481.0" prefWidth="963.0">
+         <TableView fx:id="inventoryTable" layoutX="9.0" layoutY="90.0" prefHeight="526.0" prefWidth="981.0">
                 <columns>
-                    <TableColumn fx:id="sneakerIdColumn" prefWidth="64.79998779296875" text="Sneaker ID" />
-                    <TableColumn fx:id="sneakerNameColumn" prefWidth="146.4000244140625" text="Sneaker Name" />
-                    <TableColumn fx:id="brandColumn" prefWidth="89.5999755859375" text="Brand" />
-                    <TableColumn fx:id="sneakerEditionColumn" prefWidth="141.5999755859375" text="Edition" />
-               <TableColumn fx:id="sizeColumn" prefWidth="87.199951171875" text="Size" />
-                    <TableColumn fx:id="categoryColumn" prefWidth="134.39996337890625" text="Category" />
-                    <TableColumn fx:id="priceColumn" prefWidth="86.4000244140625" text="Price" />
-                    <TableColumn fx:id="stockQuantityColumn" prefWidth="104.0" text="Remaining Quantity" />
-                    <TableColumn fx:id="actionColumn" minWidth="9.0" prefWidth="106.4000244140625" text="Action" />
+                    <TableColumn fx:id="sneakerIdColumn" prefWidth="60.800004959106445" text="ID" />
+                    <TableColumn fx:id="sneakerNameColumn" prefWidth="157.3333740234375" text="Sneaker Name" />
+                    <TableColumn fx:id="brandColumn" prefWidth="111.46664428710938" text="Brand" />
+                    <TableColumn fx:id="sneakerEditionColumn" prefWidth="153.33334350585938" text="Edition" />
+               <TableColumn fx:id="sizeColumn" prefWidth="57.59991455078125" text="Size" />
+                    <TableColumn fx:id="categoryColumn" prefWidth="148.0" text="Category" />
+                    <TableColumn fx:id="priceColumn" prefWidth="70.39996337890625" text="Price" />
+                    <TableColumn fx:id="stockQuantityColumn" prefWidth="86.6666259765625" text="Stock" />
+                    <TableColumn fx:id="actionColumn" minWidth="9.0" prefWidth="124.5333251953125" text="Action" />
                 </columns>
             <columnResizePolicy>
                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -49,7 +71,7 @@
          <HBox alignment="CENTER" layoutX="139.0" layoutY="614.0" prefHeight="84.0" prefWidth="661.0" spacing="100.0">
             <JFXButton fx:id="addButton" alignment="CENTER" buttonType="RAISED" graphicTextGap="1.0" onAction="#handleAdd" prefHeight="58.0" prefWidth="198.0" text="Add new sneaker">
                <font>
-                  <Font name="Fira Code Regular" size="18.0" />
+                  <Font name="Fira Code Regular" size="54.0" />
                </font>
                <graphic>
                   <FontAwesomeIcon glyphName="PLUS" wrappingWidth="21.600008964538574" />
@@ -64,6 +86,7 @@
                </graphic>
             </JFXButton>
          </HBox>
+         <Separator layoutX="25.0" layoutY="78.0" prefHeight="3.0" prefWidth="949.0" style="-fx-background-color: #b1998a;" />
       </children>
       <padding>
          <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

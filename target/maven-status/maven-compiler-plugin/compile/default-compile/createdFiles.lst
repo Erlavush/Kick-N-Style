@@ -20,6 +20,7 @@ com\ddp\kicknstyle\controller\InventoryController$1$1.class
 com\ddp\kicknstyle\controller\AddSupplierDialogController.class
 com\ddp\kicknstyle\controller\AddBatchDialogController.class
 com\ddp\kicknstyle\controller\TransactionController.class
+com\ddp\kicknstyle\util\InventoryUtil.class
 com\ddp\kicknstyle\model\BatchDetailRow.class
 com\ddp\kicknstyle\controller\mainGUI_Controller.class
 com\ddp\kicknstyle\controller\SalesController.class

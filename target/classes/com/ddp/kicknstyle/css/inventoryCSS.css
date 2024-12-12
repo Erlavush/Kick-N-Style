@@ -41,12 +41,7 @@
 
 
 /* Style for TableCell (table data) */
-.table-view .table-cell {
-    
-    -fx-alignment: center; /* Center text in cells */
-    -fx-padding: 10px;
-    -fx-font-size: 12px;  /* Font size for cells */
-}
+
 
 /* Alternating row colors */
 .table-view .table-row-cell:odd {
@@ -162,4 +157,44 @@
 
 .scroll-pane > .viewport {
     -fx-background-color: #f5f5dc;
+}
+
+/* Hover effect for table rows */
+.table-view .table-row-cell:hover {
+    -fx-background-color: #e0d8c1;  /* Slightly darker beige on hover */
+    -fx-cursor: hand;  /* Change cursor to hand when hovering over rows */
+}
+
+/* Selected row styling */
+.table-view .table-row-cell:selected {
+    -fx-background-color: #d4c6a9;  /* A distinct color for selected row */
+    -fx-text-background-color: #333;  /* Ensure text is readable */
+}
+
+/* Ensure text is visible and centered in selected rows */
+.table-view .table-row-cell:selected .text {
+    -fx-fill: #333;  /* Dark text color for selected rows */
+}
+
+/* Hover effect for selected row */
+.table-view .table-row-cell:selected:hover {
+    -fx-background-color: #c6b899;  /* Slightly different shade when hovering over selected row */
+}
+
+/* Optional: Add a subtle transition effect */
+.table-view .table-row-cell {
+ 
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+    -fx-padding: 0.5em;
+    -fx-text-background-color: derive(-fx-text-base-color, -30%);
+    -fx-background-color: 
+        linear-gradient(
+            to bottom,
+            transparent 0%,
+            derive(-fx-text-base-color, -90%) 100%
+        );
+    -fx-background-insets: 0 0 1 0;
+    -fx-cell-size: 40px;
+    -fx-alignment: CENTER_LEFT;
 }

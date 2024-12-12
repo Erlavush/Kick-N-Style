@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import com.ddp.kicknstyle.model.Sneaker;
 import com.ddp.kicknstyle.util.DatabaseConnection;
 import com.jfoenix.controls.JFXButton;
-
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -89,6 +88,9 @@ public class InventoryController {
         addBrandButton.setOnAction(event -> handleAddBrand());
 
     }
+
+    
+
 
     private void setupActionColumn() {
         actionColumn.setCellFactory(new Callback<TableColumn<Sneaker, Void>, TableCell<Sneaker, Void>>() {
@@ -263,6 +265,7 @@ public class InventoryController {
         sizeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSize()));
         priceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getSellingPrice()).asObject());
         stockQuantityColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getRemainingQuantity()).asObject());
+
     }
 
     private void applyFilters() {

@@ -243,7 +243,11 @@ public class InventoryController {
                 originalSneakerList.add(sneaker);
             }
             System.out.println("Sneakers loaded: " + originalSneakerList.size());
-            inventoryTable.setItems(originalSneakerList); // Set the updated list to the TableView
+            if (!originalSneakerList.isEmpty()) {
+                inventoryTable.setItems(originalSneakerList); // Set the updated list to the TableView
+            } else {
+                inventoryTable.getItems().clear(); // Clear the TableView if no items
+            }
             configureTableColumns();
         } catch (SQLException e) {
             showErrorAlert("Database Error", "Failed to load sneaker data", e.getMessage());
@@ -303,7 +307,11 @@ public class InventoryController {
         }); 
     
         System.out.println("Filtered Sneakers: " + filteredList.size()); 
-        inventoryTable.setItems(filteredList); 
+        if (!filteredList.isEmpty()) {
+            inventoryTable.setItems(filteredList); 
+        } else {
+            inventoryTable.getItems().clear(); // Clear the TableView if no items match the filter
+        }
         inventoryTable.refresh(); 
     }
 

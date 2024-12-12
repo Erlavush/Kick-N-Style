@@ -1,47 +1,66 @@
-/* Apply a light beige background for the entire AnchorPane */
-.root {
-    -fx-background-color: #dcd4cc;  /* Light beige background */
-    -fx-font-family: "Fira Code", sans-serif;  /* Set font to Fira Code */
-    -fx-font-size: 12px;  /* Make the font size 2x larger */
+
+* {
+    -fx-font-family: "Fira Code", monospace;
 }
 
+/* Apply a light beige background for the entire AnchorPane */
+.root {
+    -fx-background-color: #f5f5dc;  /* Light beige background */
+    -fx-font-family: "Fira Code", sans-serif;  /* Set font to Fira Code */
+    -fx-font-size: 12px;  /* Font size */
+    -fx-alignment: center; /* Center all text */
+}
 
 .pane {
-    -fx-background-color:  #fff8e1;
+    -fx-background-color:  #fff8e1; /* Light beige background */
     -fx-border-color: #1e1204;
     -fx-border-width: 2;
     -fx-border-radius: 40px;  /* Rounded corners with 40px radius */
     -fx-background-radius: 40;
 }
-    
+
 /* Style for TableView */
 .table-view {
-    -fx-background-color: #f5efec;  /* Light beige background for the table */
+    -fx-background-color: #f5f5dc;  /* Light beige background for the table */
     -fx-border-color: #dcdcdc;  /* Light grey border */
     -fx-border-width: 1px;
-    -fx-font-size: 9px;  /* Font size 2x larger */
+    -fx-font-size: 12px;  /* Font size */
 }
 
 /* Style for TableColumn headers */
 .table-view .column-header {
-    -fx-background-color: #f0ead9;  /* Slightly darker beige for column header */
-    -fx-font-size: 9px;  /* Make column header font size larger */
+    -fx-background-color: #dadfc4;  /* Slightly darker beige for column header */
+    -fx-font-size: 12px;  /* Make column header font size larger */
     -fx-font-weight: bold;  /* Make header text bold */
-    -fx-alignment: center;
+    -fx-alignment: center; /* Center header text */
 }
+
+.text {
+    -fx-text-alignment: center;
+}
+
 
 /* Style for TableCell (table data) */
 .table-view .table-cell {
-    -fx-background-color: #fff8e1;  /* Light beige cells */
-    -fx-alignment: center-left;
+    
+    -fx-alignment: center; /* Center text in cells */
     -fx-padding: 10px;
-    -fx-font-size: 9px;  /* Larger font size for cells */
+    -fx-font-size: 12px;  /* Font size for cells */
 }
 
-/* Style for the ComboBoxes and TextFields (Filters) */
+/* Alternating row colors */
+.table-view .table-row-cell:odd {
+    -fx-background-color: #fff7d8;  /* Light beige for odd rows */
+}
+
+.table-view .table-row-cell:even {
+    -fx-background-color: #f9eecc;  /* Light beige for even rows */
+}
+
+/* Style for ComboBoxes and TextFields (Filters) */
 .combo-box, .text-field {
     -fx-background-color: #fff8e1;  /* Light beige background for input fields */
-    -fx-font-size: 12px;  /* Increase font size */
+    -fx-font-size: 12px;  /* Font size */
     -fx-text-fill: #333;  /* Dark text color */
     -fx-prompt-text-fill: #888;  /* Light grey for placeholder text */
     -fx-border-color: #dcdcdc;  /* Light grey border */
@@ -51,13 +70,12 @@
 
 /* Style for Buttons (Add, Edit, Delete) */
 .jfx-button {
-    -fx-background-color: #ddcaa7;  /* Light beige background for buttons */
-    -fx-font-size: 12px;  /* Larger font size */
+    -fx-background-color: #e4c6b3;  /* Light beige background for buttons */
+    -fx-font-size: 12px;  /* Font size */
     -fx-text-fill: #333;  /* Dark text color */
     -fx-padding: 5px 5px;  /* Padding for a nice button shape */
     -fx-border-color: #dcdcdc;  /* Border for buttons */
     -fx-border-radius: 5px;  /* Slightly rounded corners for buttons */
-    -fx-border-width: 1px;
 }
 
 /* Hover Effect for Buttons */
@@ -68,7 +86,7 @@
 /* Style for Search Field and Filter Fields */
 .text-field {
     -fx-background-color: #fff8e1;  /* Light beige background */
-    -fx-font-size: 12px;  /* Larger font size */
+    -fx-font-size: 12px;  /* Font size */
     -fx-text-fill: #333;  /* Dark text color */
     -fx-padding: 5px 10px;
     -fx-border-color: #dcdcdc;  /* Light grey border */
@@ -77,7 +95,7 @@
 
 /* Style for Filter ComboBoxes */
 .combo-box {
-    -fx-background-color: #fff8e1;
+    -fx-background-color: #e4e0c9;
     -fx-font-size: 12px;
     -fx-text-fill: #333;
     -fx-border-color: #dcdcdc;
@@ -90,3 +108,58 @@
     -fx-font-size: 12px; /* Font size for tooltip */
 }
 
+/* DatePicker Styling */
+.date-picker {
+    -fx-font-family: "Fira Code", monospace;
+    -fx-background-color: #fff8e1;  /* Light beige background */
+    -fx-font-size: 12px;
+    -fx-text-fill: #333;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #e4c6b3;  /* Match button color scheme */
+}
+
+.date-picker .text-field {
+    -fx-background-color: #fff8e1;
+    -fx-font-family: "Fira Code", monospace;
+}
+
+/* ScrollBar Styling */
+.scroll-bar {
+    -fx-background-color: #f5f5dc;  /* Light beige background */
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #e4c6b3;  /* Beige thumb color */
+    -fx-background-radius: 10px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: #dadfc4;  /* Light beige for buttons */
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: #333;  /* Dark arrow color */
+}
+
+/* Vertical and Horizontal ScrollBar specifics */
+.scroll-bar:vertical {
+    -fx-pref-width: 12px;
+}
+
+.scroll-bar:horizontal {
+    -fx-pref-height: 12px;
+}
+
+/* Optional: Customize the ScrollPane */
+.scroll-pane {
+    -fx-background-color: #f5f5dc;
+    -fx-background-radius: 10px;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #f5f5dc;
+}

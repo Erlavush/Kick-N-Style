@@ -46,7 +46,7 @@ public class Sales {
         this.saleId.set(saleId);
     }
 
-    public String getCustomerName() {
+    public String getCustomerName() {   
         return customerName.get();
     }
 

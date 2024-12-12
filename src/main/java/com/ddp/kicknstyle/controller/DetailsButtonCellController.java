@@ -73,25 +73,33 @@ public class DetailsButtonCellController {
             try (PreparedStatement pstmt = conn.prepareStatement(itemsQuery)) {
                 pstmt.setInt(1, sale.getSaleId());
                 ResultSet rs = pstmt.executeQuery();
+                
+                int totalItemsCount = 0;
                 details.append("Purchased Items Details:\n");
                 while (rs.next()) {
+                    int quantity = rs.getInt("Quantity");
+                    double unitPrice = rs.getDouble("Unit_Price");
+                    double subtotal = quantity * unitPrice;
+    
                     details.append("Sneaker Name: ").append(rs.getString("Sneaker_Name")).append("\n");
                     details.append("Sneaker Edition: ").append(rs.getString("Sneaker_Edition")).append("\n");
-                    details.append("Quantity Purchased: ").append(rs.getInt("Quantity")).append("\n");
-                    details.append("Unit Price: $").append(rs.getDouble("Unit_Price")).append("\n");
-                    details.append("Subtotal: $").append(rs.getDouble("Quantity") * rs.getDouble("Unit_Price")).append("\n\n");
+                    details.append("Quantity Purchased: ").append(quantity).append("\n");
+                    details.append("Unit Price: $").append(unitPrice).append("\n");
+                    details.append("Subtotal: $").append(String.format("%.2f", subtotal)).append("\n\n");
+    
+                    totalItemsCount += quantity;
                 }
+    
+                // Detailed Breakdown
+                details.append("Detailed Breakdown:\n");
+                details.append("Total Items Sold: ").append(totalItemsCount).append("\n");
+                details.append("Total Sale Amount: $").append(sale.getTotalAmount()).append("\n");
             }
         } catch (SQLException e) {
             e.printStackTrace();
             details.append("Error fetching purchased items details.\n");
         }
-
-        // Add detailed breakdown
-        details.append("Detailed Breakdown:\n");
-        details.append("Total Items Sold: ").append("1").append("\n"); // You can calculate this based on the items fetched
-        details.append("Total Sale Amount: $").append(sale.getTotalAmount()).append("\n");
-
+    
         alert.setContentText(details.toString());
         alert.showAndWait();
     }

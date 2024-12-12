@@ -17,6 +17,7 @@ com\ddp\kicknstyle\controller\BatchManagementController$1.class
 com\ddp\kicknstyle\controller\AddSaleDialogController.class
 com\ddp\kicknstyle\model\SaleItemRow.class
 com\ddp\kicknstyle\controller\InventoryController$1$1.class
+com\ddp\kicknstyle\controller\AddSupplierDialogController.class
 com\ddp\kicknstyle\controller\AddBatchDialogController.class
 com\ddp\kicknstyle\controller\TransactionController.class
 com\ddp\kicknstyle\model\BatchDetailRow.class

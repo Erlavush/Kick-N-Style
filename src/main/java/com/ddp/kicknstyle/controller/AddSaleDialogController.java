@@ -11,6 +11,7 @@ import java.time.LocalDate;
 
 import com.ddp.kicknstyle.model.SaleItemRow;
 import com.ddp.kicknstyle.util.DatabaseConnection;
+import com.ddp.kicknstyle.util.InventoryUtil;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
@@ -28,16 +29,27 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class AddSaleDialogController {
-    @FXML private ComboBox<String> customerComboBox;
-    @FXML private TableView<SaleItemRow> saleItemsTable;
-    @FXML private TableColumn<SaleItemRow, String> sneakerColumn;
-    @FXML private TableColumn<SaleItemRow, Integer> quantityColumn;
-    @FXML private TableColumn<SaleItemRow, Double> priceColumn;
-    @FXML private ComboBox<String> paymentMethodComboBox;
-    @FXML private ComboBox<String> paymentStatusComboBox;
-    @FXML private TextField totalAmountField;
-    @FXML private Button addItemButton;
-    @FXML private Button saveSaleButton;
+
+    @FXML
+    private ComboBox<String> customerComboBox;
+    @FXML
+    private TableView<SaleItemRow> saleItemsTable;
+    @FXML
+    private TableColumn<SaleItemRow, String> sneakerColumn;
+    @FXML
+    private TableColumn<SaleItemRow, Integer> quantityColumn;
+    @FXML
+    private TableColumn<SaleItemRow, Double> priceColumn;
+    @FXML
+    private ComboBox<String> paymentMethodComboBox;
+    @FXML
+    private ComboBox<String> paymentStatusComboBox;
+    @FXML
+    private TextField totalAmountField;
+    @FXML
+    private Button addItemButton;
+    @FXML
+    private Button saveSaleButton;
 
     private ObservableList<SaleItemRow> saleItems = FXCollections.observableArrayList();
     private AddSaleDialogController addSaleDialogController;
@@ -45,34 +57,33 @@ public class AddSaleDialogController {
     public void setAddSaleDialogController(AddSaleDialogController controller) {
         this.addSaleDialogController = controller;
     }
+
     @FXML
-public void initialize() {
-    // Populate customer combo box
-    populateCustomerComboBox();
-    
-    // Setup table columns
-    sneakerColumn.setCellValueFactory(cellData -> cellData.getValue().sneakerNameProperty());
-    quantityColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
-    priceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getTotalPrice()).asObject());
+    public void initialize() {
+        // Populate customer combo box
+        populateCustomerComboBox();
 
-    saleItemsTable.setItems(saleItems);
+        // Setup table columns
+        sneakerColumn.setCellValueFactory(cellData -> cellData.getValue().sneakerNameProperty());
+        quantityColumn.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
+        priceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getTotalPrice()).asObject());
 
-    // Populate payment method and status
-    paymentMethodComboBox.getItems().addAll("Cash", "Card", "Online Transfer", "Other");
-    paymentStatusComboBox.getItems().addAll("Paid", "Unpaid", "Partial");
+        saleItemsTable.setItems(saleItems);
 
-    // Add item button handler
-    addItemButton.setOnAction(event -> openAddItemDialog());
+        // Populate payment method and status
+        paymentMethodComboBox.getItems().addAll("Cash", "Card", "Online Transfer", "Other");
+        paymentStatusComboBox.getItems().addAll("Paid", "Unpaid", "Partial");
 
-    // Save sale button handler
-    saveSaleButton.setOnAction(event -> saveSale());
-}
+        // Add item button handler
+        addItemButton.setOnAction(event -> openAddItemDialog());
+
+        // Save sale button handler
+        saveSaleButton.setOnAction(event -> saveSale());
+    }
 
     private void populateCustomerComboBox() {
-        try (Connection conn = DatabaseConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT Customer_Name FROM DPD_Customer")) {
-            
+        try (Connection conn = DatabaseConnection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery("SELECT Customer_Name FROM DPD_Customer")) {
+
             while (rs.next()) {
                 customerComboBox.getItems().add(rs.getString("Customer_Name"));
             }
@@ -80,103 +91,138 @@ public void initialize() {
             showAlert("Error", "Failed to load customers", e.getMessage());
         }
     }
+
     @FXML
     private void openAddItemDialog() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/AddItemDialog.fxml"));
             Parent root = loader.load();
-            
+
             // Create a new stage for the dialog
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Add Item to Sale");
             dialogStage.setScene(new Scene(root));
-            
+
             // Get the controller and set the saleItems list
             AddItemDialogController controller = loader.getController();
             controller.setSaleItems(saleItems);
             controller.setAddSaleDialogController(this); // Pass the reference to the main controller
-            
+
             dialogStage.showAndWait(); // Wait for the dialog to close
         } catch (IOException e) {
             showAlert("Error", "Failed to open add item dialog", e.getMessage());
         }
     }
 
-public void updateTotalAmount() {
-    double totalAmount = saleItems.stream()
-            .mapToDouble(item -> item.getTotalPrice()) // Use getTotalPrice() to get the total for each item
+    public void updateTotalAmount() {
+        double totalAmount = saleItems.stream()
+                .mapToDouble(item -> item.getTotalPrice()) // Use getTotalPrice() to get the total for each item
+                .sum();
+        totalAmountField.setText(String.format("%.2f", totalAmount)); // Format to 2 decimal places
+    }
+
+private void saveSale() {
+    Connection conn = null;
+    try {
+        conn = DatabaseConnection.getConnection();
+        conn.setAutoCommit(false);
+
+        // Validate stock for all items
+        for (SaleItemRow item : saleItems) {
+            if (!InventoryUtil.validateStock(conn, item.getSneakerId(), item.getQuantity())) {
+                showAlert(Alert.AlertType.WARNING, "Insufficient Stock", 
+                    "Not enough stock for " + item.getSneakerName());
+                conn.rollback();
+                return;
+            }
+        }
+
+        // Get customer ID
+        int customerId = getCustomerID(customerComboBox.getValue());
+
+        // Calculate total quantity and total amount
+        int totalQuantity = saleItems.stream().mapToInt(SaleItemRow::getQuantity).sum();
+        double totalAmount = saleItems.stream()
+            .mapToDouble(item -> item.getQuantity() * item.getPrice())
             .sum();
-    totalAmountField.setText(String.format("%.2f", totalAmount)); // Format to 2 decimal places
-}
-    private void saveSale() {
-        try (Connection conn = DatabaseConnection.getConnection()) {
-            conn.setAutoCommit(false);
 
-            // Get customer ID
-            int customerId = getCustomerID(customerComboBox.getValue());
+        // Insert sale
+        String insertSaleQuery = "INSERT INTO DPD_Sales " +
+            "(Sale_Quantity, Date_of_Sale, Total_Amount, Payment_Status, Payment_Method, Customer_ID) " +
+            "VALUES (?, ?, ?, ?, ?, ?)";
 
-            // Insert sale
-            String insertSaleQuery = "INSERT INTO DPD_Sales " +
-                "(Sale_Quantity, Date_of_Sale, Total_Amount, Payment_Status, Payment_Method, Customer_ID) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(insertSaleQuery, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setInt(1, totalQuantity);
+            pstmt.setDate(2, Date.valueOf(LocalDate.now()));
+            pstmt.setDouble(3, totalAmount);
+            pstmt.setString(4, paymentStatusComboBox.getValue());
+            pstmt.setString(5, paymentMethodComboBox.getValue());
+            pstmt.setInt(6, customerId);
 
-            int totalQuantity = saleItems.stream().mapToInt(SaleItemRow::getQuantity).sum();
-            double totalAmount = saleItems.stream().mapToDouble(row -> row.getQuantity() * row.getPrice()).sum();
+            pstmt.executeUpdate();
 
-            try (PreparedStatement pstmt = conn.prepareStatement(insertSaleQuery, Statement.RETURN_GENERATED_KEYS)) {
-                pstmt.setInt(1, totalQuantity);
-                pstmt.setDate(2, Date.valueOf(LocalDate.now()));
-                pstmt.setDouble(3, totalAmount);
-                pstmt.setString(4, paymentStatusComboBox.getValue());
-                pstmt.setString(5, paymentMethodComboBox.getValue());
-                pstmt.setInt(6, customerId);
+            // Get generated sale ID
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int saleId = generatedKeys.getInt(1);
 
-                pstmt.executeUpdate();
+                    // Insert sale details and deduct inventory
+                    for (SaleItemRow item : saleItems) {
+                        // Deduct inventory
+                        InventoryUtil.deductInventory(conn, item.getSneakerId(), item.getQuantity());
 
-                // Get generated sale ID
-                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
-                    int saleId = -1;
-                    if (generatedKeys.next()) {
-                        saleId = generatedKeys.getInt(1);
-
-                        // Insert sale details
-                        for (SaleItemRow item : saleItems) {
-                            insertSaleDetail(conn, saleId, item);
-                            updateSneakerQuantity(conn, item);
-                        }
+                        // Insert sale detail
+                        insertSaleDetail(conn, saleId, item);
                     }
                 }
             }
-
-            conn.commit();
-            showAlert("Success", "Sale Added", "Sale has been successfully recorded.");
-            
-            // Close dialog
-            ((Stage)saveSaleButton.getScene().getWindow()).close();
-
-        } catch (SQLException e) {
-            showAlert("Error", "Failed to save sale", e.getMessage());
         }
-    }
 
-    private void insertSaleDetail(Connection conn, int saleId, SaleItemRow item) throws SQLException {
-        String insertDetailQuery = "INSERT INTO DPD_Sales_Detail " +
-            "(Sale_ID, Sneaker_ID, Quantity, Unit_Price) VALUES (?, ?, ?, ?)";
+        conn.commit();
+        showAlert(Alert.AlertType.INFORMATION, "Success", "Sale recorded successfully");
         
-        try (PreparedStatement pstmt = conn.prepareStatement(insertDetailQuery)) {
-            pstmt.setInt(1, saleId);
-            pstmt.setInt(2, item.getSneakerId());
-            pstmt.setInt(3, item.getQuantity());
-            pstmt.setDouble(4, item.getPrice());
-            pstmt.executeUpdate();
+        // Close dialog
+        ((Stage) saveSaleButton.getScene().getWindow()).close();
+
+    } catch (SQLException e) {
+        if (conn != null) {
+            try {
+                 conn.rollback();
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+        }
+        e.printStackTrace();
+        showAlert(Alert.AlertType.ERROR, "Error", "Failed to record sale: " + e.getMessage());
+    } finally {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException closeEx) {
+                closeEx.printStackTrace();
+            }
         }
     }
+}
+
+private void insertSaleDetail(Connection conn, int saleId, SaleItemRow item) throws SQLException {
+    String detailQuery = "INSERT INTO DPD_Sale_Details (Sale_ID, Sneaker_ID, Quantity, Price) " +
+                         "VALUES (?, ?, ?, ?)";
+    
+    try (PreparedStatement pstmt = conn.prepareStatement(detailQuery)) {
+        pstmt.setInt(1, saleId);
+        pstmt.setInt(2, item.getSneakerId());
+        pstmt.setInt(3, item.getQuantity());
+        pstmt.setDouble(4, item.getPrice());
+        pstmt.executeUpdate();
+    }
+}
 
     private void updateSneakerQuantity(Connection conn, SaleItemRow item) throws SQLException {
-        String updateQuery = "UPDATE DPD_Sneaker_Batch_Detail " +
-            "SET Remaining_Quantity = Remaining_Quantity - ? " +
-            "WHERE Sneaker_ID = ? ORDER BY Remaining_Quantity DESC LIMIT 1";
-        
+        String updateQuery = "UPDATE DPD_Sneaker_Batch_Detail "
+                + "SET Remaining_Quantity = Remaining_Quantity - ? "
+                + "WHERE Sneaker_ID = ? ORDER BY Remaining_Quantity DESC LIMIT 1";
+
         try (PreparedStatement pstmt = conn.prepareStatement(updateQuery)) {
             pstmt.setInt(1, item.getQuantity());
             pstmt.setInt(2, item.getSneakerId());
@@ -185,9 +231,8 @@ public void updateTotalAmount() {
     }
 
     private int getCustomerID(String customerName) throws SQLException {
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(
-                 "SELECT Customer_ID FROM DPD_Customer WHERE Customer_Name = ?")) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(
+                "SELECT Customer_ID FROM DPD_Customer WHERE Customer_Name = ?")) {
             pstmt.setString(1, customerName);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
@@ -206,6 +251,12 @@ public void updateTotalAmount() {
         alert.showAndWait();
     }
 
+    private void showAlert(Alert.AlertType type, String header, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle("Error");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 
-    
 }

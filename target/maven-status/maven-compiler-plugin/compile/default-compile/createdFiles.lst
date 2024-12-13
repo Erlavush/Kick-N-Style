@@ -1,7 +1,9 @@
+com\ddp\kicknstyle\model\DashboardSummary.class
 com\ddp\kicknstyle\controller\DetailsButtonCellController.class
 com\ddp\kicknstyle\controller\ActionButtonCellController.class
 com\ddp\kicknstyle\controller\PaymentStatusCellController.class
 com\ddp\kicknstyle\controller\SalesController$2.class
+com\ddp\kicknstyle\controller\DashboardController.class
 com\ddp\kicknstyle\model\Batch.class
 com\ddp\kicknstyle\controller\InventoryController$1.class
 com\ddp\kicknstyle\App.class
@@ -10,7 +12,9 @@ com\ddp\kicknstyle\util\ValidationUtil.class
 com\ddp\kicknstyle\controller\AddItemDialogController.class
 com\ddp\kicknstyle\controller\AddBatchItemDialogController.class
 com\ddp\kicknstyle\model\Sales.class
+com\ddp\kicknstyle\model\SalesData.class
 com\ddp\kicknstyle\controller\InventoryController.class
+com\ddp\kicknstyle\service\DashboardService.class
 com\ddp\kicknstyle\model\Sneaker.class
 com\ddp\kicknstyle\controller\BatchManagementController.class
 com\ddp\kicknstyle\controller\BatchManagementController$1.class
@@ -27,6 +31,7 @@ com\ddp\kicknstyle\controller\SalesController.class
 com\ddp\kicknstyle\controller\SalesController$1.class
 module-info.class
 com\ddp\kicknstyle\controller\AddBrandDialogController.class
+com\ddp\kicknstyle\util\DashboardChartUtil.class
 com\ddp\kicknstyle\controller\SalesController$3$1.class
 com\ddp\kicknstyle\controller\AddSneakerDialogController.class
 com\ddp\kicknstyle\controller\SalesController$1$1.class

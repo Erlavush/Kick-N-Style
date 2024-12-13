@@ -6,8 +6,10 @@ import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
@@ -24,11 +26,9 @@ public class mainGUI_Controller {
 
         String imagePath = getClass().getResource("/com/ddp/kicknstyle/images/profileImageHolder.jpg").toExternalForm();
 
-       
         Image image = new Image(imagePath);
         ImagePattern pattern = new ImagePattern(image);
 
-       
         profileCircle.setFill(pattern);
 
         exitButton.setOnAction(event -> {
@@ -39,7 +39,7 @@ public class mainGUI_Controller {
     }
 
     @FXML
-    private AnchorPane dynamicDisplayAnchor; 
+    private AnchorPane dynamicDisplayAnchor;
 
     @FXML
     @SuppressWarnings("CallToPrintStackTrace")
@@ -48,11 +48,9 @@ public class mainGUI_Controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/KickNStyle/fxml/inventoryPane.fxml"));
             AnchorPane referencesPane = loader.load();
 
-            
             dynamicDisplayAnchor.getChildren().clear();
             dynamicDisplayAnchor.getChildren().add(referencesPane);
 
-           
             AnchorPane.setTopAnchor(referencesPane, 0.0);
             AnchorPane.setBottomAnchor(referencesPane, 0.0);
             AnchorPane.setLeftAnchor(referencesPane, 0.0);
@@ -69,11 +67,9 @@ public class mainGUI_Controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/KickNStyle/fxml/transactionPane.fxml"));
             AnchorPane referencesPane = loader.load();
 
-            
             dynamicDisplayAnchor.getChildren().clear();
             dynamicDisplayAnchor.getChildren().add(referencesPane);
 
-           
             AnchorPane.setTopAnchor(referencesPane, 0.0);
             AnchorPane.setBottomAnchor(referencesPane, 0.0);
             AnchorPane.setLeftAnchor(referencesPane, 0.0);
@@ -93,7 +89,6 @@ public class mainGUI_Controller {
             dynamicDisplayAnchor.getChildren().clear();
             dynamicDisplayAnchor.getChildren().add(referencesPane);
 
-          
             AnchorPane.setTopAnchor(referencesPane, 0.0);
             AnchorPane.setBottomAnchor(referencesPane, 0.0);
             AnchorPane.setLeftAnchor(referencesPane, 0.0);
@@ -113,7 +108,6 @@ public class mainGUI_Controller {
             dynamicDisplayAnchor.getChildren().clear();
             dynamicDisplayAnchor.getChildren().add(referencesPane);
 
-          
             AnchorPane.setTopAnchor(referencesPane, 0.0);
             AnchorPane.setBottomAnchor(referencesPane, 0.0);
             AnchorPane.setLeftAnchor(referencesPane, 0.0);
@@ -121,6 +115,38 @@ public class mainGUI_Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void showDashboard() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/dashboardPane.fxml"));
+            VBox dashboardPane = loader.load(); // Change to VBox
+
+            // Clear previous content and set dashboard
+            dynamicDisplayAnchor.getChildren().clear();
+            dynamicDisplayAnchor.getChildren().add(dashboardPane);
+
+            // Ensure the dashboard fills the entire dynamic content area
+            AnchorPane.setTopAnchor(dashboardPane, 0.0);
+            AnchorPane.setBottomAnchor(dashboardPane, 0.0);
+            AnchorPane.setLeftAnchor(dashboardPane, 0.0);
+            AnchorPane.setRightAnchor(dashboardPane, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Optional: show an error dialog
+            showErrorAlert("Dashboard Load Error", "Could not load dashboard.");
+        }
+    }
+
+// Add this method if not already present
+    private void showErrorAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }

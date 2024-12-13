@@ -16,7 +16,7 @@
    <children>
       <VBox alignment="CENTER" layoutX="18.0" layoutY="197.0" prefHeight="590.0" prefWidth="141.0" spacing="25.0" styleClass="leftNavigationBar">
          <children>
-            <JFXButton prefHeight="110.0" prefWidth="130.0" styleClass="salesButton" text=" ">
+            <JFXButton onAction="#showDashboard" prefHeight="110.0" prefWidth="130.0" styleClass="salesButton" text=" ">
                <graphic>
                   <VBox alignment="CENTER" prefHeight="108.0" prefWidth="120.0">
                      <children>

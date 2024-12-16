@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchor" maxHeight="800" maxWidth="1200" minHeight="800" minWidth="1200" prefHeight="800" prefWidth="1200" style="-fx-background-image: src\main\resources\com\ddp\kicknstyle\images\mainBackground.jpg;" styleClass="mainAnchor" stylesheets="@../css/mainCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.mainGUI_Controller">
+<AnchorPane fx:id="mainAnchor" maxHeight="800" maxWidth="1200" minHeight="800" minWidth="1200" prefHeight="800" prefWidth="1200" styleClass="mainAnchor" stylesheets="@../css/mainCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.mainGUI_Controller">
    <children>
       <VBox alignment="CENTER" layoutX="18.0" layoutY="197.0" prefHeight="590.0" prefWidth="141.0" spacing="25.0" styleClass="leftNavigationBar">
          <children>
@@ -102,6 +102,7 @@
       <Pane layoutX="-2.0" layoutY="1.0" prefHeight="50.0" prefWidth="1138.0" styleClass="titlePane">
          <children>
             <Label layoutX="360.0" layoutY="8.0" prefHeight="38.0" prefWidth="452.0" styleClass="titlePaneLabel" text="Kick'n'Style" />
+            <JFXButton fx:id="switchToEcommerceButton" buttonType="RAISED" layoutX="32.0" layoutY="12.0" onAction="#switchToEcommerce" prefHeight="29.0" prefWidth="215.0" text="Go to Ecommerce platform" />
          </children>
       </Pane>
       <AnchorPane fx:id="dynamicDisplayAnchor" layoutX="176.0" layoutY="66.0" prefHeight="721.0" prefWidth="1004.0" style="-fx-background-color: transparent;" />

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="280.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox fx:id="sneakerCardContainer" alignment="CENTER" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="315.0" prefWidth="208.0">
+         <children>
+            <ImageView fx:id="sneakerImageView" fitHeight="149.0" fitWidth="177.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../images/default-sneaker.jpg" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+            <Label fx:id="sneakerNameLabel" prefHeight="35.0" prefWidth="239.0" text="Label" />
+            <Label fx:id="reviewLabel" prefHeight="30.0" prefWidth="242.0" text="review" />
+            <Label fx:id="priceLabel" prefHeight="37.0" prefWidth="234.0" text="price" />
+            <Label fx:id="categoryLabel" prefHeight="27.0" prefWidth="233.0" text="cateogry" />
+            <Label fx:id="editionLabel" prefHeight="27.0" prefWidth="229.0" text="edition" />
+            <HBox alignment="CENTER" prefHeight="42.0" prefWidth="220.0">
+               <children>
+                  <JFXButton fx:id="addToCartButton" prefHeight="45.0" prefWidth="90.0" />
+                  <JFXButton fx:id="addToFaveoriteButton" prefHeight="37.0" prefWidth="78.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

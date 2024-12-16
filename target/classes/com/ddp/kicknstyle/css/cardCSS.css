@@ -1,0 +1,86 @@
+/* Main card styling */
+#sneakerCardContainer {
+    -fx-background-color: white;
+    -fx-border-radius: 10;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0.5, 0, 0);
+    -fx-padding: 10;
+    -fx-alignment: CENTER;
+    -fx-pref-width: 280px;
+    -fx-pref-height: 350px;
+}
+
+/* Image View Styling */
+#sneakerImageView {
+    -fx-background-radius: 10;
+    -fx-fit-height: 180px;
+    -fx-fit-width: 200px;
+    -fx-preserve-ratio: true;
+}
+
+/* Styling for sneaker name label */
+#sneakerNameLabel {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-padding: 5px 0;
+}
+
+/* Review label styling */
+#reviewLabel {
+    -fx-font-size: 14px;
+    -fx-text-fill: #777;
+    -fx-padding: 5px 0;
+}
+
+/* Price label styling */
+#priceLabel {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ff5c5c;
+    -fx-padding: 5px 0;
+}
+
+/* Category and edition label styling */
+#categoryLabel, #editionLabel {
+    -fx-font-size: 12px;
+    -fx-text-fill: #aaa;
+    -fx-padding: 5px 0;
+}
+
+/* HBox styling for buttons */
+#sneakerCardContainer HBox {
+    -fx-spacing: 10px;
+    -fx-alignment: CENTER;
+}
+
+/* Button styling */
+#addToCartButton {
+    -fx-background-color: #ff5c5c;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-cursor: hand;
+}
+
+#addToFaveoriteButton {
+    -fx-background-color: #f2f2f2;
+    -fx-border-color: #ccc;
+    -fx-text-fill: #ff5c5c;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-cursor: hand;
+}
+
+#addToCartButton:hover {
+    -fx-background-color: #e24c4c;
+}
+
+#addToFaveoriteButton:hover {
+    -fx-background-color: #fafafa;
+}

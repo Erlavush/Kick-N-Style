@@ -1,0 +1,187 @@
+/* Main filters container */
+#filterPane {
+
+    -fx-padding: 5px;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+}
+
+/* Filters label */
+#filtersLabel {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #563726;
+    -fx-font-family: 'Fira Code', sans-serif;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+}
+
+/* Price filter section */
+#priceLabel {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #563726;
+    -fx-font-family: 'Fira Code', sans-serif;
+}
+
+#priceSection .label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #563726;
+}
+
+#priceSection {
+    -fx-font-size: 16px;
+    -fx-text-fill: #563726;
+    -fx-background-color: #f4f4f4;
+    -fx-background-radius: 20px;
+    -fx-border-color: #1e1204;
+    -fx-border-width: 2;
+    -fx-border-radius: 20px;
+    -fx-padding: 15px;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+}
+
+#ratingsSection {
+    -fx-font-size: 16px;
+    -fx-text-fill: #563726;
+    -fx-background-color: #f4f4f4;
+    -fx-background-radius: 20px;
+    -fx-border-color: #1e1204;
+    -fx-border-width: 2;
+    -fx-border-radius: 20px;
+    -fx-padding: 20px;
+    -fx-spacing: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+}
+
+/* Ratings filter section */
+#ratingsLabel {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #563726;
+    -fx-font-family: 'Fira Code', sans-serif;
+}
+
+#ratingsTextLabel {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #563726;
+    -fx-font-family: 'Fira Code', sans-serif;
+}
+
+/* Styling for the JFXSlider */
+#ratingsSlider {
+    -fx-pref-width: 250px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+}
+
+/* Styling the track of the slider */
+#ratingsSlider .track {
+    -fx-background-color: #ddd; /* Light grey track */
+    -fx-background-radius: 10px;
+    -fx-height: 8px;
+}
+
+/* Styling the thumb of the slider */
+#ratingsSlider .thumb {
+    -fx-background-color: #333; /* Dark grey thumb */
+    -fx-background-radius: 50%;
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+}
+
+/* Styling the tick marks if present */
+#ratingsSlider .tick-mark {
+    -fx-background-color: #888; /* Medium grey ticks */
+    -fx-background-radius: 50%;
+    -fx-pref-width: 5px;
+    -fx-pref-height: 5px;
+}
+
+/* Hover effect for the thumb */
+#ratingsSlider .thumb:hover {
+    -fx-background-color: #555; /* Darker grey on hover */
+}
+
+/* Focused effect on the thumb */
+#ratingsSlider .thumb:focused {
+    -fx-background-color: #444; /* Even darker grey when focused */
+}
+
+/* Categories filter section */
+#categoriesLabel {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #563726;
+    -fx-font-family: 'Fira Code', sans-serif;
+}
+
+#categoriesSection .label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #563726;
+}
+
+#categoriesSection {
+    -fx-font-size: 16px;
+    -fx-text-fill: #563726;
+    -fx-background-color: #f4f4f4;
+    -fx-background-radius: 20px;
+    -fx-border-color: #1e1204;
+    -fx-border-width: 2;
+    -fx-border-radius: 20px;
+    -fx-padding: 15px;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+}
+
+
+/* Sort by price filter section */
+#sortByPriceLabel {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #563726;
+    -fx-font-family: 'Fira Code', sans-serif;
+}
+
+#sortByPriceSection .label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #563726;
+}
+
+
+#sortByPriceSection {
+    -fx-font-size: 16px;
+    -fx-text-fill: #563726;
+    -fx-background-color: #f4f4f4;
+    -fx-background-radius: 20px;
+    -fx-border-color: #1e1204;
+    -fx-border-width: 2;
+    -fx-border-radius: 20px;
+    -fx-padding: 15px;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+}
+
+/* JFXCheckBox styling */
+.jfx-checkbox {
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+    -fx-padding: 5px;
+}
+
+/* Hover and pressed effect for checkboxes */
+.jfx-checkbox:hover {
+    -fx-background-color: #f1c27d;
+    -fx-cursor: hand;
+}
+
+.jfx-checkbox:pressed {
+    -fx-background-color: #e4c6b3;
+}
+
+/* Styling for hover effect on labels */
+.label:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.5, 0, 3);
+    -fx-cursor: hand;
+}

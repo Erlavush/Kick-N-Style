@@ -6,15 +6,36 @@ import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 public class mainGUI_Controller {
 
+    @FXML
+    private JFXButton switchToEcommerceButton;
+
+    @FXML
+    private void switchToEcommerce() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/ecommercePane.fxml"));
+            Parent ecommercePane = loader.load();
+
+            // Get the current stage
+            Stage stage = (Stage) switchToEcommerceButton.getScene().getWindow();
+            stage.setScene(new Scene(ecommercePane));
+            stage.setTitle("Ecommerce Pane");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorAlert("Error", "Failed to load ecommerce pane.");
+        }
+    }
     @FXML
     private JFXButton exitButton;
 

@@ -131,10 +131,12 @@ The following are the main dependencies included in the `pom.xml`:
 ## Showcase
 
 ## Sneaker Management
-![image](https://github.com/user-attachments/assets/d4b46e8d-58a5-4e83-9375-8dc496cf8d4d)
+![image](https://github.com/user-attachments/assets/c74480c2-9ca2-4100-8fd7-0b54ef1ff5b2)
+
 
 ## Sales Management
-![Screenshot 2024-12-23 092147](https://github.com/user-attachments/assets/7319c5fe-1e12-4b27-9594-75dc70d288f4)
+![image](https://github.com/user-attachments/assets/22753913-9b17-4c3e-bd34-af7180b8c0f1)
+
 
 ## Batch Management
 ![Screenshot 2024-12-23 092120](https://github.com/user-attachments/assets/a1782de6-0b58-4240-855d-b8e25da6432d)

@@ -1,4 +1,6 @@
-![Screenshot 2024-12-23 092147](https://github.com/user-attachments/assets/11161b15-08fa-475f-bd2e-8fb93574fb46)# KickNStyle
+![image](https://github.com/user-attachments/assets/5b0534ad-c793-49c8-be3e-58e1e998a40c)
+
+# KickNStyle
 
 KickNStyle is a **JavaFX** project designed to manage sneaker inventory and sales. This application allows users to track sneakers, handle batch operations, and monitor sales efficiently. It utilizes **Maven** for dependency management and follows a modular architecture.
 
@@ -129,7 +131,7 @@ The following are the main dependencies included in the `pom.xml`:
 ## Showcase
 
 ## Sneaker Management
-![Screenshot 2024-12-23 092107](https://github.com/user-attachments/assets/185d4d68-b6c3-4d7c-bf04-d0efbb189b21)
+![image](https://github.com/user-attachments/assets/d4b46e8d-58a5-4e83-9375-8dc496cf8d4d)
 
 ## Sales Management
 ![Screenshot 2024-12-23 092147](https://github.com/user-attachments/assets/7319c5fe-1e12-4b27-9594-75dc70d288f4)

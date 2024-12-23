@@ -14,8 +14,7 @@ KickNStyle is a **JavaFX** project designed to manage sneaker inventory and sale
 - [Installation](#installation)
 - [Usage](#usage)
 - [Showcase](#showcase)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ---
 
@@ -134,30 +133,6 @@ The following are the main dependencies included in the `pom.xml`:
 
 ---
 
-## Contributing
-
-Contributions are welcome! To submit improvements or new features:
-
-1. **Fork this repository**.
-2. Create a new branch for your changes:
-   ```bash
-   git checkout -b feature-branch
-   ```
-3. Commit your changes:
-   ```bash
-   git commit -m "Add new feature"
-   ```
-4. Push to your branch:
-   ```bash
-   git push origin feature-branch
-   ```
-5. Create a **Pull Request** and provide a clear description of your changes.
-
----
-
-## License
-
-This project is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute this software in accordance with the terms of the license.
 
 ---
 

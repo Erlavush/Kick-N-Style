@@ -26,6 +26,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class AddSaleDialogController {
@@ -43,13 +44,13 @@ public class AddSaleDialogController {
     @FXML
     private ComboBox<String> paymentMethodComboBox;
     @FXML
-    private ComboBox<String> paymentStatusComboBox;
-    @FXML
     private TextField totalAmountField;
     @FXML
     private Button addItemButton;
     @FXML
     private Button saveSaleButton;
+    @FXML
+    private Button addNewCustomerButton;
 
     private ObservableList<SaleItemRow> saleItems = FXCollections.observableArrayList();
 
@@ -67,25 +68,29 @@ public class AddSaleDialogController {
 
         // Populate payment method and status
         paymentMethodComboBox.getItems().addAll("Cash", "Card", "Online Transfer", "Other");
-        paymentStatusComboBox.getItems().addAll("Paid", "Unpaid", "Partial");
 
         // Add item button handler
         addItemButton.setOnAction(event -> openAddItemDialog());
 
         // Save sale button handler
         saveSaleButton.setOnAction(event -> saveSale());
+        addNewCustomerButton.setOnAction(event -> openAddCustomerDialog());
     }
 
     private void populateCustomerComboBox() {
-        try (Connection conn = DatabaseConnection.getConnection(); 
-             Statement stmt = conn.createStatement(); 
-             ResultSet rs = stmt.executeQuery("SELECT Customer_Name FROM DPD_Customer")) {
+        try (Connection conn = DatabaseConnection.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery("SELECT Customer_Name FROM DPD_Customer")) {
 
             while (rs.next()) {
                 customerComboBox.getItems().add(rs.getString("Customer_Name"));
             }
         } catch (SQLException e) {
             showAlert("Error", "Failed to load customers", e.getMessage());
+        }
+    }
+
+    public void selectCustomer(String customerName) {
+        if (customerComboBox.getItems().contains(customerName)) {
+            customerComboBox.setValue(customerName);
         }
     }
 
@@ -127,8 +132,8 @@ public class AddSaleDialogController {
             // Validate stock for all items
             for (SaleItemRow item : saleItems) {
                 if (!InventoryUtil.validateStock(conn, item.getSneakerId(), item.getQuantity())) {
-                    showAlert(Alert.AlertType.WARNING, "Insufficient Stock", 
-                        "Not enough stock for " + item.getSneakerName());
+                    showAlert(Alert.AlertType.WARNING, "Insufficient Stock",
+                            "Not enough stock for " + item.getSneakerName());
                     conn.rollback();
                     return;
                 }
@@ -140,22 +145,20 @@ public class AddSaleDialogController {
             // Calculate total quantity and total amount
             int totalQuantity = saleItems.stream().mapToInt(SaleItemRow::getQuantity).sum();
             double totalAmount = saleItems.stream()
-                .mapToDouble(item -> item.getQuantity() * item.getPrice())
-                .sum();
+                    .mapToDouble(item -> item.getQuantity() * item.getPrice())
+                    .sum();
 
             // Insert sale
-            String insertSaleQuery = "INSERT INTO DPD_Sales " +
-                "(Sale_Quantity, Date_of_Sale, Total_Amount, Payment_Status, Payment_Method, Customer_ID) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+            String insertSaleQuery = "INSERT INTO DPD_Sales "
+                    + "(Sale_Quantity, Date_of_Sale, Total_Amount, Payment_Method, Customer_ID) "
+                    + "VALUES (?, ?, ?, ?, ?)";
 
             try (PreparedStatement pstmt = conn.prepareStatement(insertSaleQuery, Statement.RETURN_GENERATED_KEYS)) {
                 pstmt.setInt(1, totalQuantity);
                 pstmt.setDate(2, Date.valueOf(LocalDate.now()));
                 pstmt.setDouble(3, totalAmount);
-                pstmt.setString(4, paymentStatusComboBox.getValue());
-                pstmt.setString(5, paymentMethodComboBox.getValue());
-                pstmt.setInt(6, customerId);
-
+                pstmt.setString(4, paymentMethodComboBox.getValue());
+                pstmt.setInt(5, customerId);
                 pstmt.executeUpdate();
 
                 // Get generated sale ID
@@ -177,7 +180,7 @@ public class AddSaleDialogController {
 
             conn.commit();
             showAlert(Alert.AlertType.INFORMATION, "Success", "Sale recorded successfully");
-            
+
             // Close dialog
             ((Stage) saveSaleButton.getScene().getWindow()).close();
 
@@ -203,9 +206,9 @@ public class AddSaleDialogController {
     }
 
     private void insertSaleDetail(Connection conn, int saleId, SaleItemRow item) throws SQLException {
-        String detailQuery = "INSERT INTO DPD_Sales_Detail (Sale_ID, Sneaker_ID, Quantity, Unit_Price) " +
-                             "VALUES (?, ?, ?, ?)";
-        
+        String detailQuery = "INSERT INTO DPD_Sales_Detail (Sale_ID, Sneaker_ID, Quantity, Unit_Price) "
+                + "VALUES (?, ?, ?, ?)";
+
         try (PreparedStatement pstmt = conn.prepareStatement(detailQuery)) {
             pstmt.setInt(1, saleId);
             pstmt.setInt(2, item.getSneakerId());
@@ -216,8 +219,7 @@ public class AddSaleDialogController {
     }
 
     private int getCustomerID(String customerName) throws SQLException {
-        try (Connection conn = DatabaseConnection.getConnection(); 
-             PreparedStatement pstmt = conn.prepareStatement(
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(
                 "SELECT Customer_ID FROM DPD_Customer WHERE Customer_Name = ?")) {
             pstmt.setString(1, customerName);
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -227,6 +229,35 @@ public class AddSaleDialogController {
             }
         }
         throw new SQLException("Customer not found");
+    }
+
+    @FXML
+    private void openAddCustomerDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/AddCustomerDialog.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the dialog
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Add New Customer");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(addNewCustomerButton.getScene().getWindow()); // Set owner to current window
+            dialogStage.setScene(new Scene(root));
+
+            // Get the controller and set the parent controller reference
+            AddCustomerDialogController controller = loader.getController();
+            controller.setParentController(this); // Pass the reference to the main controller
+
+            dialogStage.showAndWait(); // Wait for the dialog to close
+
+        } catch (IOException e) {
+            showAlert("Error", "Failed to open add customer dialog", e.getMessage());
+        }
+    }
+
+    public void refreshCustomerComboBox() {
+        customerComboBox.getItems().clear();
+        populateCustomerComboBox();
     }
 
     private void showAlert(String title, String header, String content) {

@@ -43,8 +43,7 @@ public class SalesController implements Initializable {
     private TableColumn<Sales, LocalDate> saleDateColumn;
     @FXML
     private TableColumn<Sales, Double> totalAmountColumn;
-    @FXML
-    private TableColumn<Sales, String> paymentStatusColumn;
+
     @FXML
     private TableColumn<Sales, String> paymentMethodColumn;
     @FXML
@@ -52,8 +51,7 @@ public class SalesController implements Initializable {
 
     @FXML
     private TextField searchField;
-    @FXML
-    private ComboBox<String> paymentStatusComboBox;
+
     @FXML
     private ComboBox<String> paymentMethodComboBox;
     @FXML
@@ -71,16 +69,20 @@ public class SalesController implements Initializable {
     private JFXButton resetFiltersButton;
     @FXML
     private JFXButton addSaleButton;
+
     @FXML
     private void handleAddSaleButton() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/AddSaleDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/addSaleDialog.fxml"));
+            
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setTitle("Add Sale");
             stage.setScene(new Scene(root));
+            System.out.println("addSaleDialog loaded successfully");
             stage.showAndWait();
             loadSalesData(); // Refresh the sales table after adding a sale
+            System.out.println("addSaleDialog loaded successfully");
         } catch (IOException e) {
             showAlert("Error", "Failed to open add sale dialog", e.getMessage());
         }
@@ -95,37 +97,6 @@ public class SalesController implements Initializable {
         loadSalesData();
         setupFilterButton();
         setupResetFilterButton();
-        paymentStatusColumn.setCellFactory(new Callback<TableColumn<Sales, String>, TableCell<Sales, String>>() {
-            @Override
-            public TableCell<Sales, String> call(TableColumn<Sales, String> param) {
-                return new TableCell<Sales, String>() {
-                    private HBox cellLayout;
-                    private PaymentStatusCellController controller;
-
-                    {
-                        try {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/paymentStatusCell.fxml"));
-                            cellLayout = loader.load();
-                            controller = loader.getController();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-
-                    @Override
-                    protected void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            Sales sale = getTableView().getItems().get(getIndex());
-                            controller.setSale(sale);
-                            setGraphic(cellLayout);
-                        }
-                    }
-                };
-            }
-        });
 
         // Similar setup for Payment Method column
         paymentMethodColumn.setCellFactory(new Callback<TableColumn<Sales, String>, TableCell<Sales, String>>() {
@@ -198,14 +169,13 @@ public class SalesController implements Initializable {
         customerNameColumn.setCellValueFactory(cellData -> cellData.getValue().customerNameProperty());
         saleDateColumn.setCellValueFactory(cellData -> cellData.getValue().saleDateProperty());
         totalAmountColumn.setCellValueFactory(cellData -> cellData.getValue().totalAmountProperty().asObject());
-        paymentStatusColumn.setCellValueFactory(cellData -> cellData.getValue().paymentStatusProperty());
         paymentMethodColumn.setCellValueFactory(cellData -> cellData.getValue().paymentMethodProperty());
     }
 
     private void loadSalesData() {
         salesList.clear();
         String query = "SELECT s.Sale_ID, c.Customer_Name, s.Date_of_Sale, "
-                + "s.Total_Amount, s.Payment_Status, s.Payment_Method, s.Customer_ID "
+                + "s.Total_Amount, s.Payment_Method, s.Customer_ID "
                 + "FROM DPD_Sales s "
                 + "JOIN DPD_Customer c ON s.Customer_ID = c.Customer_ID";
 
@@ -217,7 +187,6 @@ public class SalesController implements Initializable {
                         rs.getString("Customer_Name"),
                         rs.getDate("Date_of_Sale").toLocalDate(),
                         rs.getDouble("Total_Amount"),
-                        rs.getString("Payment_Status"),
                         rs.getString("Payment_Method"),
                         rs.getInt("Customer_ID") // Ensure this is correctly referenced
                 );
@@ -248,8 +217,6 @@ public class SalesController implements Initializable {
             // Date Range Filter
             boolean matchDateRange = isWithinDateRange(sale);
 
-            // Payment Status Filter
-            boolean matchPaymentStatus = isMatchingPaymentStatus(sale);
 
             // Payment Method Filter
             boolean matchPaymentMethod = isMatchingPaymentMethod(sale);
@@ -257,7 +224,6 @@ public class SalesController implements Initializable {
             // Combine all filters
             return matchSearch
                     && matchDateRange
-                    && matchPaymentStatus
                     && matchPaymentMethod;
         });
 
@@ -272,8 +238,7 @@ public class SalesController implements Initializable {
         startDatePicker.setValue(null);
         endDatePicker.setValue(null);
 
-        // Reset payment status and method combo boxes
-        paymentStatusComboBox.setValue("All");
+
         paymentMethodComboBox.setValue("All");
 
         // Clear amount fields if they exist
@@ -329,12 +294,7 @@ public class SalesController implements Initializable {
                 && !sale.getSaleDate().isAfter(endDate);
     }
 
-    private boolean isMatchingPaymentStatus(Sales sale) {
-        String selectedStatus = paymentStatusComboBox.getValue();
-        return selectedStatus == null
-                || selectedStatus.equals("All")
-                || sale.getPaymentStatus().equals(selectedStatus);
-    }
+    
 
     private boolean isMatchingPaymentMethod(Sales sale) {
         String selectedMethod = paymentMethodComboBox.getValue();
@@ -345,10 +305,8 @@ public class SalesController implements Initializable {
 
     // Initialize ComboBoxes in initialize method
     private void initializeComboBoxes() {
-        paymentStatusComboBox.getItems().addAll("All", "Paid", "Unpaid", "Partial");
         paymentMethodComboBox.getItems().addAll("All", "Cash", "Card", "Online Transfer", "Other");
 
-        paymentStatusComboBox.setValue("All");
         paymentMethodComboBox.setValue("All");
     }
 
@@ -360,5 +318,4 @@ public class SalesController implements Initializable {
         alert.showAndWait();
     }
 
-   
 }

@@ -27,11 +27,8 @@
                <DatePicker fx:id="startDatePicker" prefWidth="130.0" promptText="Start Date" />
                <DatePicker fx:id="endDatePicker" prefWidth="130.0" promptText="End Date" />
 
-               <!-- Payment Status Dropdown -->
-               <ComboBox fx:id="paymentStatusComboBox" prefWidth="150.0" promptText="Payment Status" />
-
                <!-- Payment Method Dropdown -->
-               <ComboBox fx:id="paymentMethodComboBox" prefWidth="150.0" promptText="Payment Method" />
+               <ComboBox fx:id="paymentMethodComboBox" prefHeight="38.0" prefWidth="163.0" promptText="Payment Method" />
 
                <!-- Filter Button with Icon -->
                <JFXButton fx:id="filterButton" text="Apply Filters">
@@ -53,7 +50,6 @@
                   <TableColumn fx:id="saleDateColumn" prefWidth="100" text="Sale Date" />
                   <TableColumn fx:id="customerNameColumn" prefWidth="120" text="Customer Name" />
                   <TableColumn fx:id="totalAmountColumn" prefWidth="100" text="Total Amount" />
-                  <TableColumn fx:id="paymentStatusColumn" prefWidth="100" text="Payment Status" />
                   <TableColumn fx:id="paymentMethodColumn" prefWidth="120" text="Payment Method" />
                   <TableColumn fx:id="detailsColumn" prefWidth="120" text="Sales Details" />
                </columns>
@@ -73,15 +69,6 @@
                   </font>
                   <graphic>
                      <FontAwesomeIcon glyphName="PLUS_CIRCLE" selectionEnd="1" size="3em" wrappingWidth="34.28571701049805" />
-                  </graphic>
-               </JFXButton>
-
-               <JFXButton fx:id="generateReportButton" prefHeight="58.0" prefWidth="242.0" text="Generate Report (OPTIONAL)">
-                  <font>
-                     <Font name="Fira Code Regular" size="18.0" />
-                  </font>
-                  <graphic>
-                     <FontAwesomeIcon glyphName="FILE_TEXT_ALT" size="3em" />
                   </graphic>
                </JFXButton>
             </HBox>

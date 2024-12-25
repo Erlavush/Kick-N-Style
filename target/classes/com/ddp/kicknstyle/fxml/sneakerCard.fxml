@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -9,8 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="280.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="280.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.SneakerCardController">
    <children>
       <VBox fx:id="sneakerCardContainer" alignment="CENTER" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="315.0" prefWidth="208.0">
          <children>
@@ -29,8 +29,11 @@
             <Label fx:id="editionLabel" prefHeight="27.0" prefWidth="229.0" text="edition" />
             <HBox alignment="CENTER" prefHeight="42.0" prefWidth="220.0">
                <children>
-                  <JFXButton fx:id="addToCartButton" prefHeight="45.0" prefWidth="90.0" />
-                  <JFXButton fx:id="addToFaveoriteButton" prefHeight="37.0" prefWidth="78.0" />
+                  <JFXButton fx:id="buyButton" buttonType="RAISED" onAction="#buyClicked" prefHeight="45.0" prefWidth="90.0" style="-fx-background-color: #59c2ff;" text="Buy">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></JFXButton>
+                  <JFXButton fx:id="addToCartButton" buttonType="RAISED" onAction="#addToCartClicked" prefHeight="37.0" prefWidth="91.0" style="-fx-background-color: #b0b0b0;" text="Add to Cart" />
                </children>
             </HBox>
          </children>

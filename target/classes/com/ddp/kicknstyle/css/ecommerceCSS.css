@@ -185,3 +185,30 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.5, 0, 3);
     -fx-cursor: hand;
 }
+
+
+#shoppingCartPane {
+    -fx-font-size: 16px;
+    -fx-text-fill: #563726;
+    -fx-background-color: #f4f4f4;
+    -fx-background-radius: 20px;
+    -fx-border-color: #1e1204;
+    -fx-border-width: 2;
+    -fx-border-radius: 20px;
+    -fx-padding: 15px;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+}
+
+#recommenderPane {
+    -fx-font-size: 16px;
+    -fx-text-fill: #563726;
+    -fx-background-color: #f4f4f4;
+    -fx-background-radius: 20px;
+    -fx-border-color: #1e1204;
+    -fx-border-width: 2;
+    -fx-border-radius: 20px;
+    -fx-padding: 15px;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+}

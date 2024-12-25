@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
-<?import com.jfoenix.controls.JFXScrollPane?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -15,13 +14,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="800.0" maxWidth="1199.0" minHeight="0.0" minWidth="1199.0" prefHeight="800.0" prefWidth="1199.0" stylesheets="@../css/ecommerceCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.ecommerceController">
     <center>
         <AnchorPane fx:id="centerAnchorPane" maxHeight="800.0" maxWidth="1200.0" minHeight="682.0" minWidth="882.0" prefHeight="698.0" prefWidth="882.0">
             <children>
-                <ScrollPane layoutX="16.0" layoutY="15.0" prefHeight="707.0" prefWidth="695.0" style="-fx-background-color: TRANSPARENT;">
+                <ScrollPane layoutX="16.0" layoutY="15.0" prefHeight="707.0" prefWidth="879.0" style="-fx-background-color: TRANSPARENT;">
                <content>
                   <GridPane fx:id="sneakerDisplayGridPane" prefHeight="0.0" prefWidth="0.0">
                      <rowConstraints>
@@ -30,29 +28,6 @@
                   </GridPane>
                </content>
                 </ScrollPane>
-            <VBox layoutX="724.0" layoutY="11.0" prefHeight="721.0" prefWidth="179.0">
-               <children>
-                  <AnchorPane prefHeight="275.0" prefWidth="179.0" style="-fx-background-color: #aaaaaa; -fx-border-radius: 5px;">
-                     <children>
-                        <Text layoutX="50.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shopping Cart" />
-                        <JFXButton fx:id="checkoutButton" layoutX="14.0" layoutY="235.0" onAction="#onCheckoutClick" text="Checkout" />
-                        <JFXButton fx:id="clearButton" layoutX="102.0" layoutY="235.0" onAction="#onClearClick" text="Clear" />
-                        <JFXScrollPane fx:id="shoppingCartPane" layoutX="5.0" layoutY="40.0" prefHeight="194.0" prefWidth="171.0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane prefHeight="275.0" prefWidth="179.0" style="-fx-background-color: #aaaaaa; -fx-border-radius: 5px;">
-                     <children>
-                        <Text layoutX="40.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Because you liked" />
-                        <Text layoutX="76.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shoe 1" />
-                        <Text layoutX="74.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shoe 2" />
-                        <Text layoutX="52.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You might like" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="80.0" />
-                     </VBox.margin>
-                  </AnchorPane>
-               </children>
-            </VBox>
             </children>
         </AnchorPane>
     </center>
@@ -68,11 +43,12 @@
             <children>
                 <Pane fx:id="filterPaneHeader" prefHeight="362.0" prefWidth="221.0">
                     <children>
-                        <Label fx:id="filtersLabel" layoutY="33.0" prefHeight="31.0" prefWidth="227.0" text="Filters">
+                        <Label fx:id="filtersLabel" layoutX="-5.0" layoutY="-3.0" prefHeight="27.0" prefWidth="163.0" text="Filters">
                             <font>
                                 <Font size="26.0" />
                             </font>
                         </Label>
+                        <JFXButton fx:id="clearFiltersButton" layoutX="138.0" layoutY="-26.0" prefHeight="73.0" prefWidth="110.0" />
                     </children>
                 </Pane>
 

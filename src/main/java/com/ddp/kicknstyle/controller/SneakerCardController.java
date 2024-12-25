@@ -2,6 +2,7 @@ package com.ddp.kicknstyle.controller;
 
 import java.util.Random;
 
+import com.ddp.kicknstyle.model.Sneaker;
 import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
@@ -23,16 +24,13 @@ public class SneakerCardController {
     private JFXButton addToFaveoriteButton;
 
     @FXML
-    private AnchorPane cardAnchorPane;
-
-    @FXML
     private Label categoryLabel;
 
     @FXML
     private Label editionLabel;
 
     @FXML
-    private Label sneakerPriceLabel;
+    private Label priceLabel;
 
     @FXML
     private Label reviewLabel;
@@ -74,7 +72,7 @@ public class SneakerCardController {
         Random random = new Random();
 
         // Generate random float between 1.00 and 5.00 (two decimal places)
-        double rating = 1.0 + (4.0 * random.nextDouble());
+        double rating = 3.0 + (2.0 * random.nextDouble());
         String formattedRating = String.format("%.1f", rating);  // Format to 1 decimal place
 
         // Generate random integer between 1 and 200 for reviews
@@ -85,5 +83,12 @@ public class SneakerCardController {
     }
 
 
-
+    public void setSneakerDetails(Sneaker sneaker) {
+        // Set the labels
+        sneakerNameLabel.setText(sneaker.getSneakerName());
+        categoryLabel.setText(sneaker.getCategory());
+        editionLabel.setText(sneaker.getSneakerEdition());
+        priceLabel.setText(String.format("$%.2f", sneaker.getSellingPrice()));
+        reviewLabel.setText(generateRandomReview());  // For testing purposes only
+    }
 }

@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -34,7 +35,22 @@
     <top>
         <HBox fx:id="topHBox" prefHeight="42.0" prefWidth="1170.0" BorderPane.alignment="CENTER">
             <children>
-                <JFXButton fx:id="backToMainButton" onAction="#handleBackToMain" prefHeight="97.0" prefWidth="238.0" text="Back to Main" />
+                <JFXButton fx:id="backToMainButton" onAction="#handleBackToMain" prefHeight="97.0" prefWidth="238.0" text="Back to Main">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXButton>
+            <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <JFXButton fx:id="closeButton" onAction="#onCloseButton" text="x">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets left="1000.0" />
+               </HBox.margin>
+            </HBox>
             </children>
         </HBox>
     </top>
@@ -48,7 +64,6 @@
                                 <Font size="26.0" />
                             </font>
                         </Label>
-                        <JFXButton fx:id="clearFiltersButton" layoutX="138.0" layoutY="-26.0" prefHeight="73.0" prefWidth="110.0" />
                     </children>
                 </Pane>
 

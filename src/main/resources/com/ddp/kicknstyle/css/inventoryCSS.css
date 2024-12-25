@@ -45,10 +45,14 @@
 
 /* Alternating row colors */
 .table-view .table-row-cell:odd {
+    -fx-font-weight: bold;  /* Make header text bold */
+    -fx-alignment: center;
     -fx-background-color: #fff7d8;  /* Light beige for odd rows */
 }
 
 .table-view .table-row-cell:even {
+    -fx-font-weight: bold;  /* Make header text bold */
+    -fx-alignment: center;
     -fx-background-color: #f9eecc;  /* Light beige for even rows */
 }
 

@@ -1,0 +1,43 @@
+AnchorPane {
+    -fx-background-color: transparent;
+}
+
+VBox {
+    -fx-background-color: #f5f5dc;  /* Light beige color */
+    -fx-background-radius: 20px;    /* Rounded corners with 20px radius */
+    -fx-padding: 10px;              /* Optional: Adds some padding inside the VBox */
+    -fx-effect: dropshadow(gaussian, rgba(149, 108, 64, 0.368), 10, 0.6, 6, 6);
+    -fx-border-radius: 20;
+    -fx-border-color: #000000;
+    -fx-border-width: 2;
+}
+
+Label, JFXButton, VBox, HBox, AnchorPane {
+    -fx-font-family: "Fira Code", sans-serif;  /* Sets the Fira Code font */
+}
+
+.ImageView {
+    -fx-background-radius: 50px; /* Rounded corners */
+    -fx-background-color: transparent; /* Ensure the background is transparent */
+    -fx-clip-radius: 10px; /* Clip the image to fit the rounded corners */
+}
+
+.jfx-button {
+    -fx-font-weight: bold;
+    -fx-background-color: #6F4E37;    /* Coffee brown background color */
+    -fx-background-radius: 10px;      /* Rounded corners */
+    -fx-text-fill: white;             /* Text color */
+    -fx-font-size: 14px;              /* Font size */
+    -fx-cursor: hand;                 /* Pointer cursor on hover */
+    -fx-padding: 8px 16px;            /* Padding inside the button */
+}
+
+#nameLabel {
+    -fx-font-size: 27;
+
+}
+
+#sneakerPriceLabel {
+    -fx-font-size: 16;
+
+}

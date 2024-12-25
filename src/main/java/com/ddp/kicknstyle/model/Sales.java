@@ -18,17 +18,16 @@ public class Sales {
     private SimpleStringProperty customerName;
     private SimpleObjectProperty<LocalDate> saleDate;
     private SimpleDoubleProperty totalAmount;
-    private SimpleStringProperty paymentStatus;
+
     private SimpleStringProperty paymentMethod;
     private SimpleIntegerProperty customerId; // Customer ID property
 
     public Sales(int saleId, String customerName, LocalDate saleDate,
-                 double totalAmount, String paymentStatus, String paymentMethod, int customerId) {
+                 double totalAmount, String paymentMethod, int customerId) {
         this.saleId = new SimpleIntegerProperty(saleId);
         this.customerName = new SimpleStringProperty(customerName);
         this.saleDate = new SimpleObjectProperty<>(saleDate);
         this.totalAmount = new SimpleDoubleProperty(totalAmount);
-        this.paymentStatus = new SimpleStringProperty(paymentStatus);
         this.paymentMethod = new SimpleStringProperty(paymentMethod);
         this.customerId = new SimpleIntegerProperty(customerId); // Initialize customerId
     }
@@ -85,18 +84,6 @@ public class Sales {
         this.totalAmount.set(totalAmount);
     }
 
-    public String getPaymentStatus() {
-        return paymentStatus.get();
-    }
-
-    public SimpleStringProperty paymentStatusProperty() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus.set(paymentStatus);
-    }
-
     public String getPaymentMethod() {
  return paymentMethod.get();
     }
@@ -121,10 +108,6 @@ public class Sales {
         this.customerId.set(customerId);
     }
 
-    public void updatePaymentStatus(String newStatus) {
-        this.paymentStatus.set(newStatus);
-        updateDatabasePaymentStatus(newStatus);
-    }
 
     public void updatePaymentMethod(String newMethod) {
         this.paymentMethod.set(newMethod);
@@ -159,16 +142,4 @@ public class Sales {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Sales{" +
-                "saleId=" + saleId.get() +
-                ", customerName='" + customerName.get() + '\'' +
-                ", saleDate=" + saleDate.get() +
-                ", totalAmount=" + totalAmount.get() +
-                ", paymentStatus='" + paymentStatus.get() + '\'' +
-                ", paymentMethod='" + paymentMethod.get() + '\'' +
-                ", customerId=" + customerId.get() +
-                '}';
-    }
 }

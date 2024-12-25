@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -10,7 +9,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="10" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.AddSneakerDialogController">
+<VBox spacing="10" style="-fx-padding: 20;"
+      xmlns="http://javafx.com/javafx/22"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ddp.kicknstyle.controller.AddSneakerDialogController">
 
     <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Add New Sneaker" />
 
@@ -27,26 +29,31 @@
         <Label text="Sneaker Edition:" GridPane.rowIndex="3" />
         <TextField fx:id="sneakerEditionField" promptText="Enter Sneaker Edition" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
+        <Label text="Size:" GridPane.rowIndex="4" />
+        <ComboBox fx:id="sizeComboBox" promptText="Select Size"
+                  GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
         <Label text="Selling Price:" GridPane.rowIndex="5" />
         <TextField fx:id="sellingPriceField" promptText="Enter Price" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <Label text="Size" GridPane.rowIndex="4" />
-      <ComboBox fx:id="sizeComboBox" prefHeight="26.0" prefWidth="162.0" promptText="Select Size" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <columnConstraints>
-         <ColumnConstraints />
-         <ColumnConstraints />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints minHeight="10.0" prefHeight="30.0" />
-         <RowConstraints />
-      </rowConstraints>
+
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
     </GridPane>
 
     <HBox alignment="CENTER" spacing="10">
-        <JFXButton fx:id="addButton" onAction="#handleAddSneaker" style="-fx-background-color: lightgreen;" text="Add Sneaker" />
-        <JFXButton fx:id="cancelButton" onAction="#handleCancel" style="-fx-background-color: lightcoral;" text="Cancel" />
+        <JFXButton fx:id="addButton" onAction="#handleAddSneaker" 
+                   style="-fx-background-color: lightgreen;" text="Add Sneaker" />
+        <JFXButton fx:id="cancelButton" onAction="#handleCancel" 
+                   style="-fx-background-color: lightcoral;" text="Cancel" />
     </HBox>
 </VBox>

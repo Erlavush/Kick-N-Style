@@ -13,10 +13,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="689.0" prefWidth="933.0" stylesheets="@../css/inventoryCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.BatchManagementController">
-    <Pane layoutX="8.0" layoutY="9.0" prefHeight="666.0" prefWidth="916.0" styleClass="pane">
+<AnchorPane prefHeight="712.0" prefWidth="1001.0" stylesheets="@../css/inventoryCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.BatchManagementController">
+    <Pane layoutX="8.0" layoutY="9.0" prefHeight="711.0" prefWidth="1000.0" styleClass="pane">
         <children>
-            <VBox layoutX="20.0" layoutY="13.0" prefHeight="634.0" prefWidth="868.0" spacing="10">
+            <VBox layoutX="20.0" layoutY="13.0" prefHeight="691.0" prefWidth="962.0" spacing="10">
                 <!-- Search and Filter for Batches -->
                 <HBox spacing="10">
                     <TextField fx:id="batchSearchField" prefHeight="39.0" prefWidth="225.0" promptText="Search Batch..." />
@@ -26,7 +26,7 @@
                 </HBox>
 
                 <!-- Batch TableView -->
-                <TableView fx:id="batchTableView" prefHeight="393.0" prefWidth="888.0">
+                <TableView fx:id="batchTableView" prefHeight="564.0" prefWidth="962.0">
                     <columns>
                         <TableColumn fx:id="batchIdColumn" text="Batch ID" />
                         <TableColumn fx:id="batchNumberColumn" text=" Batch Number" />

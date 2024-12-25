@@ -5,11 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import com.ddp.kicknstyle.model.Sneaker;
 import com.ddp.kicknstyle.util.DatabaseConnection;
 import com.jfoenix.controls.JFXButton;
+
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,14 +22,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class InventoryController {
 
@@ -36,7 +34,7 @@ public class InventoryController {
     private static final String ALL_CATEGORIES = "All Categories";
 
     @FXML
-    private JFXButton addBrandButton;
+    private JFXButton addEditBrandButton;
     @FXML
     private TextField searchField;
     @FXML
@@ -66,8 +64,6 @@ public class InventoryController {
     private TableColumn<Sneaker, Double> priceColumn;
     @FXML
     private TableColumn<Sneaker, Integer> stockQuantityColumn;
-    @FXML
-    private TableColumn<Sneaker, Void> actionColumn;
 
     @FXML
     private JFXButton addButton;
@@ -81,49 +77,12 @@ public class InventoryController {
         }
         initializeBrandComboBox();
         initializeCategoryComboBox();
-        setupActionColumn();
+
         setupSearchAndFilterListeners();
         loadSneakersDataFromDatabase();
         inventoryTable.setItems(originalSneakerList);
-        addBrandButton.setOnAction(event -> handleAddBrand());
+        addEditBrandButton.setOnAction(event -> onAddEditBrandClick());
 
-    }
-
-    
-
-
-    private void setupActionColumn() {
-        actionColumn.setCellFactory(new Callback<TableColumn<Sneaker, Void>, TableCell<Sneaker, Void>>() {
-            @Override
-            public TableCell<Sneaker, Void> call(TableColumn<Sneaker, Void> param) {
-                return new TableCell<Sneaker, Void>() {
-                    private final HBox cellLayout;
-                    private final ActionButtonCellController controller;
-
-                    {
-                        try {
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/ActionButtonCell.fxml"));
-                            cellLayout = loader.load();
-                            controller = loader.getController();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-
-                    @Override
-                    protected void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
-                            Sneaker sneaker = getTableView().getItems().get(getIndex());
-                            controller.setSneaker(sneaker);
-                            setGraphic(cellLayout);
-                        }
-                    }
-                };
-            }
-        });
     }
 
     private void setupSearchAndFilterListeners() {
@@ -135,7 +94,7 @@ public class InventoryController {
     }
 
     private void initializeBrandComboBox() {
-        
+
         // Clear existing items
         brandComboBox.getItems().clear();
 
@@ -173,7 +132,7 @@ public class InventoryController {
     }
 
     @FXML
-    public void handleAdd() {
+    public void handleBrand() {
         try {
             // Load the FXML for the Add Sneaker Dialog
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/addSneakerDialog.fxml"));
@@ -207,6 +166,16 @@ public class InventoryController {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
+    }
+
+    @FXML
+    public void handleCategory() {
+
+    }
+
+    @FXML
+    public void handleEdition() {
+
     }
 
     private void showErrorAlert(String title, String header, String content) {
@@ -269,9 +238,9 @@ public class InventoryController {
     }
 
     private void applyFilters() {
-        String searchTerm = searchField.getText().trim(); 
-        String selectedBrand = brandComboBox.getValue() != null ? brandComboBox.getValue() : ALL_BRANDS; 
-        String selectedCategory = categoryComboBox.getValue() != null ? categoryComboBox.getValue() : ALL_CATEGORIES; 
+        String searchTerm = searchField.getText().trim();
+        String selectedBrand = brandComboBox.getValue() != null ? brandComboBox.getValue() : ALL_BRANDS;
+        String selectedCategory = categoryComboBox.getValue() != null ? categoryComboBox.getValue() : ALL_CATEGORIES;
     
         // Use wrapper objects to make them effectively final
         final double[] priceRange = new double[2];
@@ -290,66 +259,50 @@ public class InventoryController {
             return;
         }
     
-        ObservableList<Sneaker> filteredList = originalSneakerList.filtered(sneaker -> { 
+        // Create a new filtered list
+        ObservableList<Sneaker> filteredList = FXCollections.observableArrayList(originalSneakerList.filtered(sneaker -> {
             // Null-safe checks
-            boolean brandMatch = ALL_BRANDS.equals(selectedBrand) || 
-                (sneaker.getBrand() != null && sneaker.getBrand().equals(selectedBrand)); 
-            
-            boolean categoryMatch = ALL_CATEGORIES.equals(selectedCategory) || 
-                (sneaker.getCategory() != null && sneaker.getCategory().equals(selectedCategory)); 
-            
-            boolean priceMatch = sneaker.getSellingPrice() >= priceRange[0] && sneaker.getSellingPrice() <= priceRange[1]; 
+            boolean brandMatch = ALL_BRANDS.equals(selectedBrand)
+                    || (sneaker.getBrand() != null && sneaker.getBrand().equals(selectedBrand));
     
-            boolean searchMatch = searchTerm.isEmpty() 
-                    || (sneaker.getSneakerName() != null && sneaker.getSneakerName().toLowerCase().contains(searchTerm.toLowerCase())) 
-                    || (sneaker.getBrand() != null && sneaker.getBrand().toLowerCase().contains(searchTerm.toLowerCase())) 
-                    || (sneaker.getCategory() != null && sneaker.getCategory().toLowerCase().contains(searchTerm.toLowerCase())) 
-                    || String.valueOf(sneaker.getSneakerID()).contains(searchTerm); 
+            boolean categoryMatch = ALL_CATEGORIES.equals(selectedCategory)
+                    || (sneaker.getCategory() != null && sneaker.getCategory().equals(selectedCategory));
     
-            return brandMatch && categoryMatch && priceMatch && searchMatch; 
-        }); 
+            boolean priceMatch = sneaker.getSellingPrice() >= priceRange[0] && sneaker.getSellingPrice() <= priceRange[1];
     
-        System.out.println("Filtered Sneakers: " + filteredList.size()); 
+            boolean searchMatch = searchTerm.isEmpty()
+                    || (sneaker.getSneakerName() != null && sneaker.getSneakerName().toLowerCase().contains(searchTerm.toLowerCase()))
+                    || (sneaker.getBrand() != null && sneaker.getBrand().toLowerCase().contains(searchTerm.toLowerCase()))
+                    || (sneaker.getCategory() != null && sneaker.getCategory().toLowerCase().contains(searchTerm.toLowerCase()))
+                    || String.valueOf(sneaker.getSneakerID()).contains(searchTerm);
+    
+            return brandMatch && categoryMatch && priceMatch && searchMatch;
+        }));
+    
+        System.out.println("Filtered Sneakers: " + filteredList.size());
         if (!filteredList.isEmpty()) {
-            inventoryTable.setItems(filteredList); 
+            inventoryTable.setItems(filteredList);
         } else {
             inventoryTable.getItems().clear(); // Clear the TableView if no items match the filter
         }
-        inventoryTable.refresh(); 
+        inventoryTable.refresh();
     }
-
+    
     @FXML
-    private void handleAddBrand() {
+    private void onAddEditBrandClick() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/addBrandDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/addEditBrandDialog.fxml"));
             Parent root = loader.load();
 
-            // Get the controller for the dialog
-            AddBrandDialogController dialogController = loader.getController();
-
-            // Create the dialog stage
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Add New Brand");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(addButton.getScene().getWindow());
-
-            // Set the scene
+            AddEditBrandDialogController controller = loader.getController(); 
             Scene scene = new Scene(root);
-            dialogStage.setScene(scene);
-
-            // Show the dialog and wait
-            dialogStage.showAndWait();
-
-            // After dialog closes, check if a brand was added
-            if (dialogController.isBrandAdded()) {
-                // Refresh the brand combo box
-                initializeBrandComboBox();
-            }
-
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.showAndWait();
+            initialize();
         } catch (IOException e) {
             e.printStackTrace();
-            showErrorAlert("Error", "Cannot load Add Brand Dialog", e.getMessage());
         }
     }
-
 }
+

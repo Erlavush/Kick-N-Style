@@ -43,6 +43,10 @@ public class SneakerCardController {
 
     @FXML
     private Label sneakerNameLabel;
+
+    private Sneaker sneaker;
+    private double score = 0;
+
     
     public void initialize() {
         // Clip the ImageView to 10px rounded corners
@@ -67,6 +71,10 @@ public class SneakerCardController {
     }
 
 
+    public Sneaker getSNeaker() {
+        return sneaker;
+    }
+
 
     public static String generateRandomReview() {
         Random random = new Random();
@@ -82,13 +90,19 @@ public class SneakerCardController {
         return formattedRating + " ★ (" + reviewCount + " reviews)";
     }
 
+    public double getScore() {
+        return score;
+    }
 
     public void setSneakerDetails(Sneaker sneaker) {
         // Set the labels
+        this.sneaker = sneaker;
         sneakerNameLabel.setText(sneaker.getSneakerName());
         categoryLabel.setText(sneaker.getCategory());
         editionLabel.setText(sneaker.getSneakerEdition());
         priceLabel.setText(String.format("$%.2f", sneaker.getSellingPrice()));
-        reviewLabel.setText(generateRandomReview());  // For testing purposes only
+        String review = generateRandomReview();
+        score = Double.parseDouble(review.substring(0, 2));
+        reviewLabel.setText(review);  // For testing purposes only
     }
 }

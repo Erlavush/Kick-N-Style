@@ -40,9 +40,9 @@ public class AddEditBrandDialogController {
     @FXML
     public void initialize() {
         loadBrandsData();
-        
+
         brandCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBrandName()));
-        
+
         brandTable.setItems(brandList);
         brandTable.setOnMouseClicked(event -> rowClicked());
     }
@@ -51,9 +51,7 @@ public class AddEditBrandDialogController {
         brandList.clear();
         String query = "SELECT * FROM DPD_Shoe_Brand"; // Adjust the query as needed
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query);
-             ResultSet rs = pstmt.executeQuery()) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
                 Brand brand = new Brand(rs.getInt("Brand_ID"), rs.getString("Brand_Name"), rs.getString("Brand_Description"));
@@ -64,7 +62,6 @@ public class AddEditBrandDialogController {
             showAlert("Database Error", "Failed to load brands", e.getMessage());
         }
     }
-
 
     @FXML
     private void rowClicked() {
@@ -83,8 +80,7 @@ public class AddEditBrandDialogController {
         }
 
         String query = "INSERT INTO DPD_Shoe_Brand (Brand_Name) VALUES (?)";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, brandName);
             pstmt.executeUpdate();
             loadBrandsData(); // Refresh the table
@@ -109,8 +105,7 @@ public class AddEditBrandDialogController {
         }
 
         String query = "UPDATE DPD_Shoe_Brand SET Brand_Name = ? WHERE Brand_ID = ?";
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, brandName);
             pstmt.setInt(2, selectedBrand.getBrandId());
             pstmt.executeUpdate();
@@ -129,21 +124,49 @@ public class AddEditBrandDialogController {
             return;
         }
 
-        Alert confirmAlert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to delete this brand?", ButtonType.YES, ButtonType.NO);
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete this brand?",
+                ButtonType.YES, ButtonType.NO);
         confirmAlert.showAndWait();
 
-        if ( confirmAlert.getResult() == ButtonType.YES) {
+        if (confirmAlert.getResult() == ButtonType.YES) {
             String query = "DELETE FROM DPD_Shoe_Brand WHERE Brand_ID = ?";
-            try (Connection conn = DatabaseConnection.getConnection();
-                 PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+
                 pstmt.setInt(1, selectedBrand.getBrandId());
                 pstmt.executeUpdate();
-                loadBrandsData(); // Refresh the table
-                brandTextField.clear(); // Clear the text field
+
+                // Refresh
+                loadBrandsData();
+                brandTextField.clear();
+
             } catch (SQLException e) {
-                showAlert("Database Error", "Failed to delete brand", e.getMessage());
+                // Check for the foreign key constraint error code
+                if (e.getErrorCode() == 1451) {
+                    // The brand is referenced by at least one sneaker
+                    showAlert("Cannot Delete Brand",
+                            "This brand is in use by existing sneakers. "
+                            + "Please remove or update those sneakers first.",
+                            "FK Constraint Error");
+                } else {
+                    // Some other SQL error
+                    showAlert("Database Error", "Failed to delete brand.\n" + e.getMessage(), "");
+                }
             }
         }
+    }
+
+    /**
+     * Helper to show a custom alert (overloaded to pass in a 'header' if you
+     * want).
+     */
+    private void showAlert(String title, String content, String header) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);  
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     private void showAlert(String title, String content) {
@@ -152,9 +175,5 @@ public class AddEditBrandDialogController {
         alert.showAndWait();
     }
 
-    private void showAlert(String title, String content, String exceptionMessage) {
-        Alert alert = new Alert(AlertType.ERROR, content + "\n\n" + exceptionMessage, ButtonType.OK);
-        alert.setTitle(title);
-        alert.showAndWait();
-    }
+    
 }

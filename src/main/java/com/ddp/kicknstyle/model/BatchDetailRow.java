@@ -1,4 +1,4 @@
-package com.ddp.kicknstyle.model; 
+package com.ddp.kicknstyle.model;
 
 import com.ddp.kicknstyle.util.ValidationUtil;
 
@@ -10,10 +10,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class BatchDetailRow {
+
     private final StringProperty sneakerName = new SimpleStringProperty();
     private final IntegerProperty quantity = new SimpleIntegerProperty();
     private final DoubleProperty unitCost = new SimpleDoubleProperty();
     private final DoubleProperty totalCost = new SimpleDoubleProperty();
+    private final IntegerProperty remainingQuantity = new SimpleIntegerProperty();
 
     public BatchDetailRow(String sneakerName, int quantity, double unitCost) {
         setSneakerName(sneakerName);
@@ -22,10 +24,28 @@ public class BatchDetailRow {
         calculateTotalCost();
     }
 
+    public BatchDetailRow(String sneakerName, int quantity, double unitCost, int remainingQuantity) {
+        this.sneakerName.set(sneakerName);
+        this.quantity.set(quantity);
+        this.unitCost.set(unitCost);
+        this.remainingQuantity.set(remainingQuantity);
+    }
+
     private void calculateTotalCost() {
         totalCost.set(ValidationUtil.calculateTotalCost(getQuantity(), getUnitCost()));
     }
 
+    public IntegerProperty remainingQuantityProperty() {
+        return remainingQuantity;
+    }
+
+    public int getRemainingQuantity() {
+        return remainingQuantity.get();
+    }
+
+    public void setRemainingQuantity(int value) {
+        this.remainingQuantity.set(value);
+    }
     // Getters and setters with calculation trigger
 
     // Add property for total cost display

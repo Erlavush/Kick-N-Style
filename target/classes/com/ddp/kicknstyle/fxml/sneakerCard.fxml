@@ -29,11 +29,11 @@
             <Label fx:id="editionLabel" prefHeight="27.0" prefWidth="229.0" text="edition" />
             <HBox alignment="CENTER" prefHeight="42.0" prefWidth="220.0">
                <children>
-                  <JFXButton fx:id="addToCartButton" buttonType="RAISED" prefHeight="45.0" prefWidth="90.0" style="-fx-background-color: #61d7ff;" text="Buy">
+                  <JFXButton fx:id="addToCartButton" buttonType="RAISED" prefHeight="45.0" prefWidth="90.0" style="-fx-background-color: #61d7ff;" text="Add to Cart" onAction="#handleAddToCart">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin></JFXButton>
-                  <JFXButton fx:id="addToFaveoriteButton" buttonType="RAISED" prefHeight="37.0" prefWidth="87.0" style="-fx-background-color: #aaaaaa;" text="Add to Cart" />
+                  <JFXButton fx:id="addToFaveoriteButton" buttonType="RAISED" prefHeight="37.0" prefWidth="87.0" style="-fx-background-color: #aaaaaa;" text="BUY" onAction="#handleBuyNow"/>
                </children>
             </HBox>
          </children>

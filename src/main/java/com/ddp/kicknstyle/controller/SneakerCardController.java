@@ -9,19 +9,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
-
 public class SneakerCardController {
-
 
     @FXML
     private JFXButton addToCartButton;
 
     @FXML
-    private JFXButton addToFaveoriteButton;
+    private JFXButton addToFaveoriteButton;  // Let’s rename to buyButton if desired
 
     @FXML
     private Label categoryLabel;
@@ -47,46 +44,36 @@ public class SneakerCardController {
     private Sneaker sneaker;
     private double score = 0;
 
-    
+    // We need a reference to the ecommerceController
+    private ecommerceController ecommerceController;
+
+    @FXML
     public void initialize() {
         // Clip the ImageView to 10px rounded corners
         clipImageViewToRoundedCorners();
+        // Random rating for display
         reviewLabel.setText(generateRandomReview());
     }
 
     private void clipImageViewToRoundedCorners() {
-        // Set the image to the ImageView (if you want to load an image programmatically)
+        // If you have a default image programmatically:
         String imagePath = getClass().getResource("/com/ddp/kicknstyle/images/default-sneaker.jpg").toExternalForm();
-        sneakerImageView.setImage(new Image(imagePath));  // Example image path
+        sneakerImageView.setImage(new Image(imagePath));
 
-        // Create a rectangle with rounded corners
         Rectangle clip = new Rectangle();
-        clip.setArcWidth(10);    // Horizontal radius of the rounded corners
-        clip.setArcHeight(10);   // Vertical radius of the rounded corners
+        clip.setArcWidth(10);
+        clip.setArcHeight(10);
         clip.setWidth(sneakerImageView.getFitWidth());
         clip.setHeight(sneakerImageView.getFitHeight());
-        
-        // Apply the clip to the ImageView
         sneakerImageView.setClip(clip);
     }
 
-
-    public Sneaker getSNeaker() {
-        return sneaker;
-    }
-
-
     public static String generateRandomReview() {
         Random random = new Random();
+        double rating = 3.0 + (2.0 * random.nextDouble()); // between 3 and 5
+        String formattedRating = String.format("%.1f", rating);
 
-        // Generate random float between 1.00 and 5.00 (two decimal places)
-        double rating = 3.0 + (2.0 * random.nextDouble());
-        String formattedRating = String.format("%.1f", rating);  // Format to 1 decimal place
-
-        // Generate random integer between 1 and 200 for reviews
         int reviewCount = random.nextInt(200) + 1;
-
-        // Construct the result string with star emoji
         return formattedRating + " ★ (" + reviewCount + " reviews)";
     }
 
@@ -95,14 +82,37 @@ public class SneakerCardController {
     }
 
     public void setSneakerDetails(Sneaker sneaker) {
-        // Set the labels
         this.sneaker = sneaker;
+        // Populate the UI
         sneakerNameLabel.setText(sneaker.getSneakerName());
         categoryLabel.setText(sneaker.getCategory());
         editionLabel.setText(sneaker.getSneakerEdition());
         priceLabel.setText(String.format("$%.2f", sneaker.getSellingPrice()));
+
+        // Generate random rating for demonstration
         String review = generateRandomReview();
-        score = Double.parseDouble(review.substring(0, 2));
-        reviewLabel.setText(review);  // For testing purposes only
+        score = Double.parseDouble(review.substring(0, 2)); // simplistic approach
+        reviewLabel.setText(review);
+    }
+
+    /** Called by FXML when "Add to Cart" button is clicked */
+    @FXML
+    private void handleAddToCart() {
+        if (ecommerceController != null) {
+            ecommerceController.addToCart(sneaker);
+        }
+    }
+
+    /** Called by FXML when "Buy" button is clicked */
+    @FXML
+    private void handleBuyNow() {
+        if (ecommerceController != null) {
+            // Immediately purchase this single item
+            ecommerceController.buySingleSneaker(sneaker);
+        }
+    }
+
+    public void setEcommerceController(ecommerceController ecommerceController) {
+        this.ecommerceController = ecommerceController;
     }
 }

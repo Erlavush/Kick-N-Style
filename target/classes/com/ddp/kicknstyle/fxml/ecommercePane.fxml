@@ -23,13 +23,13 @@
         <AnchorPane fx:id="centerAnchorPane" maxHeight="800.0" maxWidth="1200.0" minHeight="682.0" minWidth="729.0" prefHeight="712.0" prefWidth="741.0">
             <children>
                 <ScrollPane layoutX="15.0" layoutY="9.0" prefHeight="708.0" prefWidth="729.0" style="-fx-background-color: TRANSPARENT;">
-               <content>
-                  <GridPane fx:id="sneakerDisplayGridPane" prefHeight="0.0" prefWidth="0.0">
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                     </rowConstraints>
-                  </GridPane>
-               </content>
+                    <content>
+                        <GridPane fx:id="sneakerDisplayGridPane" prefHeight="0.0" prefWidth="0.0">
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                            </rowConstraints>
+                        </GridPane>
+                    </content>
                 </ScrollPane>
             </children>
         </AnchorPane>
@@ -38,16 +38,17 @@
         <HBox fx:id="topHBox" prefHeight="42.0" prefWidth="1170.0" BorderPane.alignment="CENTER">
             <children>
                 <JFXButton fx:id="backToMainButton" onAction="#handleBackToMain" prefHeight="97.0" prefWidth="238.0" text="Back to Main">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></JFXButton>
-            <Label prefHeight="45.0" prefWidth="139.0" text="CURRENT CUSTOMER" />
-            <ComboBox prefHeight="42.0" prefWidth="208.0" />
-            <JFXButton fx:id="closeButton" onAction="#onCloseButton" prefHeight="42.0" prefWidth="119.0" text="x">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXButton>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </JFXButton>
+                <Label prefHeight="45.0" prefWidth="139.0" text="CURRENT CUSTOMER" />
+                <ComboBox fx:id="customerComboBox" prefHeight="42.0" prefWidth="208.0" />
+                <JFXButton fx:id="closeButton" onAction="#onCloseButton" prefHeight="42.0" prefWidth="119.0" text="x">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </JFXButton>
             </children>
         </HBox>
     </top>
@@ -174,20 +175,22 @@
     <padding>
         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
     </padding>
-   <right>
-      <VBox alignment="CENTER" prefHeight="728.0" prefWidth="269.0" spacing="20.0" BorderPane.alignment="CENTER">
-         <children>
-            <Pane fx:id="shoppingCartPane" prefHeight="339.0" prefWidth="270.0">
-               <children>
-                  <ScrollPane hbarPolicy="NEVER" layoutX="2.0" layoutY="39.0" prefHeight="262.0" prefWidth="264.0" style="-fx-border-color: #ffffff;">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="262.0" />
-                    </content>
-                  </ScrollPane>
-                  <Text layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shopping Cart" />
-               </children></Pane>
-            <Pane fx:id="recommenderPane" prefHeight="373.0" prefWidth="270.0" />
-         </children>
-      </VBox>
-   </right>
+    <right>
+        <VBox alignment="CENTER" prefHeight="728.0" prefWidth="269.0" spacing="20.0" BorderPane.alignment="CENTER">
+            <children>
+                <Pane fx:id="shoppingCartPane" prefHeight="339.0" prefWidth="270.0">
+                    <children>
+                        <ScrollPane hbarPolicy="NEVER" layoutX="2.0" layoutY="39.0" prefHeight="252.0" prefWidth="264.0" style="-fx-border-color: #ffffff;">
+                            <content>
+                                <VBox fx:id="cartItemsVBox" prefHeight="248.0" prefWidth="242.0" style="-fx-background-color: #f4f4f4; -fx-border-color: #1e1204; -fx-border-width: 2;" />
+                            </content>
+                        </ScrollPane>
+                        <Text layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shopping Cart" />
+                      <JFXButton fx:id="checkoutButton" layoutX="46.0" layoutY="291.0" onAction="#onCheckoutButton" style="-fx-background-color: #33cc66;" text="Checkout" />
+                    </children>
+                </Pane>
+                <Pane fx:id="recommenderPane" prefHeight="373.0" prefWidth="270.0" />
+            </children>
+        </VBox>
+    </right>
 </BorderPane>

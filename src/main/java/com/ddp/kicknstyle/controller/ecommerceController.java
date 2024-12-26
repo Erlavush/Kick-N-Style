@@ -253,7 +253,7 @@ public class ecommerceController {
     }
 
     @FXML
-    void onCloseButton(ActionEvent event) {
+    private void onCloseButton(ActionEvent event) {
         Stage stage = (Stage) backToMainButton.getScene().getWindow();
         stage.close();
     }

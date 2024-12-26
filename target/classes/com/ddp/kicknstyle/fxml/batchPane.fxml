@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -16,6 +17,7 @@
     <Pane layoutX="8.0" layoutY="9.0" prefHeight="711.0" prefWidth="1000.0" styleClass="pane">
         <children>
             <VBox alignment="CENTER" layoutX="20.0" layoutY="13.0" prefHeight="691.0" prefWidth="962.0" spacing="10">
+            <Label text="DISPATCHED" />
 
                 <!-- Batch TableView -->
                 <TableView fx:id="dispatchedBatchTableView" prefHeight="316.0" prefWidth="962.0">
@@ -32,6 +34,7 @@
                 </TableView>
                 <JFXButton onAction="#handleMarkAsDelivered" prefHeight="30.0" prefWidth="362.0" text="Mark Selected Dispatched Batch as Delivered" />
                 <Separator prefHeight="0.0" prefWidth="962.0" />
+            <Label text="DELIVERED" />
 
 
                 <TableView fx:id="deliveredBatchTableView" prefHeight="357.0" prefWidth="962.0">

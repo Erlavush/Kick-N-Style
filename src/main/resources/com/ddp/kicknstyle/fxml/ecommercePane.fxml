@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -40,18 +41,13 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></JFXButton>
-            <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <JFXButton fx:id="closeButton" onAction="#onCloseButton" text="x">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </JFXButton>
-               </children>
-               <HBox.margin>
-                  <Insets left="1000.0" />
-               </HBox.margin>
-            </HBox>
+            <Label prefHeight="45.0" prefWidth="139.0" text="CURRENT CUSTOMER" />
+            <ComboBox prefHeight="42.0" prefWidth="208.0" />
+            <JFXButton fx:id="closeButton" onAction="#onCloseButton" prefHeight="42.0" prefWidth="119.0" text="x">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
             </children>
         </HBox>
     </top>
@@ -185,7 +181,7 @@
                <children>
                   <ScrollPane hbarPolicy="NEVER" layoutX="2.0" layoutY="39.0" prefHeight="262.0" prefWidth="264.0" style="-fx-border-color: #ffffff;">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="251.0" prefWidth="261.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="262.0" />
                     </content>
                   </ScrollPane>
                   <Text layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shopping Cart" />

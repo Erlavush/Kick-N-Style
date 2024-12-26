@@ -27,7 +27,7 @@
             <center>
                 <AnchorPane fx:id="centerAnchorPane" maxHeight="800.0" maxWidth="1200.0" minHeight="682.0" minWidth="729.0" prefHeight="757.0" prefWidth="781.0">
                     <children>
-                        <ScrollPane layoutX="19.0" layoutY="-9.0" prefHeight="785.0" prefWidth="730.0" style="-fx-background: transparent; -fx-background-color: transparent;">
+                        <ScrollPane layoutX="19.0" layoutY="-9.0" prefHeight="786.0" prefWidth="751.0" style="-fx-background: transparent; -fx-background-color: transparent;">
                             <content>
                                 <GridPane fx:id="sneakerDisplayGridPane" prefHeight="0.0" prefWidth="0.0">
                                     <rowConstraints>
@@ -44,21 +44,29 @@
             <top>
                 <HBox fx:id="topHBox" prefHeight="54.0" prefWidth="1341.0" BorderPane.alignment="CENTER">
                     <children>
-                        <JFXButton fx:id="backToMainButton" onAction="#handleBackToMain" prefHeight="97.0" prefWidth="238.0" text="Back to Main">
+                        <JFXButton fx:id="backToMainButton" contentDisplay="CENTER" onAction="#handleBackToMain" prefHeight="54.0" prefWidth="66.0">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
+                            <graphic>
+                                <FontAwesomeIcon glyphName="ARROW_LEFT" size="2.8em" wrappingWidth="20.0" />
+                            </graphic>
                         </JFXButton>
-                        <Label prefHeight="45.0" prefWidth="139.0" text="CURRENT CUSTOMER" />
-                        <ComboBox fx:id="customerComboBox" prefHeight="41.0" prefWidth="208.0">
-                     <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin></ComboBox>
-                        <Pane prefHeight="54.0" prefWidth="641.0" />
+                        <Label fx:id="currentCustomerLabel" prefHeight="52.0" prefWidth="196.0" text="CURRENT CUSTOMER">
+                            <HBox.margin>
+                                <Insets left="40.0" />
+                            </HBox.margin>
+                        </Label>
+                        <ComboBox fx:id="customerComboBox" prefHeight="51.0" prefWidth="208.0">
+                            <HBox.margin>
+                                <Insets top="5.0" />
+                            </HBox.margin>
+                        </ComboBox>
+                        <Pane prefHeight="54.0" prefWidth="718.0" />
                         <JFXButton fx:id="closeButton" contentDisplay="CENTER" layoutX="1130.0" layoutY="2.0" onAction="#onCloseButton" prefHeight="54.0" prefWidth="58.0" styleClass="exitButton" text=" ">
-                     <graphic>
-                        <FontAwesomeIcon glyphName="TIMES" size="1.7em" />
-                     </graphic>
+                            <graphic>
+                                <FontAwesomeIcon glyphName="TIMES" size="1.7em" />
+                            </graphic>
                         </JFXButton>
                     </children>
                 </HBox>
@@ -110,9 +118,9 @@
                                     </children>
                                 </HBox>
                             </children>
-                     <VBox.margin>
-                        <Insets top="25.0" />
-                     </VBox.margin>
+                            <VBox.margin>
+                                <Insets top="25.0" />
+                            </VBox.margin>
                         </VBox>
 
                         <VBox fx:id="ratingsSection" alignment="TOP_CENTER" prefHeight="113.0" prefWidth="211.0">
@@ -173,18 +181,20 @@
                                 <HBox fx:id="lowestToHighestBox" prefHeight="31.0" prefWidth="202.0">
                                     <children>
                                         <Label fx:id="lowestToHighestLabel" prefHeight="31.0" prefWidth="181.0" text="Lowest to highest">
-                                 <font>
-                                    <Font size="6.0" />
-                                 </font></Label>
+                                            <font>
+                                                <Font size="6.0" />
+                                            </font>
+                                        </Label>
                                         <JFXCheckBox fx:id="lowestToHighestCheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="31.0" prefWidth="18.0" styleClass="jfx-checkbox" />
                                     </children>
                                 </HBox>
                                 <HBox fx:id="highestToLowestBox" prefHeight="100.0" prefWidth="200.0">
                                     <children>
                                         <Label fx:id="highestToLowestLabel" prefHeight="31.0" prefWidth="192.0" text="Highest to lowest">
-                                 <font>
-                                    <Font size="1.0" />
-                                 </font></Label>
+                                            <font>
+                                                <Font size="1.0" />
+                                            </font>
+                                        </Label>
                                         <JFXCheckBox fx:id="highestToLowestCheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" styleClass="jfx-checkbox" />
                                     </children>
                                 </HBox>
@@ -210,15 +220,25 @@
                                 </ScrollPane>
                                 <Text fx:id="shoppingCartLabel" fill="WHITE" layoutX="61.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shopping Cart" />
                                 <JFXButton fx:id="checkoutButton" layoutX="79.0" layoutY="309.0" onAction="#onCheckoutButton" prefHeight="21.0" prefWidth="96.0" text="Checkout" />
-                        <FontAwesomeIcon fill="WHITE" glyphName="CART_PLUS" layoutX="24.0" layoutY="32.0" size="2.5em" />
+                                <FontAwesomeIcon fill="WHITE" glyphName="CART_PLUS" layoutX="24.0" layoutY="32.0" size="2.5em" />
                             </children>
                         </Pane>
-                        <Label fx:id="youMightLikeLabel" prefHeight="32.0" prefWidth="242.0" text="YOU MIGHT LIKE: ">
+                        <Label fx:id="youMightLikeLabel" prefHeight="3.0" prefWidth="242.0" text="YOU MIGHT LIKE: ">
                             <VBox.margin>
                                 <Insets top="10.0" />
                             </VBox.margin>
                         </Label>
-                        <Pane fx:id="recommenderPane" prefHeight="376.0" prefWidth="202.0" />
+                        <Pane fx:id="recommenderPane" prefHeight="415.0" prefWidth="242.0">
+                            <children>
+                                <ScrollPane fx:id="sneakerScrollPane" fitToHeight="true" hbarPolicy="ALWAYS" layoutY="-6.0" prefHeight="412.0" prefWidth="250.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="NEVER">
+                                    <content>
+                                        <HBox fx:id="sneakerDisplayHBox" alignment="CENTER_LEFT" prefHeight="378.0" prefWidth="58.0" spacing="10" style="-fx-padding: 10;">
+                                            <!-- Dynamically loaded sneaker cards will be added here -->
+                                        </HBox>
+                                    </content>
+                                </ScrollPane>
+                            </children>
+                        </Pane>
                     </children>
                     <BorderPane.margin>
                         <Insets right="20.0" />

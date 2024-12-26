@@ -72,8 +72,6 @@ public class AddBatchDialogController {
         // Populate supplier combo box
         populateSupplierComboBox();
 
-        // Setup batch status combo box
-        setupBatchStatusComboBox();
 
         // Generate unique batch number
         generateUniqueBatchNumber();
@@ -107,12 +105,7 @@ public class AddBatchDialogController {
         }
     }
 
-    private void setupBatchStatusComboBox() {
-        batchStatusComboBox.setItems(FXCollections.observableArrayList(
-                "Dispatched", "Delivered"
-        ));
-        batchStatusComboBox.setValue("Dispatched");
-    }
+
 
     private void generateUniqueBatchNumber() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");

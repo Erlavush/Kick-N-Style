@@ -8,9 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.stream.Collectors;
 
 import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -33,6 +36,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -75,7 +79,7 @@ public class ecommerceController {
     @FXML
     private HBox casualBox;
     @FXML
-    private JFXCheckBox casualCheckBox; 
+    private JFXCheckBox casualCheckBox;
     @FXML
     private Label casualLabel;
     @FXML
@@ -159,10 +163,14 @@ public class ecommerceController {
     @FXML
     private JFXButton checkoutButton;  // Make sure this matches the FXML
 
+    @FXML
+    private HBox sneakerDisplayHBox;
+    @FXML
+    private ScrollPane sneakerScrollPane;
+
     // --------------- INSTANCE FIELDS ---------------
     private ArrayList<Sneaker> sneakerList = new ArrayList<>();
     private ArrayList<Sneaker> shoppingCart = new ArrayList<>();
-    
 
     // If you want to store purchases in memory after checkout, use a separate data structure:
     // private static ArrayList<Sneaker> boughtList = new ArrayList<>();
@@ -231,14 +239,14 @@ public class ecommerceController {
         clip.setHeight(850); // Match the height of your BorderPane
         clip.setArcWidth(120); // Adjust arc width
         clip.setArcHeight(120); // Adjust arc height
-    
+
         // Apply clip to the main AnchorPane or BorderPane
         centerAnchorPane.setClip(clip);
-    
+
         // Optional: Apply drop shadow if desired
         centerAnchorPane.setStyle("-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 20, 0.5, 0, 3);");
     }
-    
+
     public void removeFromCart(Sneaker sneaker) {
         shoppingCart.remove(sneaker);
         updateCartDisplay();
@@ -261,57 +269,180 @@ public class ecommerceController {
     }
 
     // --------------- RECOMMENDATION SYSTEM ---------------
-    private void recommendSneakerForCustomer(int customerId) {
-        // 1) Build frequency map (category -> times purchased)
-        Map<String, Integer> categoryFrequencyMap = getCategoryFrequencyForCustomer(customerId);
+   private void recommendSneakerForCustomer(int customerId) {
+    System.out.println("Starting recommendation process for Customer ID: " + customerId);
 
-        if (categoryFrequencyMap.isEmpty()) {
-            showNoRecommendations();
-            return;
+    // Get user-specific purchase frequency
+    Map<Integer, Integer> customerSneakerFrequency = getCustomerSneakerFrequency(customerId);
+    System.out.println("Customer Sneaker Frequency: " + customerSneakerFrequency);
+
+    Map<String, Integer> customerBrandFrequency = getCustomerBrandFrequency(customerId);
+    System.out.println("Customer Brand Frequency: " + customerBrandFrequency);
+
+    Map<String, Integer> customerCategoryFrequency = getCustomerCategoryFrequency(customerId);
+    System.out.println("Customer Category Frequency: " + customerCategoryFrequency);
+
+    // Get global popularity
+    Map<Integer, Integer> globalPopularity = getGlobalPopularity();
+    System.out.println("Global Popularity: " + globalPopularity);
+
+    // Calculate max values for normalization
+    int maxCustomerScore = customerSneakerFrequency.values().stream().max(Integer::compare).orElse(1);
+    System.out.println("Max Customer Score: " + maxCustomerScore);
+
+    int maxGlobalScore = globalPopularity.values().stream().max(Integer::compare).orElse(1);
+    System.out.println("Max Global Score: " + maxGlobalScore);
+
+    // PriorityQueue to store sneakers with scores
+    PriorityQueue<SneakerScore> pq = new PriorityQueue<>(Comparator.comparingDouble(SneakerScore::getScore).reversed());
+
+    for (Sneaker sneaker : sneakerList) {
+        int sneakerId = sneaker.getSneakerID();
+        String sneakerBrand = sneaker.getBrand();
+        String sneakerCategory = sneaker.getCategory();
+
+        // Exclude sneakers already purchased by the customer
+        if (customerSneakerFrequency.containsKey(sneakerId)) {
+            System.out.println("Skipping Sneaker ID " + sneakerId + " as it was already purchased by the customer.");
+            continue;
         }
 
-        // 2) Build a max-heap
-        PriorityQueue<Map.Entry<String, Integer>> maxHeap = new PriorityQueue<>(
-                (a, b) -> b.getValue() - a.getValue()
-        );
-        maxHeap.addAll(categoryFrequencyMap.entrySet());
+        // Normalize scores
+        double normalizedCustomerScore = customerSneakerFrequency.getOrDefault(sneakerId, 0) / (double) maxCustomerScore;
+        double normalizedGlobalScore = globalPopularity.getOrDefault(sneakerId, 0) / (double) maxGlobalScore;
 
-        // 3) Top category
-        Map.Entry<String, Integer> topCategoryEntry = maxHeap.poll();
-        String topCategory = topCategoryEntry.getKey();
+        // Add brand and category influence
+        double brandScore = customerBrandFrequency.getOrDefault(sneakerBrand, 0) / (double) maxCustomerScore;
+        double categoryScore = customerCategoryFrequency.getOrDefault(sneakerCategory, 0) / (double) maxCustomerScore;
 
-        // 4) Find a sneaker in that category
-        Sneaker recommended = null;
-        for (Sneaker s : sneakerList) {
-            if (s.getCategory().equalsIgnoreCase(topCategory)) {
-                recommended = s;
-                break;
-            }
-        }
+        // Combined scoring
+        double score = (0.5 * normalizedCustomerScore)
+                     + (0.2 * brandScore)
+                     + (0.2 * categoryScore)
+                     + (0.1 * normalizedGlobalScore);
 
-        if (recommended != null) {
-            showRecommendedSneaker(recommended);
+        System.out.printf("Calculated score for Sneaker ID %d (Brand: %s, Category: %s): %.2f%n", 
+                           sneakerId, sneakerBrand, sneakerCategory, score);
+
+        // Add to PriorityQueue
+        pq.offer(new SneakerScore(sneaker, score));
+    }
+
+    // Extract top 5 recommendations from PriorityQueue
+    List<Sneaker> recommendedSneakers = new ArrayList<>();
+    System.out.println("Extracting top recommendations...");
+    while (!pq.isEmpty() && recommendedSneakers.size() < 5) {
+        SneakerScore sneakerScore = pq.poll();
+        if (sneakerScore.getSneaker().getRemainingQuantity() > 0) { // Only recommend available sneakers
+            recommendedSneakers.add(sneakerScore.getSneaker());
+            System.out.printf("Recommended Sneaker: %s (ID: %d, Score: %.2f)%n",
+                              sneakerScore.getSneaker().getSneakerName(),
+                              sneakerScore.getSneaker().getSneakerID(),
+                              sneakerScore.getScore());
         } else {
-            showNoRecommendations();
+            System.out.printf("Skipping Sneaker ID %d due to insufficient stock.%n",
+                              sneakerScore.getSneaker().getSneakerID());
         }
     }
 
-    private Map<String, Integer> getCategoryFrequencyForCustomer(int customerId) {
-        Map<String, Integer> frequencyMap = new HashMap<>();
+    // Display recommendations
+    if (!recommendedSneakers.isEmpty()) {
+        System.out.println("Final Recommendations: " + recommendedSneakers.stream()
+                                                                         .map(Sneaker::getSneakerName)
+                                                                         .collect(Collectors.toList()));
+        showRecommendedSneakers(recommendedSneakers);
+    } else {
+        System.out.println("No recommendations available for the customer.");
+        showNoRecommendations();
+    }
+}
 
-        String sql = "SELECT sc.Category_Name "
-                + "FROM DPD_Sales AS sale "
-                + "JOIN DPD_Sales_Detail AS sd ON sale.Sale_ID = sd.Sale_ID "
-                + "JOIN DPD_Sneaker AS s ON sd.Sneaker_ID = s.Sneaker_ID "
-                + "JOIN DPD_Sneaker_Category AS sc ON s.Sneaker_Category_ID = sc.Category_ID "
-                + "WHERE sale.Customer_ID = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+// Helper class to store Sneaker and its score
+    private static class SneakerScore {
+
+        private final Sneaker sneaker;
+        private final double score;
+
+        public SneakerScore(Sneaker sneaker, double score) {
+            this.sneaker = sneaker;
+            this.score = score;
+        }
+
+        public Sneaker getSneaker() {
+            return sneaker;
+        }
+
+        public double getScore() {
+            return score;
+        }
+    }
+
+    private Map<String, Integer> getCustomerBrandFrequency(int customerId) {
+        Map<String, Integer> brandFrequency = new HashMap<>();
+        String query = "SELECT b.Brand_Name, COUNT(sd.Sneaker_ID) AS PurchaseCount "
+                + "FROM DPD_Sales_Detail sd "
+                + "JOIN DPD_Sales s ON s.Sale_ID = sd.Sale_ID "
+                + "JOIN DPD_Sneaker sn ON sn.Sneaker_ID = sd.Sneaker_ID "
+                + "JOIN DPD_Shoe_Brand b ON sn.Brand_ID = b.Brand_ID "
+                + "WHERE s.Customer_ID = ? "
+                + "GROUP BY b.Brand_Name";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, customerId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    String brandName = rs.getString("Brand_Name");
+                    int purchaseCount = rs.getInt("PurchaseCount");
+                    brandFrequency.put(brandName, purchaseCount);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return brandFrequency;
+    }
+
+    private Map<String, Integer> getCustomerCategoryFrequency(int customerId) {
+        Map<String, Integer> categoryFrequency = new HashMap<>();
+        String query = "SELECT c.Category_Name, COUNT(sd.Sneaker_ID) AS PurchaseCount "
+                + "FROM DPD_Sales_Detail sd "
+                + "JOIN DPD_Sales s ON s.Sale_ID = sd.Sale_ID "
+                + "JOIN DPD_Sneaker sn ON sn.Sneaker_ID = sd.Sneaker_ID "
+                + "JOIN DPD_Sneaker_Category c ON sn.Sneaker_Category_ID = c.Category_ID "
+                + "WHERE s.Customer_ID = ? "
+                + "GROUP BY c.Category_Name";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, customerId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     String categoryName = rs.getString("Category_Name");
-                    frequencyMap.put(categoryName, frequencyMap.getOrDefault(categoryName, 0) + 1);
+                    int purchaseCount = rs.getInt("PurchaseCount");
+                    categoryFrequency.put(categoryName, purchaseCount);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categoryFrequency;
+    }
+
+    private Map<Integer, Integer> getCustomerSneakerFrequency(int customerId) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        String query = "SELECT sd.Sneaker_ID, COUNT(sd.Sneaker_ID) AS PurchaseCount "
+                + "FROM DPD_Sales_Detail sd "
+                + "JOIN DPD_Sales s ON s.Sale_ID = sd.Sale_ID "
+                + "WHERE s.Customer_ID = ? "
+                + "GROUP BY sd.Sneaker_ID";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, customerId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    int sneakerId = rs.getInt("Sneaker_ID");
+                    int purchaseCount = rs.getInt("PurchaseCount");
+                    frequencyMap.put(sneakerId, purchaseCount);
                 }
             }
         } catch (SQLException e) {
@@ -321,34 +452,68 @@ public class ecommerceController {
         return frequencyMap;
     }
 
-    private void showRecommendedSneaker(Sneaker sneaker) {
-        recommenderPane.getChildren().clear();
-    
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/sneakerCard.fxml"));
-            AnchorPane sneakerCard = loader.load();
-    
-            SneakerCardController controller = loader.getController();
-            controller.setSneakerDetails(sneaker);
-            controller.setEcommerceController(this);
-    
-            // Create a VBox to center the sneaker card
-            VBox centeredBox = new VBox();
-            centeredBox.getChildren().add(sneakerCard);
-            centeredBox.setAlignment(Pos.CENTER); // Center the content
-            centeredBox.setPrefHeight(recommenderPane.getHeight()); // Optional: Set preferred height
-    
-            // Add the centered box to the recommenderPane
-            recommenderPane.getChildren().add(centeredBox);
-        } catch (IOException e) {
+    private Map<Integer, Integer> getGlobalPopularity() {
+        Map<Integer, Integer> popularityMap = new HashMap<>();
+        String query = "SELECT sd.Sneaker_ID, COUNT(sd.Sneaker_ID) AS PurchaseCount "
+                + "FROM DPD_Sales_Detail sd "
+                + "GROUP BY sd.Sneaker_ID";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                int sneakerId = rs.getInt("Sneaker_ID");
+                int purchaseCount = rs.getInt("PurchaseCount");
+                popularityMap.put(sneakerId, purchaseCount);
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return popularityMap;
+    }
+
+    private Sneaker findSneakerById(int sneakerId) {
+        for (Sneaker sneaker : sneakerList) {
+            if (sneaker.getSneakerID() == sneakerId) {
+                return sneaker;
+            }
+        }
+        return null;
+    }
+
+    private void showRecommendedSneakers(List<Sneaker> sneakers) {
+        sneakerDisplayHBox.getChildren().clear(); // Clear previous recommendations
+
+        sneakerDisplayHBox.setAlignment(Pos.CENTER_LEFT);
+        sneakerDisplayHBox.setSpacing(10); // Set spacing between cards
+        sneakerDisplayHBox.setPadding(new Insets(10)); // Add padding for aesthetics
+
+        for (Sneaker sneaker : sneakers) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/sneakerCard.fxml"));
+                AnchorPane sneakerCard = loader.load();
+
+                SneakerCardController controller = loader.getController();
+                controller.setSneakerDetails(sneaker);
+                controller.setEcommerceController(this);
+
+                sneakerDisplayHBox.getChildren().add(sneakerCard); // Add card to HBox
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Ensure the ScrollPane wraps the HBox correctly
+        sneakerScrollPane.setContent(sneakerDisplayHBox); // Attach HBox to ScrollPane
+        sneakerScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        sneakerScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        sneakerScrollPane.setFitToHeight(true); // Ensure content fits height-wise
+        sneakerScrollPane.setStyle("-fx-background-color: transparent;"); // Transparent background
     }
 
     private void showNoRecommendations() {
         recommenderPane.getChildren().clear();
         Label lbl = new Label("No recommendations available.");
-        lbl.setStyle("-fx-font-size: 16; -fx-text-fill: #ff0000;");
+        lbl.setStyle("-fx-font-size: 16; -fx-text-fill: #FF0000;");
         recommenderPane.getChildren().add(lbl);
     }
 

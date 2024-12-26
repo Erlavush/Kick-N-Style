@@ -21,7 +21,7 @@ public class SneakerCardController {
     private JFXButton addToCartButton;
 
     @FXML
-    private JFXButton addToFaveoriteButton;  // Let’s rename to buyButton if desired
+    private JFXButton buyButton;
 
     @FXML
     private Label categoryLabel;
@@ -47,22 +47,46 @@ public class SneakerCardController {
     private Sneaker sneaker;
     private double score = 0;
 
-    // We need a reference to the ecommerceController
+    // Reference to the eCommerce controller
     private ecommerceController ecommerceController;
 
-    @FXML
-    public void initialize() {
-        // Clip the ImageView to 10px rounded corners
-        clipImageViewToRoundedCorners();
-        // Random rating for display
-        reviewLabel.setText(generateRandomReview());
+    public void setSneakerDetails(Sneaker sneaker) {
+        this.sneaker = sneaker;
+        
+        // Populate UI elements
+        sneakerNameLabel.setText(sneaker.getSneakerName());
+        categoryLabel.setText(sneaker.getCategory());
+        editionLabel.setText(sneaker.getSneakerEdition());
+        priceLabel.setText(String.format("$%.2f", sneaker.getSellingPrice()));
+
+        // Generate random review for demonstration purposes
+        String review = generateRandomReview();
+        score = Double.parseDouble(review.substring(0, 3));
+        reviewLabel.setText(review);
+
+        // Load sneaker image
+        loadSneakerImage();
     }
 
-    private void clipImageViewToRoundedCorners() {
-        // If you have a default image programmatically:
-        String imagePath = getClass().getResource("/com/ddp/kicknstyle/images/default-sneaker.jpg").toExternalForm();
-        sneakerImageView.setImage(new Image(imagePath));
-
+    private void loadSneakerImage() {
+        // Construct the image name based on sneaker details and remove spaces
+        String imageName = sneaker.getSneakerName().toLowerCase().replace(" ", "") + "_" +
+                           sneaker.getSneakerEdition().toLowerCase().replace(" ", "") + "_" +
+                           sneaker.getBrand().toLowerCase().replace(" ", "") + ".png";
+    
+        String imagePath = "/com/ddp/kicknstyle/images/sneakers/" + imageName;
+    
+        try {
+            // Attempt to load the specific sneaker's image
+            String fullPath = getClass().getResource(imagePath).toExternalForm();
+            sneakerImageView.setImage(new Image(fullPath));
+        } catch (NullPointerException e) {
+            // Fallback to the default image if the specific image is not found
+            String defaultPath = getClass().getResource("/com/ddp/kicknstyle/images/default-sneaker.jpg").toExternalForm();
+            sneakerImageView.setImage(new Image(defaultPath));
+        }
+    
+        // Clip the ImageView to rounded corners
         Rectangle clip = new Rectangle();
         clip.setArcWidth(20);
         clip.setArcHeight(20);
@@ -70,13 +94,14 @@ public class SneakerCardController {
         clip.setHeight(sneakerImageView.getFitHeight());
         sneakerImageView.setClip(clip);
     }
+    
 
     public static String generateRandomReview() {
         Random random = new Random();
-        double rating = 3.0 + (2.0 * random.nextDouble()); // between 3 and 5
+        double rating = 3.0 + (2.0 * random.nextDouble()); // Generate rating between 3.0 and 5.0
         String formattedRating = String.format("%.1f", rating);
 
-        int reviewCount = random.nextInt(200) + 1;
+        int reviewCount = random.nextInt(200) + 1; // Generate random number of reviews
         return formattedRating + " ★ (" + reviewCount + " reviews)";
     }
 
@@ -84,23 +109,6 @@ public class SneakerCardController {
         return score;
     }
 
-    public void setSneakerDetails(Sneaker sneaker) {
-        this.sneaker = sneaker;
-        // Populate the UI
-        sneakerNameLabel.setText(sneaker.getSneakerName());
-        categoryLabel.setText(sneaker.getCategory());
-        editionLabel.setText(sneaker.getSneakerEdition());
-        priceLabel.setText(String.format("$%.2f", sneaker.getSellingPrice()));
-
-        // Generate random rating for demonstration
-        String review = generateRandomReview();
-        score = Double.parseDouble(review.substring(0, 2)); // simplistic approach
-        reviewLabel.setText(review);
-    }
-
-    /**
-     * Called by FXML when "Add to Cart" button is clicked
-     */
     @FXML
     private void handleAddToCart() {
         if (ecommerceController != null) {
@@ -108,11 +116,7 @@ public class SneakerCardController {
         }
     }
 
-    /**
-     * Called by FXML when "Buy" button is clicked
-     */
-    @
-    FXML
+    @FXML
     private void handleBuyNow() {
         if (ecommerceController == null) {
             return;
@@ -122,16 +126,14 @@ public class SneakerCardController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Purchase");
         alert.setHeaderText("Purchase Confirmation");
-        alert.setContentText("Are you sure you want to buy '"
-                + sneaker.getSneakerName() + "' for $" + sneaker.getSellingPrice() + "?");
+        alert.setContentText("Are you sure you want to buy '" +
+                             sneaker.getSneakerName() + "' for $" + sneaker.getSellingPrice() + "?");
 
         // Show and wait for user input
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             // If user clicked OK, proceed
             ecommerceController.buySingleSneaker(sneaker);
-        } else {
-            // If CANCEL or closed, do nothing
         }
     }
 

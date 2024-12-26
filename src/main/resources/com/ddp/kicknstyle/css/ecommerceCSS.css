@@ -8,7 +8,7 @@
     -fx-text-fill: #563726;
     -fx-font-family: 'Fira Code', sans-serif;
     -fx-alignment: center;
-/*  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5); */
+    /*  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5); */
 }
 
 /* Price filter section */
@@ -34,7 +34,7 @@
     -fx-border-radius: 20px;
     -fx-padding: 15px;
     -fx-spacing: 10;
-   /* -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5); */
+    /* -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5); */
 }
 
 #ratingsSection {
@@ -69,7 +69,8 @@
 /* Styling for the JFXSlider */
 #ratingsSlider {
     -fx-pref-width: 250px;
-    -jfx-default-track: #564A3D;  /* Default track color */
+    -jfx-default-track: #564A3D;
+    /* Default track color */
     -jfx-indicator-position: right;
 }
 
@@ -97,9 +98,12 @@
     -fx-border-radius: 50%;
     -fx-border-width: 2px;
 }
+
 #ratingsSlider .animated-thumb-label {
-    -fx-background-color: #9f2323; /* White background */
-    -fx-text-fill: #af1111; /* Black text */
+    -fx-background-color: #9f2323;
+    /* White background */
+    -fx-text-fill: #af1111;
+    /* Black text */
     -fx-font-size: 12px;
     -fx-font-weight: bold;
 }
@@ -119,9 +123,12 @@
 }
 
 #ratingsSlider .axis {
-    -fx-tick-label-fill: #ffffff;  /* Changes the numbers/text color to white */
-    -fx-tick-label-font-size: 12px;  /* Adjust size as needed */
-    -fx-tick-label-font-family: 'Fira Code', sans-serif;  /* Match your font */
+    -fx-tick-label-fill: #ffffff;
+    /* Changes the numbers/text color to white */
+    -fx-tick-label-font-size: 12px;
+    /* Adjust size as needed */
+    -fx-tick-label-font-family: 'Fira Code', sans-serif;
+    /* Match your font */
 }
 
 #ratingsSlider .axis .tick-mark {
@@ -168,7 +175,8 @@
     -fx-font-family: 'Fira Code', sans-serif;
 }
 
-#sortByPriceSection #lowestToHighestLabel,#highestToLowestLabel {
+#sortByPriceSection #lowestToHighestLabel,
+#highestToLowestLabel {
     -fx-font-size: 12px;
     -fx-text-fill: #ffffff;
     -fx-font-family: 'Fira Code', sans-serif;
@@ -190,8 +198,10 @@
     -fx-pref-width: 20px;
     -fx-pref-height: 20px;
     -fx-padding: 5px;
-    -jfx-unchecked-color: #ffffff; /* Changes the empty box border color to white */
-    -jfx-checked-color: #ffffff; /* Changes the color when checked to white */
+    -jfx-unchecked-color: #ffffff;
+    /* Changes the empty box border color to white */
+    -jfx-checked-color: #ffffff;
+    /* Changes the color when checked to white */
 }
 
 /* The ripple effect color when clicked */
@@ -242,13 +252,13 @@
 }
 
 .exitButton:hover {
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 0, 3);
 }
 
 
 .mainAnchor {
     -fx-background-color: transparent;
-  
+
 }
 
 #filterPane {
@@ -256,7 +266,7 @@
     /* -fx-border-radius: 20px;
     -fx-border-color: #1e1204;
     -fx-border-width: 2; */
-    /* -fx-background-color: #f4f4f4; */ 
+    /* -fx-background-color: #f4f4f4; */
     /* -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5); */
 }
 
@@ -264,7 +274,7 @@
     -fx-background-radius: 20px;
     -fx-border-radius: 20px;
     -fx-border-color: #1e1204;
-    -fx-border-width: 2;    
+    -fx-border-width: 2;
     -fx-background-color: #7b6243;
     /* -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5); */
 }
@@ -283,11 +293,11 @@
     -fx-border-color: transparent;
 }
 
-.scroll-pane > .viewport {
+.scroll-pane>.viewport {
     -fx-background-color: transparent;
 }
 
-.scroll-pane > .corner {
+.scroll-pane>.corner {
     -fx-background-color: transparent;
 }
 
@@ -314,7 +324,7 @@
 
 #sneakerDisplayGridPane {
     -fx-background-color: transparent;
-    
+
 }
 
 #shoppingCartLabel {
@@ -331,7 +341,7 @@
     -fx-text-fill: rgb(0, 0, 0);
     -fx-font-size: 15px;
     -fx-font-weight: bold;
- 
+
 
 
 
@@ -350,19 +360,30 @@
     -fx-border-width: 1px;
 }
 
-.combo-box, .text-field {
-    -fx-background-color: #fff8e1;  /* Light beige background for input fields */
-    -fx-font-size: 12px;  /* Font size */
-    -fx-text-fill: #333;  /* Dark text color */
-    -fx-prompt-text-fill: #888;  /* Light grey for placeholder text */
-    -fx-border-color: #dcdcdc;  /* Light grey border */
+.combo-box,
+.text-field {
+    -fx-background-color: #fff8e1;
+    /* Light beige background for input fields */
+    -fx-font-size: 12px;
+    /* Font size */
+    -fx-text-fill: #333;
+    /* Dark text color */
+    -fx-prompt-text-fill: #888;
+    /* Light grey for placeholder text */
+    -fx-border-color: #dcdcdc;
+    /* Light grey border */
     -fx-border-width: 1px;
     -fx-padding: 5px;
 }
 
-#below500Label, #range501to1000Label, #range1001to2000Label, 
-#above2001Label, #casualLabel, #runningLabel, 
-#basketballLabel, #othersLabel {
+#below500Label,
+#range501to1000Label,
+#range1001to2000Label,
+#above2001Label,
+#casualLabel,
+#runningLabel,
+#basketballLabel,
+#othersLabel {
     -fx-font-size: 2px;
     -fx-text-fill: #fbfbfb;
     -fx-font-family: 'Fira Code', sans-serif;
@@ -374,6 +395,14 @@
 
 #youMightLikeLabel {
     -fx-font-size: 23px;
+    -fx-text-fill: #000000;
+    -fx-font-family: 'Fira Code', sans-serif;
+    -fx-font-style: BOLD;
+
+}
+
+#currentCustomerLabel {
+    -fx-font-size: 18px;
     -fx-text-fill: #000000;
     -fx-font-family: 'Fira Code', sans-serif;
     -fx-font-style: BOLD;

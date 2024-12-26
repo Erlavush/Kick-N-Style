@@ -5,6 +5,9 @@ module com.ddp.kicknstyle {
     requires java.sql;
     requires javafx.base;
     requires fontawesomefx;
+    requires org.kordamp.ikonli.core;         // Contains the Ikon interface
+    requires org.kordamp.ikonli.javafx;       // JavaFX-based FontIcon, etc.
+    requires org.kordamp.ikonli.fontawesome5; 
     
     
     opens com.ddp.kicknstyle.controller to javafx.fxml;

@@ -12,8 +12,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class mainGUI_Controller {
@@ -27,9 +29,16 @@ public class mainGUI_Controller {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/ecommercePane.fxml"));
             Parent ecommercePane = loader.load();
 
-            // Get the current stage
+            Rectangle clip = new Rectangle(1282, 820);
+            clip.setArcWidth(110);
+            clip.setArcHeight(110);
+            ecommercePane.setClip(clip);
+
             Stage stage = (Stage) switchToEcommerceButton.getScene().getWindow();
-            stage.setScene(new Scene(ecommercePane));
+            Scene scene = new Scene(ecommercePane);
+            scene.setFill(Color.TRANSPARENT); // Essential!
+
+            stage.setScene(scene);
             stage.setTitle("Ecommerce Pane");
         } catch (IOException e) {
             e.printStackTrace();

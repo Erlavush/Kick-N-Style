@@ -1,10 +1,5 @@
 /* Main filters container */
-#filterPane {
 
-    -fx-padding: 5px;
-    -fx-spacing: 10;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
-}
 
 /* Filters label */
 #filtersLabel {
@@ -13,7 +8,7 @@
     -fx-text-fill: #563726;
     -fx-font-family: 'Fira Code', sans-serif;
     -fx-alignment: center;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+/*  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5); */
 }
 
 /* Price filter section */
@@ -39,7 +34,7 @@
     -fx-border-radius: 20px;
     -fx-padding: 15px;
     -fx-spacing: 10;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+   /* -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5); */
 }
 
 #ratingsSection {
@@ -52,7 +47,7 @@
     -fx-border-radius: 20px;
     -fx-padding: 20px;
     -fx-spacing: 0;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+    /* -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5); */
 }
 
 /* Ratings filter section */
@@ -132,7 +127,7 @@
     -fx-border-radius: 20px;
     -fx-padding: 15px;
     -fx-spacing: 10;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+    /* -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5); */
 }
 
 
@@ -160,7 +155,7 @@
     -fx-border-radius: 20px;
     -fx-padding: 15px;
     -fx-spacing: 10;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+    /* -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5); */
 }
 
 /* JFXCheckBox styling */
@@ -187,28 +182,102 @@
 }
 
 
-#shoppingCartPane {
-    -fx-font-size: 16px;
-    -fx-text-fill: #563726;
-    -fx-background-color: #f4f4f4;
-    -fx-background-radius: 20px;
-    -fx-border-color: #1e1204;
-    -fx-border-width: 2;
-    -fx-border-radius: 20px;
-    -fx-padding: 15px;
-    -fx-spacing: 10;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+
+
+.exitButton {
+    -fx-background-color: #e74c3c;
+    -fx-background-radius: 5px 50px 5px 5px;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 25px;
+    -fx-transition: all 0.3s ease;
 }
 
+.exitButton:hover {
+    -fx-background-color: #c0392b;
+    -fx-cursor: hand;
+}
+
+.exitButton:pressed {
+    -fx-background-color: #992d22;
+}
+
+.exitButton:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 3);
+}
+
+
+.mainAnchor {
+    -fx-background-color: transparent;
+  
+}
+
+#filterPane {
+    /* -fx-background-radius: 20px; /* Match mainAnchor */
+    /* -fx-border-radius: 20px;
+    -fx-border-color: #1e1204;
+    -fx-border-width: 2; */
+    /* -fx-background-color: #f4f4f4; */ 
+    /* -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5); */
+}
+
+#shoppingCartPane,
 #recommenderPane {
-    -fx-font-size: 16px;
-    -fx-text-fill: #563726;
-    -fx-background-color: #f4f4f4;
     -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
     -fx-border-color: #1e1204;
     -fx-border-width: 2;
-    -fx-border-radius: 20px;
-    -fx-padding: 15px;
-    -fx-spacing: 10;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5);
+    -fx-background-color: #f4f4f4;
+    /* -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 5); */
+}
+
+/* Ensure no default styling conflicts with the clipping mechanism */
+.root {
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-border-color: #111;
+    -fx-border-width: 2;
+    -fx-background-color: #fff1de;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+}
+
+/* Optional: Style the scrollbars if you want them to be visible but minimal */
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #88888855;
+    -fx-background-radius: 5em;
+}
+
+#centerAnchorPane {
+    -fx-background-color: transparent;
+}
+
+#sneakerDisplayGridPane {
+    -fx-background-color: transparent;
+    
 }

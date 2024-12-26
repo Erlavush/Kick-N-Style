@@ -1,11 +1,14 @@
 package com.ddp.kicknstyle.controller;
 
+import java.util.Optional;
 import java.util.Random;
 
 import com.ddp.kicknstyle.model.Sneaker;
 import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -95,7 +98,9 @@ public class SneakerCardController {
         reviewLabel.setText(review);
     }
 
-    /** Called by FXML when "Add to Cart" button is clicked */
+    /**
+     * Called by FXML when "Add to Cart" button is clicked
+     */
     @FXML
     private void handleAddToCart() {
         if (ecommerceController != null) {
@@ -103,12 +108,30 @@ public class SneakerCardController {
         }
     }
 
-    /** Called by FXML when "Buy" button is clicked */
-    @FXML
+    /**
+     * Called by FXML when "Buy" button is clicked
+     */
+    @
+    FXML
     private void handleBuyNow() {
-        if (ecommerceController != null) {
-            // Immediately purchase this single item
+        if (ecommerceController == null) {
+            return;
+        }
+
+        // Build a confirmation alert
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Purchase");
+        alert.setHeaderText("Purchase Confirmation");
+        alert.setContentText("Are you sure you want to buy '"
+                + sneaker.getSneakerName() + "' for $" + sneaker.getSellingPrice() + "?");
+
+        // Show and wait for user input
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // If user clicked OK, proceed
             ecommerceController.buySingleSneaker(sneaker);
+        } else {
+            // If CANCEL or closed, do nothing
         }
     }
 

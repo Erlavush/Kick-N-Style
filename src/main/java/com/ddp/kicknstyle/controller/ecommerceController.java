@@ -75,7 +75,7 @@ public class ecommerceController {
     @FXML
     private HBox casualBox;
     @FXML
-    private JFXCheckBox casualCheckBox;
+    private JFXCheckBox casualCheckBox; 
     @FXML
     private Label casualLabel;
     @FXML
@@ -162,6 +162,7 @@ public class ecommerceController {
     // --------------- INSTANCE FIELDS ---------------
     private ArrayList<Sneaker> sneakerList = new ArrayList<>();
     private ArrayList<Sneaker> shoppingCart = new ArrayList<>();
+    
 
     // If you want to store purchases in memory after checkout, use a separate data structure:
     // private static ArrayList<Sneaker> boughtList = new ArrayList<>();
@@ -171,6 +172,7 @@ public class ecommerceController {
     // --------------- INITIALIZE ---------------
     @FXML
     private void initialize() {
+        makeDraggable();
         applyRoundedEdgesToScene();
         // 1) Load sneakers
         loadSneakersDataFromDatabase();
@@ -203,6 +205,23 @@ public class ecommerceController {
         // ratingsSlider.setOnMouseReleased(e -> applyFilters()); // if needed
         // Optionally style the cart scroll pane if you want
         // Add a tooltip to "Checkout" button if desired, etc.
+    }
+
+    private void makeDraggable() {
+        // Assuming you have a root node in your FXML for ecommercePane
+        // Replace 'rootNode' with the actual ID of your root node in the FXML
+        Pane rootNode = new Pane(); // Replace with your actual root node
+
+        rootNode.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        rootNode.setOnMouseDragged(event -> {
+            Stage stage = (Stage) rootNode.getScene().getWindow();
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
     }
 
     private void applyRoundedEdgesToScene() {

@@ -64,8 +64,8 @@ public class SneakerCardController {
         sneakerImageView.setImage(new Image(imagePath));
 
         Rectangle clip = new Rectangle();
-        clip.setArcWidth(10);
-        clip.setArcHeight(10);
+        clip.setArcWidth(20);
+        clip.setArcHeight(20);
         clip.setWidth(sneakerImageView.getFitWidth());
         clip.setHeight(sneakerImageView.getFitHeight());
         sneakerImageView.setClip(clip);

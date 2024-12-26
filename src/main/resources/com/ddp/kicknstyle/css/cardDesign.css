@@ -19,8 +19,8 @@
 
 #sneakerImageView {
     -fx-background-radius: 10;
-    -fx-fit-height: 170px;
-    -fx-fit-width: 170px;
+    -fx-fit-height: 220px;
+    -fx-fit-width: 190px;
     -fx-preserve-ratio: true;
 } 
 

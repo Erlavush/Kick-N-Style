@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -16,35 +17,59 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class mainGUI_Controller {
-
+    private double xOffset = 0;
+    private double yOffset = 0;
     @FXML
     private JFXButton switchToEcommerceButton;
-
     @FXML
     private void switchToEcommerce() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/ecommercePane.fxml"));
-            Parent ecommercePane = loader.load();
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/ecommercePane.fxml"));
+        Parent ecommercePane = loader.load();
 
-            Rectangle clip = new Rectangle(1282, 820);
-            clip.setArcWidth(110);
-            clip.setArcHeight(110);
-            ecommercePane.setClip(clip);
+        Rectangle clip = new Rectangle(1300, 850);
+        clip.setArcWidth(110);
+        clip.setArcHeight(110);
+        ecommercePane.setClip(clip);
 
-            Stage stage = (Stage) switchToEcommerceButton.getScene().getWindow();
-            Scene scene = new Scene(ecommercePane);
-            scene.setFill(Color.TRANSPARENT); // Essential!
+        Stage stage = (Stage) switchToEcommerceButton.getScene().getWindow();
+        Scene scene = new Scene(ecommercePane);
+        scene.setFill(Color.TRANSPARENT);
 
-            stage.setScene(scene);
-            stage.setTitle("Ecommerce Pane");
-        } catch (IOException e) {
-            e.printStackTrace();
-            showErrorAlert("Error", "Failed to load ecommerce pane.");
-        }
+        // Ensure stage is shown to get accurate dimensions
+        stage.setScene(scene);
+        stage.show();
+
+        // Get screen dimensions
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        // Calculate center position
+        double centerX = bounds.getMinX() + (bounds.getWidth() - scene.getWidth()) / 2;
+        double centerY = bounds.getMinY() + (bounds.getHeight() - scene.getHeight()) / 2;
+
+        stage.setX(centerX);
+        stage.setY(centerY);
+
+        ecommercePane.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        ecommercePane.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+
+        stage.setTitle("Ecommerce Pane");
+    } catch (IOException e) {
+        e.printStackTrace();
+        showErrorAlert("Error", "Failed to load ecommerce pane.");
     }
+}
     @FXML
     private JFXButton exitButton;
 
@@ -66,6 +91,7 @@ public class mainGUI_Controller {
             System.exit(0);
 
         });
+        showDashboard();
     }
 
     @FXML

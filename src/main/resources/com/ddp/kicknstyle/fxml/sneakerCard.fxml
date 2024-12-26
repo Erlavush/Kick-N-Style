@@ -14,7 +14,7 @@
    <children>
       <VBox fx:id="sneakerCardContainer" alignment="CENTER" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="212.0">
          <children>
-            <ImageView fx:id="sneakerImageView" fitHeight="129.0" fitWidth="184.0" pickOnBounds="true">
+            <ImageView fx:id="sneakerImageView" fitHeight="145.0" fitWidth="190.0" pickOnBounds="true">
                <image>
                   <Image url="@../images/default-sneaker.jpg" />
                </image>

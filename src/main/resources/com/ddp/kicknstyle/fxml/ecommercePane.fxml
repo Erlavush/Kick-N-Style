@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXSlider?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ComboBox?>
@@ -19,194 +20,212 @@
 <?import javafx.scene.text.Text?>
 
 <Pane prefHeight="850.0" prefWidth="1300.0" stylesheets="@../css/ecommerceCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.ecommerceController">
-   <children>
-      <BorderPane layoutX="20.0" layoutY="17.0" maxHeight="829.0" maxWidth="1257.0" minHeight="0.0" minWidth="1199.0" prefHeight="810.0" prefWidth="1257.0" style="-fx-background-color: transparent;" styleClass="mainAnchor">
-      
-          <!-- CENTER CONTENT -->
-          <center>
-              <AnchorPane fx:id="centerAnchorPane" maxHeight="800.0" maxWidth="1200.0" minHeight="682.0" minWidth="729.0" prefHeight="757.0" prefWidth="738.0">
-                  <children>
-                      <ScrollPane layoutX="15.0" layoutY="9.0" prefHeight="708.0" prefWidth="729.0" style="-fx-background: transparent; -fx-background-color: transparent;">
-                          <content>
-                              <GridPane fx:id="sneakerDisplayGridPane" prefHeight="0.0" prefWidth="0.0">
-                                  <rowConstraints>
-                                      <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                                  </rowConstraints>
-                              </GridPane>
-                          </content>
-                      </ScrollPane>
-                  </children>
-              </AnchorPane>
-          </center>
-      
-          <!-- TOP BAR -->
-          <top>
-              <HBox fx:id="topHBox" prefHeight="55.0" prefWidth="1244.0" BorderPane.alignment="CENTER">
-                  <children>
-                      <JFXButton fx:id="backToMainButton" onAction="#handleBackToMain" prefHeight="97.0" prefWidth="238.0" text="Back to Main">
-                          <cursor>
-                              <Cursor fx:constant="HAND" />
-                          </cursor>
-                      </JFXButton>
-                      <Label prefHeight="45.0" prefWidth="139.0" text="CURRENT CUSTOMER" />
-                      <ComboBox fx:id="customerComboBox" prefHeight="42.0" prefWidth="208.0" />
-                      <Pane prefHeight="55.0" prefWidth="618.0" />
-                  </children>
-              </HBox>
-          </top>
-      
-          <!-- LEFT FILTERS -->
-          <left>
-              <VBox fx:id="filterPane" prefHeight="760.0" prefWidth="216.0" spacing="10.0" BorderPane.alignment="CENTER">
-                  <children>
-                      <Pane fx:id="filterPaneHeader" prefHeight="46.0" prefWidth="211.0">
-                          <children>
-                              <Label fx:id="filtersLabel" layoutX="-5.0" layoutY="-3.0" prefHeight="27.0" prefWidth="163.0" text="Filters">
-                                  <font>
-                                      <Font size="26.0" />
-                                  </font>
-                              </Label>
-                          </children>
-                      </Pane>
-      
-                      <VBox fx:id="priceSection" prefHeight="171.0" prefWidth="211.0">
-                          <children>
-                              <Label fx:id="priceLabel" prefHeight="26.0" prefWidth="97.0" text="Price">
-                                  <font>
-                                      <Font size="26.0" />
-                                  </font>
-                              </Label>
-                              <HBox fx:id="below500Box" prefHeight="25.0" prefWidth="190.0">
-                                  <children>
-                                      <Label fx:id="below500Label" prefHeight="34.0" prefWidth="171.0" text="Below 500" />
-                                      <JFXCheckBox fx:id="below500CheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" />
-                                  </children>
-                              </HBox>
-                              <HBox fx:id="range501to1000Box" prefHeight="100.0" prefWidth="200.0">
-                                  <children>
-                                      <Label fx:id="range501to1000Label" prefHeight="21.0" prefWidth="170.0" text="501 - 1000" />
-                                      <JFXCheckBox fx:id="range501to1000CheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" />
-                                  </children>
-                              </HBox>
-                              <HBox fx:id="range1001to2000Box" prefHeight="100.0" prefWidth="200.0">
-                                  <children>
-                                      <Label fx:id="range1001to2000Label" prefHeight="25.0" prefWidth="168.0" text="1001 - 2000" />
-                                      <JFXCheckBox fx:id="range1001to2000CheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" />
-                                  </children>
-                              </HBox>
-                              <HBox fx:id="above2001Box" prefHeight="100.0" prefWidth="200.0">
-                                  <children>
-                                      <Label fx:id="above2001Label" prefHeight="20.0" prefWidth="168.0" text="Above 2001" />
-                                      <JFXCheckBox fx:id="above2001CheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" />
-                                  </children>
-                              </HBox>
-                          </children>
-                      </VBox>
-      
-                      <VBox fx:id="ratingsSection" alignment="TOP_CENTER" prefHeight="105.0" prefWidth="211.0">
-                          <children>
-                              <Label fx:id="ratingsLabel" prefHeight="38.0" prefWidth="178.0" text="Ratings (min)">
-                                  <font>
-                                      <Font size="26.0" />
-                                  </font>
-                                  <VBox.margin>
-                                      <Insets bottom="15.0" />
-                                  </VBox.margin>
-                              </Label>
-                              <JFXSlider fx:id="ratingsSlider" blockIncrement="1.0" max="5.0" prefHeight="28.0" prefWidth="251.0" showTickLabels="true" showTickMarks="true" value="5.0" />
-                          </children>
-                      </VBox>
-      
-                      <VBox fx:id="categoriesSection" prefHeight="167.0" prefWidth="210.0">
-                          <children>
-                              <Label fx:id="categoriesLabel" prefHeight="32.0" prefWidth="163.0" text="Categories">
-                                  <font>
-                                      <Font size="26.0" />
-                                  </font>
-                              </Label>
-                              <HBox fx:id="casualBox" prefHeight="100.0" prefWidth="200.0">
-                                  <children>
-                                      <Label fx:id="casualLabel" prefHeight="43.0" prefWidth="206.0" text="Casual" />
-                                      <JFXCheckBox fx:id="casualCheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" />
-                                  </children>
-                              </HBox>
-                              <HBox fx:id="runningBox" prefHeight="100.0" prefWidth="200.0">
-                                  <children>
-                                      <Label fx:id="runningLabel" prefHeight="43.0" prefWidth="206.0" text="Running" />
-                                      <JFXCheckBox fx:id="runningCheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" />
-                                  </children>
-                              </HBox>
-                              <HBox fx:id="basketballBox" prefHeight="100.0" prefWidth="200.0">
-                                  <children>
-                                      <Label fx:id="basketballLabel" prefHeight="43.0" prefWidth="206.0" text="Basketball" />
-                                      <JFXCheckBox fx:id="basketballCheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" />
-                                  </children>
-                              </HBox>
-                              <HBox fx:id="othersBox" prefHeight="100.0" prefWidth="200.0">
-                                  <children>
-                                      <Label fx:id="othersLabel" prefHeight="43.0" prefWidth="206.0" text="Others" />
-                                      <JFXCheckBox fx:id="othersCheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" />
-                                  </children>
-                              </HBox>
-                          </children>
-                      </VBox>
-      
-                      <VBox fx:id="sortByPriceSection" prefHeight="103.0" prefWidth="221.0">
-                          <children>
-                              <Label fx:id="sortByPriceLabel" prefHeight="32.0" prefWidth="163.0" text="Sort by price">
-                                  <font>
-                                      <Font size="26.0" />
-                                  </font>
-                              </Label>
-                              <HBox fx:id="lowestToHighestBox" prefHeight="100.0" prefWidth="200.0">
-                                  <children>
-                                      <Label fx:id="lowestToHighestLabel" prefHeight="43.0" prefWidth="206.0" text="Lowest to highest" />
-                                      <JFXCheckBox fx:id="lowestToHighestCheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" />
-                                  </children>
-                              </HBox>
-                              <HBox fx:id="highestToLowestBox" prefHeight="100.0" prefWidth="200.0">
-                                  <children>
-                                      <Label fx:id="highestToLowestLabel" prefHeight="43.0" prefWidth="206.0" text="Highest to lowest" />
-                                      <JFXCheckBox fx:id="highestToLowestCheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" />
-                                  </children>
-                              </HBox>
-                          </children>
-                      </VBox>
-                  </children>
-                  <BorderPane.margin>
-                      <Insets bottom="20.0" left="20.0" />
-                  </BorderPane.margin>
-              </VBox>
-          </left>
-      
-          <!-- RIGHT SIDE: CART + RECOMMENDER -->
-          <right>
-              <VBox alignment="CENTER" fillWidth="false" prefHeight="777.0" prefWidth="264.0" BorderPane.alignment="CENTER">
-                  <children>
-                      <Pane fx:id="shoppingCartPane" prefHeight="303.0" prefWidth="264.0">
-                          <children>
-                              <ScrollPane hbarPolicy="NEVER" layoutX="2.0" layoutY="39.0" prefHeight="223.0" prefWidth="264.0" style="-fx-border-color: #ffffff;">
-                                  <content>
-                                      <VBox fx:id="cartItemsVBox" prefHeight="216.0" prefWidth="246.0" style="-fx-background-color: #f4f4f4; -fx-border-color: #1e1204; -fx-border-width: 2;" />
-                                  </content>
-                              </ScrollPane>
-                              <Text layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shopping Cart" />
-                              <JFXButton fx:id="checkoutButton" layoutX="20.0" layoutY="265.0" onAction="#onCheckoutButton" prefHeight="21.0" prefWidth="96.0" style="-fx-background-color: #33cc66;" text="Checkout" />
-                          </children>
-                      </Pane>
-                  <Label prefHeight="32.0" prefWidth="157.0" text="YOU MIGHT LIKE: ">
-                     <VBox.margin>
+    <children>
+        <BorderPane layoutX="4.0" layoutY="1.0" maxHeight="848.0" maxWidth="1299.0" minHeight="0.0" minWidth="1199.0" prefHeight="848.0" prefWidth="1299.0" style="-fx-background-color: transparent;" styleClass="mainAnchor">
+
+            <!-- CENTER CONTENT -->
+            <center>
+                <AnchorPane fx:id="centerAnchorPane" maxHeight="800.0" maxWidth="1200.0" minHeight="682.0" minWidth="729.0" prefHeight="757.0" prefWidth="781.0">
+                    <children>
+                        <ScrollPane layoutX="19.0" layoutY="-9.0" prefHeight="785.0" prefWidth="730.0" style="-fx-background: transparent; -fx-background-color: transparent;">
+                            <content>
+                                <GridPane fx:id="sneakerDisplayGridPane" prefHeight="0.0" prefWidth="0.0">
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                                    </rowConstraints>
+                                </GridPane>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </AnchorPane>
+            </center>
+
+            <!-- TOP BAR -->
+            <top>
+                <HBox fx:id="topHBox" prefHeight="54.0" prefWidth="1341.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <JFXButton fx:id="backToMainButton" onAction="#handleBackToMain" prefHeight="97.0" prefWidth="238.0" text="Back to Main">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </JFXButton>
+                        <Label prefHeight="45.0" prefWidth="139.0" text="CURRENT CUSTOMER" />
+                        <ComboBox fx:id="customerComboBox" prefHeight="41.0" prefWidth="208.0">
+                     <HBox.margin>
                         <Insets top="10.0" />
+                     </HBox.margin></ComboBox>
+                        <Pane prefHeight="54.0" prefWidth="641.0" />
+                        <JFXButton fx:id="closeButton" contentDisplay="CENTER" layoutX="1130.0" layoutY="2.0" onAction="#onCloseButton" prefHeight="54.0" prefWidth="58.0" styleClass="exitButton" text=" ">
+                     <graphic>
+                        <FontAwesomeIcon glyphName="TIMES" size="1.7em" />
+                     </graphic>
+                        </JFXButton>
+                    </children>
+                </HBox>
+            </top>
+
+            <!-- LEFT FILTERS -->
+            <left>
+                <VBox fx:id="filterPane" fillWidth="false" prefHeight="790.0" prefWidth="214.0" spacing="10.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Pane fx:id="filterPaneHeader" prefHeight="34.0" prefWidth="211.0">
+                            <children>
+                                <Label fx:id="filtersLabel" layoutX="-5.0" layoutY="-3.0" prefHeight="15.0" prefWidth="163.0" text="Filters">
+                                    <font>
+                                        <Font size="26.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </Pane>
+
+                        <VBox fx:id="priceSection" prefHeight="180.0" prefWidth="211.0">
+                            <children>
+                                <Label fx:id="priceLabel" prefHeight="26.0" prefWidth="97.0" text="Price">
+                                    <font>
+                                        <Font size="26.0" />
+                                    </font>
+                                </Label>
+                                <HBox fx:id="below500Box" prefHeight="25.0" prefWidth="190.0">
+                                    <children>
+                                        <Label fx:id="below500Label" prefHeight="34.0" prefWidth="171.0" text="Below 500" />
+                                        <JFXCheckBox fx:id="below500CheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" styleClass="jfx-checkbox" />
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="range501to1000Box" prefHeight="100.0" prefWidth="200.0">
+                                    <children>
+                                        <Label fx:id="range501to1000Label" prefHeight="21.0" prefWidth="170.0" text="501 - 1000" />
+                                        <JFXCheckBox fx:id="range501to1000CheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" styleClass="jfx-checkbox" />
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="range1001to2000Box" prefHeight="100.0" prefWidth="200.0">
+                                    <children>
+                                        <Label fx:id="range1001to2000Label" prefHeight="25.0" prefWidth="168.0" text="1001 - 2000" />
+                                        <JFXCheckBox fx:id="range1001to2000CheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" styleClass="jfx-checkbox" />
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="above2001Box" prefHeight="100.0" prefWidth="200.0">
+                                    <children>
+                                        <Label fx:id="above2001Label" prefHeight="20.0" prefWidth="168.0" text="Above 2001" />
+                                        <JFXCheckBox fx:id="above2001CheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" styleClass="jfx-checkbox" />
+                                    </children>
+                                </HBox>
+                            </children>
+                     <VBox.margin>
+                        <Insets top="25.0" />
                      </VBox.margin>
-                  </Label>
-                      <Pane fx:id="recommenderPane" prefHeight="376.0" prefWidth="202.0" />
-                  </children>
-                  <BorderPane.margin>
-                      <Insets right="20.0" />
-                  </BorderPane.margin>
-              </VBox>
-          </right>
-      
-      </BorderPane>
-   </children>
+                        </VBox>
+
+                        <VBox fx:id="ratingsSection" alignment="TOP_CENTER" prefHeight="113.0" prefWidth="211.0">
+                            <children>
+                                <Label fx:id="ratingsLabel" prefHeight="38.0" prefWidth="178.0" text="Ratings (min)">
+                                    <font>
+                                        <Font size="26.0" />
+                                    </font>
+                                    <VBox.margin>
+                                        <Insets bottom="15.0" />
+                                    </VBox.margin>
+                                </Label>
+                                <JFXSlider fx:id="ratingsSlider" blockIncrement="1.0" max="5.0" prefHeight="35.0" prefWidth="166.0" showTickLabels="true" showTickMarks="true" value="5.0" />
+                            </children>
+                        </VBox>
+
+                        <VBox fx:id="categoriesSection" prefHeight="209.0" prefWidth="210.0">
+                            <children>
+                                <Label fx:id="categoriesLabel" prefHeight="32.0" prefWidth="163.0" text="Categories">
+                                    <font>
+                                        <Font size="26.0" />
+                                    </font>
+                                </Label>
+                                <HBox fx:id="casualBox" prefHeight="100.0" prefWidth="200.0">
+                                    <children>
+                                        <Label fx:id="casualLabel" prefHeight="43.0" prefWidth="206.0" text="Casual" />
+                                        <JFXCheckBox fx:id="casualCheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" styleClass="jfx-checkbox" />
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="runningBox" prefHeight="100.0" prefWidth="200.0">
+                                    <children>
+                                        <Label fx:id="runningLabel" prefHeight="43.0" prefWidth="206.0" text="Running" />
+                                        <JFXCheckBox fx:id="runningCheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" styleClass="jfx-checkbox" />
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="basketballBox" prefHeight="100.0" prefWidth="200.0">
+                                    <children>
+                                        <Label fx:id="basketballLabel" prefHeight="43.0" prefWidth="206.0" text="Basketball" />
+                                        <JFXCheckBox fx:id="basketballCheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" styleClass="jfx-checkbox" />
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="othersBox" prefHeight="100.0" prefWidth="200.0">
+                                    <children>
+                                        <Label fx:id="othersLabel" prefHeight="43.0" prefWidth="206.0" text="Others" />
+                                        <JFXCheckBox fx:id="othersCheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" styleClass="jfx-checkbox" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+
+                        <VBox fx:id="sortByPriceSection" prefHeight="155.0" prefWidth="216.0">
+                            <children>
+                                <Label fx:id="sortByPriceLabel" prefHeight="32.0" prefWidth="163.0" text="Sort by price">
+                                    <font>
+                                        <Font size="26.0" />
+                                    </font>
+                                </Label>
+                                <HBox fx:id="lowestToHighestBox" prefHeight="31.0" prefWidth="202.0">
+                                    <children>
+                                        <Label fx:id="lowestToHighestLabel" prefHeight="31.0" prefWidth="181.0" text="Lowest to highest">
+                                 <font>
+                                    <Font size="6.0" />
+                                 </font></Label>
+                                        <JFXCheckBox fx:id="lowestToHighestCheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="31.0" prefWidth="18.0" styleClass="jfx-checkbox" />
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="highestToLowestBox" prefHeight="100.0" prefWidth="200.0">
+                                    <children>
+                                        <Label fx:id="highestToLowestLabel" prefHeight="31.0" prefWidth="192.0" text="Highest to lowest">
+                                 <font>
+                                    <Font size="1.0" />
+                                 </font></Label>
+                                        <JFXCheckBox fx:id="highestToLowestCheckBox" contentDisplay="GRAPHIC_ONLY" prefHeight="42.0" prefWidth="20.0" styleClass="jfx-checkbox" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets bottom="20.0" left="20.0" />
+                    </BorderPane.margin>
+                </VBox>
+            </left>
+
+            <!-- RIGHT SIDE: CART + RECOMMENDER -->
+            <right>
+                <VBox alignment="CENTER" fillWidth="false" prefHeight="777.0" prefWidth="264.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Pane fx:id="shoppingCartPane" prefHeight="345.0" prefWidth="264.0">
+                            <children>
+                                <ScrollPane fx:id="cartItemScrollPane" hbarPolicy="NEVER" layoutX="2.0" layoutY="39.0" prefHeight="266.0" prefWidth="264.0" style="-fx-border-color: #ffffff;" styleClass="scroll-bar">
+                                    <content>
+                                        <VBox fx:id="cartItemsVBox" prefHeight="259.0" prefWidth="259.0" styleClass="cartItemsVbox" />
+                                    </content>
+                                </ScrollPane>
+                                <Text fx:id="shoppingCartLabel" fill="WHITE" layoutX="61.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shopping Cart" />
+                                <JFXButton fx:id="checkoutButton" layoutX="79.0" layoutY="309.0" onAction="#onCheckoutButton" prefHeight="21.0" prefWidth="96.0" text="Checkout" />
+                        <FontAwesomeIcon fill="WHITE" glyphName="CART_PLUS" layoutX="24.0" layoutY="32.0" size="2.5em" />
+                            </children>
+                        </Pane>
+                        <Label fx:id="youMightLikeLabel" prefHeight="32.0" prefWidth="242.0" text="YOU MIGHT LIKE: ">
+                            <VBox.margin>
+                                <Insets top="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <Pane fx:id="recommenderPane" prefHeight="376.0" prefWidth="202.0" />
+                    </children>
+                    <BorderPane.margin>
+                        <Insets right="20.0" />
+                    </BorderPane.margin>
+                </VBox>
+            </right>
+
+        </BorderPane>
+    </children>
 </Pane>

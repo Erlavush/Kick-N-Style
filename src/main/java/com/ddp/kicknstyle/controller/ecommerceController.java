@@ -304,16 +304,23 @@ public class ecommerceController {
 
     private void showRecommendedSneaker(Sneaker sneaker) {
         recommenderPane.getChildren().clear();
-
+    
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/sneakerCard.fxml"));
             AnchorPane sneakerCard = loader.load();
-
+    
             SneakerCardController controller = loader.getController();
             controller.setSneakerDetails(sneaker);
             controller.setEcommerceController(this);
-
-            recommenderPane.getChildren().add(sneakerCard);
+    
+            // Create a VBox to center the sneaker card
+            VBox centeredBox = new VBox();
+            centeredBox.getChildren().add(sneakerCard);
+            centeredBox.setAlignment(Pos.CENTER); // Center the content
+            centeredBox.setPrefHeight(recommenderPane.getHeight()); // Optional: Set preferred height
+    
+            // Add the centered box to the recommenderPane
+            recommenderPane.getChildren().add(centeredBox);
         } catch (IOException e) {
             e.printStackTrace();
         }

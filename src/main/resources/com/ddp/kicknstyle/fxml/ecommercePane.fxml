@@ -20,11 +20,11 @@
 
 <Pane prefHeight="850.0" prefWidth="1300.0" stylesheets="@../css/ecommerceCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.ecommerceController">
    <children>
-      <BorderPane layoutX="20.200000762939453" layoutY="17.0" maxHeight="800.0" maxWidth="1257.0" minHeight="0.0" minWidth="1199.0" prefHeight="800.0" prefWidth="1257.0" style="-fx-background-color: transparent;" styleClass="mainAnchor">
+      <BorderPane layoutX="20.0" layoutY="17.0" maxHeight="829.0" maxWidth="1257.0" minHeight="0.0" minWidth="1199.0" prefHeight="810.0" prefWidth="1257.0" style="-fx-background-color: transparent;" styleClass="mainAnchor">
       
           <!-- CENTER CONTENT -->
           <center>
-              <AnchorPane fx:id="centerAnchorPane" maxHeight="800.0" maxWidth="1200.0" minHeight="682.0" minWidth="729.0" prefHeight="712.0" prefWidth="741.0">
+              <AnchorPane fx:id="centerAnchorPane" maxHeight="800.0" maxWidth="1200.0" minHeight="682.0" minWidth="729.0" prefHeight="757.0" prefWidth="738.0">
                   <children>
                       <ScrollPane layoutX="15.0" layoutY="9.0" prefHeight="708.0" prefWidth="729.0" style="-fx-background: transparent; -fx-background-color: transparent;">
                           <content>
@@ -181,23 +181,28 @@
       
           <!-- RIGHT SIDE: CART + RECOMMENDER -->
           <right>
-              <VBox alignment="CENTER" prefHeight="728.0" prefWidth="269.0" spacing="20.0" BorderPane.alignment="CENTER">
+              <VBox alignment="CENTER" fillWidth="false" prefHeight="777.0" prefWidth="264.0" BorderPane.alignment="CENTER">
                   <children>
-                      <Pane fx:id="shoppingCartPane" prefHeight="329.0" prefWidth="270.0">
+                      <Pane fx:id="shoppingCartPane" prefHeight="303.0" prefWidth="264.0">
                           <children>
-                              <ScrollPane hbarPolicy="NEVER" layoutX="2.0" layoutY="39.0" prefHeight="252.0" prefWidth="264.0" style="-fx-border-color: #ffffff;">
+                              <ScrollPane hbarPolicy="NEVER" layoutX="2.0" layoutY="39.0" prefHeight="223.0" prefWidth="264.0" style="-fx-border-color: #ffffff;">
                                   <content>
-                                      <VBox fx:id="cartItemsVBox" prefHeight="248.0" prefWidth="242.0" style="-fx-background-color: #f4f4f4; -fx-border-color: #1e1204; -fx-border-width: 2;" />
+                                      <VBox fx:id="cartItemsVBox" prefHeight="216.0" prefWidth="246.0" style="-fx-background-color: #f4f4f4; -fx-border-color: #1e1204; -fx-border-width: 2;" />
                                   </content>
                               </ScrollPane>
                               <Text layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shopping Cart" />
-                              <JFXButton fx:id="checkoutButton" layoutX="46.0" layoutY="291.0" onAction="#onCheckoutButton" prefHeight="21.0" prefWidth="96.0" style="-fx-background-color: #33cc66;" text="Checkout" />
+                              <JFXButton fx:id="checkoutButton" layoutX="20.0" layoutY="265.0" onAction="#onCheckoutButton" prefHeight="21.0" prefWidth="96.0" style="-fx-background-color: #33cc66;" text="Checkout" />
                           </children>
                       </Pane>
-                      <Pane fx:id="recommenderPane" prefHeight="357.0" prefWidth="270.0" />
+                  <Label prefHeight="32.0" prefWidth="157.0" text="YOU MIGHT LIKE: ">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                      <Pane fx:id="recommenderPane" prefHeight="376.0" prefWidth="202.0" />
                   </children>
                   <BorderPane.margin>
-                      <Insets bottom="20.0" right="20.0" />
+                      <Insets right="20.0" />
                   </BorderPane.margin>
               </VBox>
           </right>

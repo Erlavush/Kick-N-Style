@@ -1,5 +1,3 @@
-![image](https://github.com/user-attachments/assets/5b0534ad-c793-49c8-be3e-58e1e998a40c)
-
 # KickNStyle
 
 KickNStyle is a **JavaFX** project designed to manage sneaker inventory and sales. This application allows users to track sneakers, handle batch operations, and monitor sales efficiently. It utilizes **Maven** for dependency management and follows a modular architecture.
@@ -16,8 +14,7 @@ KickNStyle is a **JavaFX** project designed to manage sneaker inventory and sale
 - [Installation](#installation)
 - [Usage](#usage)
 - [Showcase](#showcase)
-- [Screenshots](#sneaker-management)
-
+- [Screenshots](#screenshots)
 
 ---
 
@@ -103,16 +100,32 @@ The following are the main dependencies included in the `pom.xml`:
    cd KickNStyle
    ```
 
-2. **Install Maven**:  
-   Make sure you have Maven installed on your machine.  
+2. **Edit Database Configuration**:
+   - Open the file located at:  
+     `Kick-N-Style/src/main/java/com/ddp/kicknstyle/util/DatabaseConnection.java`
+   - Update the `localhost`, `username`, and `password` to match your MySQL database credentials:
+     ```java
+     // Example:
+     private static final String URL = "jdbc:mysql://localhost:3306/your_database_name";
+     private static final String USERNAME = "your_username";
+     private static final String PASSWORD = "your_password";
+     ```
+
+3. **Prepare the Main GUI Controller**:
+   - Open the file located at:  
+     `Kick-N-Style/src/main/java/com/ddp/kicknstyle/controller/mainGUI_Controller.java`
+   - Confirm or make any necessary updates for the application to run.
+
+4. **Install Maven**:  
+   Ensure Maven is installed on your machine.  
    [Download Maven](https://maven.apache.org/download.cgi)
 
-3. **Build the project**:
+5. **Build the project**:
    ```bash
    mvn clean install
    ```
 
-4. **Run the application**:
+6. **Run the application**:
    ```bash
    mvn javafx:run
    ```
@@ -130,19 +143,16 @@ The following are the main dependencies included in the `pom.xml`:
 
 ## Showcase
 
-## Sneaker Management
+### Sneaker Management
 ![image](https://github.com/user-attachments/assets/c74480c2-9ca2-4100-8fd7-0b54ef1ff5b2)
 
-
-## Sales Management
+### Sales Management
 ![image](https://github.com/user-attachments/assets/22753913-9b17-4c3e-bd34-af7180b8c0f1)
 
-
-## Batch Management
+### Batch Management
 ![Screenshot 2024-12-23 092120](https://github.com/user-attachments/assets/a1782de6-0b58-4240-855d-b8e25da6432d)
 
 ---
-
 
 <div align="center">
   <strong>🎉 Happy Sneaker Managing! 👟</strong>

@@ -54,19 +54,21 @@ public class AddBatchItemDialogController {
         sneakerComboBox.getItems().clear();
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(
-                 "SELECT CONCAT(Sneaker_Name, ' - ', Sneaker_Edition, ' (', Sneaker_Size, ')') AS Full_Sneaker_Name " +
-                 "FROM DPD_Sneaker"
-             );
+                 "SELECT Sneaker_Name, Sneaker_Edition, Sneaker_Size FROM DPD_Sneaker");
              ResultSet rs = pstmt.executeQuery()) {
-
+    
             while (rs.next()) {
-                sneakerComboBox.getItems().add(rs.getString("Full_Sneaker_Name"));
+                String displayName = rs.getString("Sneaker_Name") + " - " +
+                                     rs.getString("Sneaker_Edition") + " (" +
+                                     rs.getString("Sneaker_Size") + ")";
+                sneakerComboBox.getItems().add(displayName);
             }
         } catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Database Error",
-                      "Failed to load sneakers", e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to load sneakers", e.getMessage());
         }
     }
+
+    
 
     private void showAlert(AlertType error, String string, String string2, String message) {
         // TODO Auto-generated method stub
@@ -101,22 +103,26 @@ public class AddBatchItemDialogController {
         if (!validateInputs()) {
             return null;
         }
-
+    
         try {
-            // Extract sneaker name (removing edition and size)
+            // Extract sneaker details
             String fullSneakerName = sneakerComboBox.getValue();
             String sneakerName = extractSneakerName(fullSneakerName);
-
+            String sneakerEdition = extractSneakerEdition(fullSneakerName);
+            String sneakerSize = extractSneakerSize(fullSneakerName);
+    
             int quantity = Integer.parseInt(quantityField.getText());
             double unitCost = Double.parseDouble(unitCostField.getText());
-
-            return new BatchDetailRow(sneakerName, quantity, unitCost);
+    
+            // Remaining quantity is initially the same as quantity
+            return new BatchDetailRow(sneakerName, sneakerEdition, sneakerSize, quantity, unitCost, quantity);
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.WARNING, "Invalid Input",
                       "Please enter valid quantity and unit cost");
             return null;
         }
     }
+    
 
     private boolean validateInputs() {
         // Sneaker selection validation
@@ -143,6 +149,17 @@ public class AddBatchItemDialogController {
         // e.g. "Nike Jordan - Retro (Size 10)"
         // We do a simple split at " - "
         return fullSneakerName.split(" - ")[0];
+    }
+
+
+    
+    
+    private String extractSneakerEdition(String fullSneakerName) {
+        return fullSneakerName.split(" - ")[1].split(" \\(")[0];
+    }
+    
+    private String extractSneakerSize(String fullSneakerName) {
+        return fullSneakerName.split("\\(")[1].replace(")", "");
     }
 
     /**

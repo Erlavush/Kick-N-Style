@@ -19,6 +19,10 @@ import javafx.stage.Stage;
 public class BatchDetailDialogController {
 
     @FXML
+    private TableColumn<BatchDetailRow, String> editionCol; // New
+    @FXML
+    private TableColumn<BatchDetailRow, String> sizeCol;    // New
+    @FXML
     private TableView<BatchDetailRow> detailTable;
     @FXML
     private TableColumn<BatchDetailRow, String> sneakerCol;
@@ -38,13 +42,14 @@ public class BatchDetailDialogController {
         quantityCol.setCellValueFactory(cellData -> cellData.getValue().quantityProperty().asObject());
         costCol.setCellValueFactory(cellData -> cellData.getValue().unitCostProperty().asObject());
         remainingCol.setCellValueFactory(cellData -> cellData.getValue().remainingQuantityProperty().asObject());
-
+        editionCol.setCellValueFactory(cellData -> cellData.getValue().sneakerEditionProperty()); // New
+        sizeCol.setCellValueFactory(cellData -> cellData.getValue().sneakerSizeProperty());       // New
 
     }
 
     /**
-     * Called by the main controller after loading the FXML,
-     * so we know which batch to display details for.
+     * Called by the main controller after loading the FXML, so we know which
+     * batch to display details for.
      */
     public void setBatch(Batch batch) {
         this.batch = batch;
@@ -55,33 +60,38 @@ public class BatchDetailDialogController {
      * Load all rows from DPD_Sneaker_Batch_Detail for the given batch.
      */
     private void loadBatchDetails() {
-        if (batch == null) return;
-
+        if (batch == null) {
+            return;
+        }
+    
         ObservableList<BatchDetailRow> rows = FXCollections.observableArrayList();
-        String sql = "SELECT sbd.Quantity, sbd.Unit_Cost, sbd.Remaining_Quantity, s.Sneaker_Name "
+        String sql = "SELECT sbd.Quantity, sbd.Unit_Cost, sbd.Remaining_Quantity, "
+                   + "s.Sneaker_Name, s.Sneaker_Edition, s.Sneaker_Size "
                    + "FROM DPD_Sneaker_Batch_Detail sbd "
                    + "JOIN DPD_Sneaker s ON s.Sneaker_ID = sbd.Sneaker_ID "
                    + "WHERE sbd.Batch_ID = ?";
-
+    
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+    
             pstmt.setInt(1, batch.getBatchId());
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 String sneakerName = rs.getString("Sneaker_Name");
+                String sneakerEdition = rs.getString("Sneaker_Edition");
+                String sneakerSize = rs.getString("Sneaker_Size");
                 int qty = rs.getInt("Quantity");
                 double cost = rs.getDouble("Unit_Cost");
                 int remaining = rs.getInt("Remaining_Quantity");
-
-                // We'll assume your BatchDetailRow has a constructor or setter for 'remainingQuantity'
-                BatchDetailRow row = new BatchDetailRow(sneakerName, qty, cost, remaining);
+    
+                // Pass all parameters to the constructor
+                BatchDetailRow row = new BatchDetailRow(sneakerName, sneakerEdition, sneakerSize, qty, cost, remaining);
                 rows.add(row);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+    
         detailTable.setItems(rows);
     }
 

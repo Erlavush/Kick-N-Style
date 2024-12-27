@@ -13,10 +13,12 @@
     
     <TableView fx:id="detailTable" prefWidth="580">
         <columns>
-            <TableColumn fx:id="sneakerCol" prefWidth="184.79993283748627" text="Sneaker" />
-            <TableColumn fx:id="quantityCol" prefWidth="97.5999755859375" text="Quantity" />
-            <TableColumn fx:id="costCol" prefWidth="73.60003662109375" text="Unit Cost" />
-            <TableColumn fx:id="remainingCol" prefWidth="120.00003051757812" text="Remaining Qty" />
+            <TableColumn fx:id="sneakerCol" prefWidth="122.66658914089203" text="Sneaker" />
+         <TableColumn fx:id="editionCol" prefWidth="81.33341217041016" text="Edition" />
+         <TableColumn fx:id="sizeCol" prefWidth="98.39999389648438" text="Size" />
+            <TableColumn fx:id="quantityCol" prefWidth="89.86663818359375" text="Quantity" />
+            <TableColumn fx:id="costCol" prefWidth="77.33334350585938" text="Unit Cost" />
+            <TableColumn fx:id="remainingCol" prefWidth="108.26663208007812" text="Remaining Qty" />
         </columns>
     </TableView>
     

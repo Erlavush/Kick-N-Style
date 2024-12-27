@@ -71,7 +71,7 @@ public class AddBatchDialogController {
 
         // Populate supplier combo box
         populateSupplierComboBox();
-
+        populateStatusComboBox();
 
         // Generate unique batch number
         generateUniqueBatchNumber();
@@ -105,7 +105,16 @@ public class AddBatchDialogController {
         }
     }
 
+    private void populateStatusComboBox() {
+        // Create an ObservableList with the options
+        ObservableList<String> options = FXCollections.observableArrayList(
+                "Dispatched",
+                "Delivered"
+        );
 
+        // Set the items in the ComboBox
+        batchStatusComboBox.setItems(options);
+    }
 
     private void generateUniqueBatchNumber() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -211,9 +220,9 @@ public class AddBatchDialogController {
 
     private int insertBatch(Connection conn) throws SQLException {
         String batchQuery = "INSERT INTO DPD_Sneaker_Batch "
-                + "(Batch_Number, Batch_Date, Supplier_ID, Batch_Status)"
+                + "(Batch_Number, Batch_Date, Supplier_ID, Batch_Status) "
                 + "VALUES (?, ?, "
-                + "(SELECT Supplier_ID FROM DPD_Supplier WHERE Supplier_Name = ?), "
+                + "(SELECT Supplier_ID FROM DPD_Supplier WHERE Supplier_Name = ? LIMIT 1), "
                 + "?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(batchQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -237,16 +246,18 @@ public class AddBatchDialogController {
         String detailQuery = "INSERT INTO DPD_Sneaker_Batch_Detail "
                 + "(Batch_ID, Sneaker_ID, Quantity, Unit_Cost, Remaining_Quantity) "
                 + "VALUES (?, "
-                + "(SELECT Sneaker_ID FROM DPD_Sneaker WHERE Sneaker_Name = ?), "
+                + "(SELECT Sneaker_ID FROM DPD_Sneaker WHERE Sneaker_Name = ? AND Sneaker_Edition = ? AND Sneaker_Size = ?), "
                 + "?, ?, ?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(detailQuery)) {
             for (BatchDetailRow item : batchDetailRows) {
                 pstmt.setInt(1, batchId);
                 pstmt.setString(2, item.getSneakerName());
-                pstmt.setInt(3, item.getQuantity());
-                pstmt.setDouble(4, item.getUnitCost());
-                pstmt.setInt(5, item.getQuantity()); // Initially, remaining quantity is the same as initial quantity
+                pstmt.setString(3, item.getSneakerEdition());
+                pstmt.setString(4, item.getSneakerSize());
+                pstmt.setInt(5, item.getQuantity());
+                pstmt.setDouble(6, item.getUnitCost());
+                pstmt.setInt(7, item.getQuantity());
 
                 pstmt.executeUpdate();
             }

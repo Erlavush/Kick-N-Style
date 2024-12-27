@@ -26,7 +26,7 @@
         Batch_Number VARCHAR(100) NOT NULL,
         Batch_Date DATE NOT NULL,
         Supplier_ID INT,
-        Batch_Status ENUM('In Stock', 'Dispatched', 'Delivered') DEFAULT 'In Stock',
+        Batch_Status ENUM('Dispatched', 'Delivered') DEFAULT 'Dispatched',
         FOREIGN KEY (Supplier_ID) REFERENCES DPD_Supplier(Supplier_ID)
     );
 

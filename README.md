@@ -157,5 +157,5 @@ The following are the main dependencies included in the `pom.xml`:
 <div align="center">
   <strong>🎉 Happy Sneaker Managing! 👟</strong>
   <br><br>
-  ✨ BIG CONTRIBUTION WITH MY GROUPMATES: Kent Paulo Delgado & Theo Benedict Pasia 💪🤝
+  ✨ BIG CONTRIBUTION WITH MY GROUPMATES: Kent Paulo Delgado, Theo Benedict Pasia, and Galileon Destura 💪🤝
 </div>

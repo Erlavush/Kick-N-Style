@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane prefHeight="182.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.DeliveryPaneDashboardController">
+    <Pane layoutX="4.0" layoutY="14.0" prefHeight="161.0" prefWidth="526.0" styleClass="pane">
+        <children>
+
+
+             <TableView fx:id="deliveredBatchTableView" layoutX="4.0" layoutY="-4.0" prefHeight="162.0" prefWidth="515.0">
+                 <columns>
+                     <TableColumn fx:id="delBatchIdCol" prefWidth="32.00005912780762" text="ID" />
+                     <TableColumn fx:id="delBatchNumberCol" prefWidth="66.40002822875977" text="BatchNum" />
+                     <TableColumn fx:id="delBatchDateCol" prefWidth="77.5999755859375" text="Batch Date" />
+                     <TableColumn fx:id="delSupplierCol" prefWidth="100.79998779296875" text="Supplier" />
+                     <TableColumn fx:id="delQuantityCol" prefWidth="79.20001220703125" text="TotalQty" />
+                     <TableColumn fx:id="delCostCol" prefWidth="64.79998779296875" text="Total Cost" />
+                     <TableColumn fx:id="delActionCol" prefWidth="91.0" />
+                 </columns>
+             </TableView>
+        </children>
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+        </padding>
+    </Pane>
+</AnchorPane>

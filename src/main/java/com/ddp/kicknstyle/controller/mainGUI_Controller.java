@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -177,7 +177,7 @@ public class mainGUI_Controller {
     private void showDashboard() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ddp/kicknstyle/fxml/dashboardPane.fxml"));
-            VBox dashboardPane = loader.load(); // Change to VBox
+            HBox dashboardPane = loader.load(); // Change to VBox
 
             // Clear previous content and set dashboard
             dynamicDisplayAnchor.getChildren().clear();

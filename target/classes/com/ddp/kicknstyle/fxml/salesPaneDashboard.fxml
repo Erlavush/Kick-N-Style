@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="212.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ddp.kicknstyle.controller.SalesController">
+    <children>
+        <Pane layoutX="4.0" layoutY="5.0" prefHeight="204.0" prefWidth="529.0" styleClass="pane">
+            <children>
+                <VBox layoutX="6.0" layoutY="7.0" prefHeight="195.0" prefWidth="519.0" spacing="5">
+                    <!-- Search and Filter Section -->
+                    <HBox alignment="CENTER_LEFT" spacing="5">
+                        <!-- Flexible Search Field -->
+                        <TextField fx:id="searchField" prefHeight="26.0" prefWidth="65.0" promptText="Search (ID or Customer)..." HBox.hgrow="ALWAYS" />
+
+                        <!-- Date Range Filters -->
+                        <DatePicker fx:id="startDatePicker" prefHeight="26.0" prefWidth="65.0" promptText="Start Date" />
+                        <DatePicker fx:id="endDatePicker" prefHeight="26.0" prefWidth="62.0" promptText="End Date" />
+
+                        <!-- Payment Method Dropdown -->
+                        <ComboBox fx:id="paymentMethodComboBox" prefHeight="26.0" prefWidth="101.0" promptText="Payment Method" />
+
+                        <!-- Filter Button with Icon -->
+                        <JFXButton fx:id="filterButton" prefHeight="26.0" prefWidth="76.0" text="Apply Filters">
+                            <graphic>
+                                <FontAwesomeIcon glyphName="FILTER" />
+                            </graphic>
+                        </JFXButton>
+
+                        <JFXButton fx:id="resetFiltersButton" prefHeight="26.0" prefWidth="72.0" text="Reset Filters">
+                            <graphic>
+                                <FontAwesomeIcon glyphName="REFRESH" />
+                            </graphic>
+                        </JFXButton>
+                    </HBox>
+
+                    <!-- Sales Table -->
+                    <TableView fx:id="salesTable" prefHeight="215.0" prefWidth="519.0" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="saleIdColumn" prefWidth="57.86667251586914" text="Sale ID" />
+                            <TableColumn fx:id="saleDateColumn" prefWidth="75.9999771118164" text="Sale Date" />
+                            <TableColumn fx:id="customerNameColumn" prefWidth="102.66667175292969" text="Customer Name" />
+                            <TableColumn fx:id="totalAmountColumn" prefWidth="89.59996032714844" text="Total Amount" />
+                            <TableColumn fx:id="paymentMethodColumn" prefWidth="108.80001831054688" text="Payment Method" />
+                            <TableColumn fx:id="detailsColumn" prefWidth="78.39993286132812" text="Sales Details" />
+                        </columns>
+                        <cursor>
+                            <Cursor fx:constant="DEFAULT" />
+                        </cursor>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                    </TableView>
+                </VBox>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>
